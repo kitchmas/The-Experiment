@@ -1,0 +1,82 @@
+.panel {
+    width: 250px;
+    margin: 0 auto;
+}
+
+.panel .logo {
+    width: 250px;
+    position: absolute;
+    animation-name: rotate;
+    animation-duration: 2.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.panel .pink-disc {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: #F1A9A0;
+    transform: rotateY(90deg);
+    text-align: center;
+    vertical-align: middle;
+    line-height: 250px;
+    font-size: 50px;
+    animation-name: rotate-alt;
+    animation-delay: 2.5s;
+    animation-duration: 2.5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+}
+
+
+/* Spin on hover */
+
+
+/* .logo {
+    position: absolute;
+    width: 250px;
+} */
+
+
+/* .pink-disc {
+     width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: #F1A9A0;
+}
+
+.panel:hover .pink-disc {
+    transform: rotateY(90deg);
+    animation-name: rotate-alt;
+    animation-delay: 2.5s;
+    animation-duration: 2.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.panel:hover .logo {
+    width: 250px;
+    animation-name: rotate;
+    animation-duration: 2.5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+} */
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotateY(90deg);
+    }
+}
+
+@keyframes rotate-alt {
+    from {
+        transform: rotateY(90deg);
+    }
+    to {
+        transform: rotateY(0deg);
+    }
+}

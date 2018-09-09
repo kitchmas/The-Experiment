@@ -1,0 +1,80 @@
+.center-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    font-size: 0;
+}
+
+.diamond-menu {
+    background: white;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    transform: rotate(45deg);
+    position: fixed;
+    bottom: 24px;
+}
+
+.diamond-menu-indent {
+    background: #f5f6fa;
+    height: 100px;
+    width: 100px;
+    transform: rotate(45deg);
+    position: fixed;
+    bottom: 24px;
+    z-index: -2;
+}
+
+.diamond-menu .item {
+    height: 42.5px;
+    width: 42.5px;
+    margin: 5px;
+}
+
+.diamond-menu .item1 {
+    background: #E74C3C;
+    margin-bottom: 0;
+}
+
+.diamond-menu .item1:hover {
+    background: red;
+}
+
+.diamond-menu .item2 {
+    background: #81CFE0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.diamond-menu .item2:hover {
+    background: blue;
+}
+
+.diamond-menu .item3 {
+    background: #66CC99;
+}
+
+.diamond-menu .item3:hover {
+    background: green;
+}
+
+.diamond-menu .item4 {
+    background: #4D4D4D;
+    margin-left: 0;
+}
+
+.diamond-menu .item4:hover {
+    background: black;
+}
+
+.diamond-menu-bar {
+    position: fixed;
+    bottom: 0px;
+    height: 74px;
+    background: white;
+    width: 100%;
+    z-index: -3;
+    background: #F1A9A0;
+}

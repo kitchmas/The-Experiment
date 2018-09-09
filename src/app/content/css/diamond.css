@@ -1,0 +1,81 @@
+.center-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    font-size: 0;
+}
+
+.diamond-wrapper {
+    background: white;
+    height: 275px;
+    width: 275px;
+    display: flex;
+    flex-wrap: wrap;
+    transform: rotate(45deg);
+    bottom: 50%;
+    top: 50%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+.diamond-wrapper .diamond {
+    height: 130px;
+    width: 130px;
+    margin: 5px;
+    opacity: 1;
+    filter: brightness(100%);
+}
+
+.diamond-wrapper .diamond-red {
+    background: #E74C3C;
+    margin-bottom: 0;
+}
+
+
+/* .diamond .item1:hover {
+    background: red;
+} */
+
+.diamond-wrapper .diamond-blue {
+    background: #81CFE0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+
+/* .diamond .item2:hover {
+    background: blue;
+} */
+
+.diamond-wrapper .diamond-green {
+    background: #66CC99;
+}
+
+
+/* .diamond .item3:hover {
+    background: green;
+} */
+
+.diamond-wrapper .diamond-black {
+    background: #4D4D4D;
+    margin-left: 0;
+}
+
+
+/* .item4:hover {
+    background: black;
+} */
+
+@media(max-width:767px) {
+    .diamond-wrapper {
+        height: 200px;
+        width: 200px;
+    }
+    .diamond-wrapper .diamond {
+        height: 92px;
+        width: 92px;
+    }
+}

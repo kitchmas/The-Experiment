@@ -1,0 +1,138 @@
+.play-red .diamond-red {
+    animation: diamond-red-flash;
+    animation-duration: 1s;
+}
+
+.play-blue .diamond-blue {
+    animation: diamond-blue-flash;
+    animation-duration: 1s;
+}
+
+.play-green .diamond-green {
+    animation: diamond-green-flash;
+    animation-duration: 1s;
+}
+
+.play-black .diamond-black {
+    animation: diamond-black-flash;
+    animation-duration: 1s;
+}
+
+.play-red-inf .diamond-red {
+    animation: diamond-red-flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.play-blue-inf .diamond-blue {
+    animation: diamond-blue-flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.play-green-inf .diamond-green {
+    animation: diamond-green-flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.play-black-inf .diamond-black {
+    animation: diamond-black-flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.success {
+    animation: wrapper-success;
+    animation-duration: 2s;
+}
+
+.success .diamond {
+    animation: diamond-opacity-change;
+    animation-duration: 2s;
+}
+
+.failure {
+    animation: wrapper-failure;
+    animation-duration: 1s;
+}
+
+.failure .diamond {
+    animation: diamond-opacity-change;
+    animation-duration: 1s;
+}
+
+.rotate-to-green {
+    animation: mimic-2-wrapper-rotate;
+    animation-duration: 4s;
+    transform: rotate(135deg);
+}
+
+#rotated-green {
+    transform: rotate(135deg);
+}
+
+@keyframes diamond-red-flash {
+    from {
+        filter: brightness(100%);
+        border: white;
+    }
+    to {
+        filter: brightness(200%);
+        border: green;
+    }
+}
+
+@keyframes diamond-blue-flash {
+    from {
+        filter: brightness(100%);
+    }
+    to {
+        filter: brightness(125%);
+    }
+}
+
+@keyframes diamond-green-flash {
+    from {
+        filter: brightness(100%);
+    }
+    to {
+        filter: brightness(125%);
+    }
+}
+
+@keyframes diamond-black-flash {
+    from {
+        filter: brightness(100%);
+    }
+    to {
+        filter: brightness(200%);
+    }
+}
+
+@keyframes wrapper-success {
+    to {
+        background: green;
+    }
+}
+
+@keyframes wrapper-failure {
+    to {
+        background: red;
+    }
+}
+
+@keyframes diamond-opacity-change {
+    to {
+        opacity: 0.5;
+    }
+}
+
+@keyframes mimic-2-wrapper-rotate {
+    from {
+        transform: rotate(45deg);
+    }
+    to {
+        transform: rotate(135deg);
+    }
+}

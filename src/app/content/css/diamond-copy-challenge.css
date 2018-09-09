@@ -1,0 +1,75 @@
+.play-red .diamond-red {
+    animation: item1-flash;
+    animation-duration: 1s;
+}
+
+.play-blue .diamond-blue {
+    animation: item2-flash;
+    animation-duration: 1s;
+}
+
+.play-green .diamond-green {
+    animation: item3-flash;
+    animation-duration: 1s;
+}
+
+.play-black .diamond-black {
+    animation: item4-flash;
+    animation-duration: 1s;
+}
+
+.play-red-inf .diamond-red {
+    animation: item1-flash;
+    animation-iteration-count: infinite;
+}
+
+.play-blue-inf .diamond-blue {
+    animation: item2-flash;
+    animation-iteration-count: infinite;
+}
+
+.play-green-inf .diamond-green {
+    animation: item3-flash;
+    animation-iteration-count: infinite;
+}
+
+.play-black-inf .diamond-black {
+    animation: item4-flash;
+    animation-iteration-count: infinite;
+}
+
+@keyframes item1-flash {
+    from {
+        background: #E74C3C;
+    }
+    to {
+        background: red;
+    }
+}
+
+@keyframes item2-flash {
+    from {
+        background: #81CFE0;
+    }
+    to {
+        background: blue;
+    }
+}
+
+@keyframes item3-flash {
+    from {
+        background: #66CC99;
+    }
+    to {
+        background: green;
+    }
+}
+
+@keyframes item4-flash {
+    from {
+        background: #4D4D4D;
+    }
+    to {
+        background: black;
+    }
+}

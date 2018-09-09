@@ -1,0 +1,62 @@
+.diamond-wrapper {
+    animation-name: diamond-shrink, diamond-move-down;
+    animation-duration: 4s, 4s;
+    animation-fill-mode: forwards, forwards;
+}
+
+.diamond-wrapper .diamond {
+    animation-name: diamond-item-shrink;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+}
+
+.diamond-menu {
+    animation-name: show-diamond-menu;
+    animation-duration: 6s;
+}
+
+@keyframes diamond-shrink {
+    from {
+        height: 275px;
+        width: 275px;
+    }
+    to {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@keyframes diamond-item-shrink {
+    from {
+        height: 130px;
+        width: 130px;
+    }
+    to {
+        height: 42.5px;
+        width: 42.5px;
+    }
+}
+
+@keyframes diamond-move-down {
+    from {
+        bottom: 50%;
+    }
+    to {
+        bottom: 24px;
+    }
+}
+
+@keyframes show-diamond-menu {
+    0% {
+        opacity: 0;
+    }
+    33% {
+        opacity: 0;
+    }
+    66% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

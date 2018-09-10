@@ -8,7 +8,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <NavLink to="/mimic/1">Start</NavLink> 
+                <NavLink to="/mimic/1"><b>Start</b></NavLink> 
             </div>
         );
     }

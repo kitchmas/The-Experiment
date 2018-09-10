@@ -1,7 +1,13 @@
+@font-face {
+    font-family: SpaceGrotesk;
+    src: url("../fonts/SpaceGrotesk-Regular.woff2") format("woff2");
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
     background: #f5f6fa;
+    font-family: SpaceGrotesk, sans-serif;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Diamond } from '../diamond/diamond.jsx';
 import '../content/css/diamond-light-up-animation.css';
 
-class DiamondOppositeChallenge extends React.Component {
+class DiamondOddOneOutChallenge extends React.Component {
     state = {
         clickOrder: [],
         currentClickOrder: [],
@@ -14,14 +14,14 @@ class DiamondOppositeChallenge extends React.Component {
     animateDiamondClassColors = ["play-red-inf", "play-blue-inf", "play-green-inf", "play-black-inf"];
     componentDidMount = () => {
         this.setState({
-            animateDiamondClass: "rotate-to-green",
+            animateDiamondClass: "rotate-to-black",
         }, () => {
             setTimeout(() => {
                 this.resetGame();
-            },4000);
+            }, 4000);
         });
     }
-    
+
     playAnimation = () => {
         var that = this;
         that.setState({ locked: true });
@@ -51,18 +51,17 @@ class DiamondOppositeChallenge extends React.Component {
         }
     }
     resetGame = () => {
-        var clickOrder = [0, 1, 2, 3]; 
+        var clickOrder = [0, 1, 2, 3];
 
-            debugger;   
         clickOrder = this.shuffle(clickOrder);
+        clickOrder = clickOrder.slice(1);
 
-        if (this.state.round === 1) {
-            clickOrder = clickOrder.slice(3);
-        }
-        else if (this.state.round === 2) {
-            clickOrder = clickOrder.slice(2);
-        } else if (this.state.round === 3) {
-            clickOrder = clickOrder.slice(1);
+        if(this.state.round === 2){
+            clickOrder = [...clickOrder, ...clickOrder];
+            this.shuffle(clickOrder);
+        } else if(this.state.round === 3){
+            clickOrder = [...clickOrder, ...clickOrder,...clickOrder];
+            this.shuffle(clickOrder);
         }
 
         this.setState({
@@ -92,32 +91,10 @@ class DiamondOppositeChallenge extends React.Component {
         return array;
     }
     checkSuccess = () => {
-        for (let i = 0; i < this.state.currentClickOrder.length; i++) {
-            let oppositeClick;
-            switch (this.state.currentClickOrder[i]) {
-                case 0:
-                    oppositeClick = 3;
-                    break;
-                case 1:
-                oppositeClick = 2;
-                    break;
-                case 2:
-                oppositeClick = 1;
-                    break;
-                case 3:
-                oppositeClick = 0;
-                    break;
-                default:
-                    oppositeClick = null;
-            }
-            if (oppositeClick !== this.state.clickOrder[i]) {
-                this.gameOver();
-                break;
-            }
-            if (i === (this.state.clickOrder.length - 1)) {
-                this.gameWin();
-                break;
-            }
+        if (this.state.clickOrder.indexOf(this.state.currentClickOrder[0]) === -1) {
+            this.gameWin();
+        } else {
+            this.gameOver();
         }
     }
     gameWin = () => {
@@ -132,7 +109,7 @@ class DiamondOppositeChallenge extends React.Component {
                 this.resetGame();
             }, 1000);
         } else {
-            this.props.history.push("/mimic/3")
+            alert("WINNNNAR");
         }
     }
     gameOver = () => {
@@ -183,7 +160,7 @@ class DiamondOppositeChallenge extends React.Component {
     render() {
         return (
             <Diamond
-                stageWrapperId="rotated-green"
+                stageWrapperId="rotated-black"
                 animateDiamondClass={this.state.animateDiamondClass}
                 locked={this.state.locked}
                 redClicked={this.redClicked}
@@ -194,4 +171,4 @@ class DiamondOppositeChallenge extends React.Component {
     }
 };
 
-export { DiamondOppositeChallenge }
+export { DiamondOddOneOutChallenge }

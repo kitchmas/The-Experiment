@@ -65,11 +65,19 @@
 .rotate-to-green {
     animation: mimic-2-wrapper-rotate;
     animation-duration: 4s;
-    transform: rotate(135deg);
+}
+
+.rotate-to-black {
+    animation: mimic-3-wrapper-rotate;
+    animation-duration: 4s;
 }
 
 #rotated-green {
     transform: rotate(135deg);
+}
+
+#rotated-black {
+    transform: rotate(225deg);
 }
 
 @keyframes diamond-red-flash {
@@ -134,5 +142,14 @@
     }
     to {
         transform: rotate(135deg);
+    }
+}
+
+@keyframes mimic-3-wrapper-rotate {
+    from {
+        transform: rotate(135deg);
+    }
+    to {
+        transform: rotate(225deg);
     }
 }

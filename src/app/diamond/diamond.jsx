@@ -4,7 +4,6 @@ import '../content/css/diamond.css';
 
 class Diamond extends React.Component {
     handleRedClicked = (e) => {
-        debugger;
         if (!this.props.locked) {
             this.props.redClicked();
         }

@@ -53,7 +53,6 @@ class DiamondOppositeChallenge extends React.Component {
     resetGame = () => {
         var clickOrder = [0, 1, 2, 3]; 
 
-            debugger;   
         clickOrder = this.shuffle(clickOrder);
 
         if (this.state.round === 1) {

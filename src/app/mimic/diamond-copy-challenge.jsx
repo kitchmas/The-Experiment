@@ -61,7 +61,6 @@ class DiamondCopyChallenge extends React.Component {
             if (this.state.round === 2) {
                 clickOrder = clickOrder.slice(3);
             } else if (this.state.round === 3) {
-                debugger;
                 clickOrder = clickOrder.slice(6);
             }
         }

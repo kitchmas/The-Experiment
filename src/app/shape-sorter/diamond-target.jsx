@@ -37,9 +37,3 @@ export default DropTarget(Types.ITEM, {}, collect)(DiamondTarget)
 
 
 
-
-
-
-
-
-

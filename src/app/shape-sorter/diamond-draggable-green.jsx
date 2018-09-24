@@ -5,10 +5,10 @@ const Types = {
 }
 const itemSource = {
  beginDrag(props) {
- /* code here */
+    const item = { id: props.id };
+    return item;
  },
  endDrag(props) {
- /* code here */
  }
 }
 function collect(connect, monitor) {

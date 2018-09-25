@@ -1,0 +1,15 @@
+.carousel {
+    display: flex;
+    justify-content: space-around;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+}
+
+.carousel>div {
+    height: 200px;
+    flex: 0 0 200px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

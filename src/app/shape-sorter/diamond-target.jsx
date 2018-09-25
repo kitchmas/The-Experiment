@@ -26,6 +26,22 @@ class DiamondTarget extends React.Component {
                 </div>
                 <div className="diamond diamond-black">
                 </div>
+                <div className="diamond diamond-red">
+                </div>
+                <div className="diamond diamond-blue">
+                </div>
+                <div className="diamond diamond-green">
+                </div>
+                <div className="diamond diamond-black">
+                </div>
+                <div className="diamond diamond-red">
+                </div>
+                <div className="diamond diamond-blue">
+                </div>
+                <div className="diamond diamond-green">
+                </div>
+                <div className="diamond diamond-black">
+                </div>
             </div>);
     }
 }

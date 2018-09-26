@@ -1,31 +1,37 @@
-.shape-sorter-wrapper{
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        flex: 1;
+.shape-sorter-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
-.insert-diamond{
+.insert-diamond {
     animation: insert-diamond;
     animation-duration: 2s;
     opacity: 0.5;
 }
 
-.diamond-holder-pallete{
+.diamond-holder-pallete {
     height: 130px;
     width: 130px;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    transform: rotate(45deg);
+    background: transparent;
 }
 
-.diamond-holder-pallete diamond{
+.diamond-holder-pallete .diamond {
     height: 57px;
     width: 57px;
+    margin: 4px
 }
 
-@keyframes insert-diamond{
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0.5;
-        }
+@keyframes insert-diamond {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.5;
+    }
 }

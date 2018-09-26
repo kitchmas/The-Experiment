@@ -56,11 +56,11 @@ class DiamondOddOneOutChallenge extends React.Component {
         clickOrder = this.shuffle(clickOrder);
         clickOrder = clickOrder.slice(1);
 
-        if(this.state.round === 2){
+        if (this.state.round === 2) {
             clickOrder = [...clickOrder, ...clickOrder];
             this.shuffle(clickOrder);
-        } else if(this.state.round === 3){
-            clickOrder = [...clickOrder, ...clickOrder,...clickOrder];
+        } else if (this.state.round === 3) {
+            clickOrder = [...clickOrder, ...clickOrder, ...clickOrder];
             this.shuffle(clickOrder);
         }
 
@@ -159,14 +159,16 @@ class DiamondOddOneOutChallenge extends React.Component {
     }
     render() {
         return (
-            <Diamond
-                stageWrapperId="rotated-black"
-                animateDiamondClass={this.state.animateDiamondClass}
-                locked={this.state.locked}
-                redClicked={this.redClicked}
-                blueClicked={this.blueClicked}
-                greenClicked={this.greenClicked}
-                blackClicked={this.blackClicked} />
+            <div className="center-page-wrapper">
+                <Diamond
+                    stageWrapperId="rotated-black"
+                    animateDiamondClass={this.state.animateDiamondClass}
+                    locked={this.state.locked}
+                    redClicked={this.redClicked}
+                    blueClicked={this.blueClicked}
+                    greenClicked={this.greenClicked}
+                    blackClicked={this.blackClicked} />
+            </div>
         );
     }
 };

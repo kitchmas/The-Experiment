@@ -1,8 +1,31 @@
-.pattern-container{
-
-    display: flex;
-    justify-content: space-around;
-    margin-top:40px;
+.shape-sorter-wrapper{
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        flex: 1;
 }
 
+.insert-diamond{
+    animation: insert-diamond;
+    animation-duration: 2s;
+    opacity: 0.5;
+}
 
+.diamond-holder-pallete{
+    height: 130px;
+    width: 130px;
+}
+
+.diamond-holder-pallete diamond{
+    height: 57px;
+    width: 57px;
+}
+
+@keyframes insert-diamond{
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0.5;
+        }
+}

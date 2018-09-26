@@ -3,16 +3,6 @@ import { DropTarget } from 'react-dnd'
 
 import '../content/css/diamond.css';
 
-const Types = {
-    ITEM: 'DiamondGreen'
-}
-
-function collect(connect, monitor) {
-    return {
-        connectDropTarget: connect.dropTarget()
-    }
-}
-
 class DiamondTarget extends React.Component {
     render() {
         const { connectDropTarget } = this.props

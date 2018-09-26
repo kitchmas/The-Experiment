@@ -18,10 +18,10 @@ class DiamondOppositeChallenge extends React.Component {
         }, () => {
             setTimeout(() => {
                 this.resetGame();
-            },4000);
+            }, 4000);
         });
     }
-    
+
     playAnimation = () => {
         var that = this;
         that.setState({ locked: true });
@@ -51,7 +51,7 @@ class DiamondOppositeChallenge extends React.Component {
         }
     }
     resetGame = () => {
-        var clickOrder = [0, 1, 2, 3]; 
+        var clickOrder = [0, 1, 2, 3];
 
         clickOrder = this.shuffle(clickOrder);
 
@@ -98,13 +98,13 @@ class DiamondOppositeChallenge extends React.Component {
                     oppositeClick = 3;
                     break;
                 case 1:
-                oppositeClick = 2;
+                    oppositeClick = 2;
                     break;
                 case 2:
-                oppositeClick = 1;
+                    oppositeClick = 1;
                     break;
                 case 3:
-                oppositeClick = 0;
+                    oppositeClick = 0;
                     break;
                 default:
                     oppositeClick = null;
@@ -181,14 +181,16 @@ class DiamondOppositeChallenge extends React.Component {
     }
     render() {
         return (
-            <Diamond
-                stageWrapperId="rotated-green"
-                animateDiamondClass={this.state.animateDiamondClass}
-                locked={this.state.locked}
-                redClicked={this.redClicked}
-                blueClicked={this.blueClicked}
-                greenClicked={this.greenClicked}
-                blackClicked={this.blackClicked} />
+            <div className="center-page-wrapper">
+                <Diamond
+                    stageWrapperId="rotated-green"
+                    animateDiamondClass={this.state.animateDiamondClass}
+                    locked={this.state.locked}
+                    redClicked={this.redClicked}
+                    blueClicked={this.blueClicked}
+                    greenClicked={this.greenClicked}
+                    blackClicked={this.blackClicked} />
+            </div>
         );
     }
 };

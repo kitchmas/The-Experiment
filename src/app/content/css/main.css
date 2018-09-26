@@ -11,3 +11,10 @@ body {
     background: #f5f6fa;
     font-family: SpaceGrotesk, sans-serif;
 }
+
+
+.full-page-fex-col-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}

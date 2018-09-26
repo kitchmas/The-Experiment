@@ -56,7 +56,7 @@ class DiamondCopyChallenge extends React.Component {
         }
 
         clickOrder = this.shuffle(clickOrder);
-                
+
         if (this.state.round > 1) {
             if (this.state.round === 2) {
                 clickOrder = clickOrder.slice(3);
@@ -164,12 +164,14 @@ class DiamondCopyChallenge extends React.Component {
     }
     render() {
         return (
-            <Diamond locked={this.state.locked}
-                animateDiamondClass={this.state.animateDiamondClass}
-                redClicked={this.redClicked}
-                blueClicked={this.blueClicked}
-                greenClicked={this.greenClicked}
-                blackClicked={this.blackClicked} />
+            <div className="center-page-wrapper">
+                <Diamond locked={this.state.locked}
+                    animateDiamondClass={this.state.animateDiamondClass}
+                    redClicked={this.redClicked}
+                    blueClicked={this.blueClicked}
+                    greenClicked={this.greenClicked}
+                    blackClicked={this.blackClicked} />
+            </div>
         );
     }
 };

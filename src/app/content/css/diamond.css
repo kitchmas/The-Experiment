@@ -1,24 +1,23 @@
-.center-wrapper {
-    align-items: center;
+.center-page-wrapper {
     display: flex;
     justify-content: center;
-    height: 100vh;
-    font-size: 0;
+    align-items: center;
+    height: 99vh;
 }
 
-.diamond-wrapper {
+.diamond-holder {
     background: white;
     height: 275px;
     width: 275px;
     display: flex;
     flex-wrap: wrap;
     transform: rotate(45deg);
-    bottom: 50%;
+    /* bottom: 50%;
     top: 50%;
     position: fixed;
     left: 0;
     right: 0;
-    margin: auto
+    margin: auto */
 }
 
  .diamond {
@@ -47,29 +46,29 @@
     background: #4D4D4D;
 }
 
-.diamond-wrapper .diamond-red {
+.diamond-holder .diamond-red {
     margin-bottom: 0;
 }
 
-.diamond-wrapper .diamond{
+.diamond-holder .diamond{
     transform: rotate(0deg);
 }
 
-.diamond-wrapper .diamond-blue {
+.diamond-holder .diamond-blue {
     margin-left: 0;
     margin-bottom: 0;
 }
 
-.diamond-wrapper .diamond-black {
+.diamond-holder .diamond-black {
     margin-left: 0;
 }
 
 @media(max-width:767px) {
-    .diamond-wrapper {
+    .diamond-holder {
         height: 200px;
         width: 200px;
     }
-    .diamond-wrapper .diamond {
+    .diamond-holder .diamond {
         height: 92px;
         width: 92px;
     }

@@ -1,15 +1,72 @@
-.carousel {
+.fade-wrapper{
+    position: relative;
+    width:80%;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-around;
-    -webkit-overflow-scrolling: touch;
+}
+
+.fade-left{
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to right, #f5f6fa, transparent 90%);
+    position: absolute;
+    z-index: 1;
+}
+
+.fade-right{
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to left, #f5f6fa, transparent 90%);
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.carousel {
     overflow: auto;
+    display: flex;
+    justify-content: space-between;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    width:1500px;
+    position: relative;
 }
 
 .carousel>div {
     height: 200px;
-    flex: 0 0 200px;
+    flex: 0 0 300px;
     border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
+    scroll-snap-align:center;
 }
+
+.carousel::-webkit-scrollbar { 
+    display: none; 
+}
+
+.carousel>div:first-child{
+    scroll-snap-align:start;
+}
+
+.carousel>div:last-child{
+    scroll-snap-align:end;
+}
+
+@media (min-width: 576px) {  }
+
+
+@media (min-width: 768px) {  }
+
+@media (min-width: 992px) { 
+    .carousel {
+    scroll-snap-type:none;
+    }
+
+    .carousel>div {
+    scroll-snap-align:none;
+   }
+ }
+
+@media (min-width: 1200px) {  }

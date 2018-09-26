@@ -5,7 +5,7 @@ import { Home } from './home.jsx';
 import { DiamondCopyChallenge } from './mimic/diamond-copy-challenge.jsx';
 import { DiamondOppositeChallenge } from './mimic/diamond-reverse-challenge.jsx';
 import { DiamondOddOneOutChallenge } from './mimic/diamond-odd-one-out-challenge.jsx';
-import  SimpleSorter  from './shape-sorter/simple-sorter.jsx';
+import  {SimpleSorter}  from './shape-sorter/simple-sorter.jsx';
 
 import './content/css/main.css';
 

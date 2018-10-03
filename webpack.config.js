@@ -7,6 +7,7 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/app/'
     },
+    devtool: "#eval-source-map",
     module: {
         rules: [{
                 test: /\.jsx?$/,

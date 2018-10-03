@@ -11,31 +11,31 @@ import '../content/css/carousel.css';
 class SimpleSorter extends React.Component {
     state = {
         animateDiamondClass: "",
-        selectedPatterns:[],
-        sorterFilledPatterns:[0,0,0,0],
-        challangePatternsPhase1:[],
-        singles:[["red",0,0,0],[0,"green",0,0],[0,0,"blue",0],[0,0,0,"black"]],
-        vertical:[["red",0,0,"black"],["black",0,0,"red"],["green",0,0,"blue"],["blue",0,0,"green"]],
-        horizontal:[[0,"blue","green",0],[0,"green","blue",0],[0,"red","black",0],[0,"black","red",0]],
-        diagonals:[["red","blue",0,0],["red",0,"blue",0],[0,0,"blue","red"],[0,"red",0,"blue"],
-        ["blue","black",0,0],["black",0,"blue",0],[0,0,"black","blue"],[0,"blue",0,"black"],
-        ["green","black",0,0],["green",0,"black",0],[0,0,"black","green"],[0,"black",0,"green"],
-        ["red","green",0,0],["green",0,"red",0],[0,0,"green","red"],[0,"red",0,"green"]],
-        triangles:[["red","green","blue",0],["green",0,"red","blue"],[0,"blue","green","red"],["blue","red","green",0],
-        [0,"green","blue","black"],["green","black",0,"blue"],["black","blue","green",0],["blue",0,"black","green"],
-        ["red","green",0,"black"],["green","black","red",0],["black",0,"green","red"],[0,"red","black","green"],
-        ["red",0,"blue","black"],[0,"black","red","blue"],["black","blue",0,"red"],["blue","red","black",0]]
+        selectedPatterns: [],
+        diamondSorterContent: [{ id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }],
+        currentPhasePatterns: [],
+        gamePhase: 0,
+        challangePatternsPhase1: [],
+        singles: [["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"]],
+        vertical: [["red", 0, 0, "black"], ["black", 0, 0, "red"], ["green", 0, 0, "blue"], ["blue", 0, 0, "green"]],
+        horizontal: [[0, "blue", "green", 0], [0, "green", "blue", 0], [0, "red", "black", 0], [0, "black", "red", 0]],
+        diagonals: [["red", "blue", 0, 0], ["red", 0, "blue", 0], [0, 0, "blue", "red"], [0, "red", 0, "blue"],
+        ["blue", "black", 0, 0], ["black", 0, "blue", 0], [0, 0, "black", "blue"], [0, "blue", 0, "black"],
+        ["green", "black", 0, 0], ["green", 0, "black", 0], [0, 0, "black", "green"], [0, "black", 0, "green"],
+        ["red", "green", 0, 0], ["green", 0, "red", 0], [0, 0, "green", "red"], [0, "red", 0, "green"]],
+        triangles: [["red", "green", "blue", 0], ["green", 0, "red", "blue"], [0, "blue", "green", "red"], ["blue", "red", "green", 0],
+        [0, "green", "blue", "black"], ["green", "black", 0, "blue"], ["black", "blue", "green", 0], ["blue", 0, "black", "green"],
+        ["red", "green", 0, "black"], ["green", "black", "red", 0], ["black", 0, "green", "red"], [0, "red", "black", "green"],
+        ["red", 0, "blue", "black"], [0, "black", "red", "blue"], ["black", "blue", 0, "red"], ["blue", "red", "black", 0]]
     }
-    componentWillMount = () =>{
+    componentWillMount = () => {
         // Perform the set up for the challenge here
-
-        let challangePatternsPhase1 = this.state.singles.map((pattern,index) =>{
-          return {id: index += "singles",pattern:pattern}
+        let currentPhasePatterns = this.state.singles.map((pattern, index) => {
+            return { id: index += "singles", pattern: pattern, selected: false }
         }
         );
 
-        this.setState({challangePatternsPhase1});
-
+        this.setState({ currentPhasePatterns }, console.log(this.state));
 
     }
     redClicked = () => {
@@ -43,48 +43,95 @@ class SimpleSorter extends React.Component {
             animateDiamondClass: "insert-diamond"
         })
     }
-    patternClicked = (id) =>{
-        debugger;
-      let selectedPattern = this.state.selectedPatterns.find(function (obj) { return obj.id === id; });
-       
-      if(selectedPattern){
-        //   Remove and deselct
-      } else{
-        let pattern = this.state.challangePatternsPhase1.find(function (obj) { return obj.id === id; });
-        //check if fits in sorterFilledPatterns
-        //   add and select
-      }
-    //    1 Check if pattern is already selected if so remove pattern form selected and
-    //     sortedFilledPatterns
-        
-    //    2 Check if pattern fit fits in the sorterFilledPatterns
-    //     Add the pattern to selected 
+    patternClicked = (id) => {
+        let selectedPattern = this.state.selectedPatterns.find((obj) => { return obj.id === id; });
 
-    //    3 check if game is won.diagonals
+        if (selectedPattern) {
+            this.removePattern(id);
 
+        } else {
+            this.addPattern(id);
+        }
 
-    //    Need a way to keep track of selected patterns
+        //    3 check if game is won.diagonals
 
     }
+    removePattern = (id) => {
+        let selectedPatterns = this.state.selectedPatterns.slice(),
+            selectedPattern = selectedPatterns.find((obj) => { return obj.id === id; });
+
+        //   Remove and deselct
+        // Should use set state here
+        selectedPattern.selected = false;
+        selectedPatterns.splice(selectedPatterns.indexOf(selectedPattern), 1);
+
+        let diamondSorterContent = this.state.diamondSorterContent;
+        this.setState({ selectedPatterns: selectedPatterns });
+
+
+        //Remove the pattern from the shape
+        for (let i = 0; i < diamondSorterContent.length; i++) {
+            if (diamondSorterContent[i].id === id) {
+                diamondSorterContent[i].value = 0;
+                diamondSorterContent[i].id = null;
+            } else {
+                continue;
+            }
+        }
+        this.setState({ diamondSorterContent: diamondSorterContent, diamondSorterContent: diamondSorterContent });
+    }
+    addPattern = (id) => {
+        let pattern = this.state.currentPhasePatterns.find(function (obj) { return obj.id === id; });
+        let selectedPatterns = this.state.selectedPatterns.slice();
+        let diamondSorterContent = this.state.diamondSorterContent;
+        let failed = false;
+
+
+        // Check if the arrays postion elments === null
+        for (let i = 0; i < pattern.pattern.length; i++) {
+
+            if (pattern.pattern[i] != 0 && diamondSorterContent[i].value === 0) {
+                diamondSorterContent[i].value = pattern.pattern[i];
+                diamondSorterContent[i].id = pattern.id;
+            } else if (diamondSorterContent[i].value != 0 && pattern.pattern[i] != 0) {
+                failed = true;
+                break;
+            }
+            else {
+                continue;
+            }
+        }
+
+        if (!failed) {
+            pattern.selected = true;
+            selectedPatterns.push(pattern);
+            this.setState({
+                diamondSorterContent: diamondSorterContent,
+                selectedPatterns: selectedPatterns
+            }, console.log(this.state))
+        }
+    }
     render() {
-        let phase1 = this.state.challangePatternsPhase1.map((pattern, index) =>
+        let phase1 = this.state.currentPhasePatterns.map((pattern, index) =>
             <div key={pattern.id}>
-                <DiamondPallete id={pattern.id} 
-                                onClick={this.patternClicked} 
-                                pattern={pattern.pattern}
-                                selected={pattern.selected} />
+                <DiamondPallete id={pattern.id}
+                    onClick={this.patternClicked}
+                    pattern={pattern.pattern}
+                    selected={pattern.selected} />
             </div>);
         return (
             <div className="full-page-fex-col-wrapper">
                 <div className="fade-wrapper">
                     <div className="fade-left"></div>
                     <DragScroll className="carousel" width={1500}>
-                       {phase1}
+                        {phase1}
                     </DragScroll>
                     <div className="fade-right"></div>
                 </div>
                 <div className="shape-sorter-wrapper">
-                    <DiamondSorter selectedPatterns={this.state.selectedPatterns} />
+                    <DiamondSorter
+                        onClick={this.patternClicked}
+                        pattern={this.state.diamondSorterContent} />
                 </div>
             </div>
         )

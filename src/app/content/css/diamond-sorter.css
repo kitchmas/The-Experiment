@@ -1,0 +1,22 @@
+
+
+
+.diamond-sorter .red{
+    background: #E74C3C;
+    opacity: 0.5;
+}
+
+.diamond-sorter .blue{
+    background: #81CFE0;
+    opacity: 0.5;
+}
+
+.diamond-sorter .green{
+    background: #66CC99;
+    opacity: 0.5;
+}
+
+.diamond-sorter .black{
+    background: #4D4D4D;
+    opacity: 0.5;
+}

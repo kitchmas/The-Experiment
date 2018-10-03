@@ -46,7 +46,7 @@
     background: #4D4D4D;
 }
 
-.diamond-holder .diamond-red {
+.diamond-holder .diamond:first-child {
     margin-bottom: 0;
 }
 
@@ -54,12 +54,12 @@
     transform: rotate(0deg);
 }
 
-.diamond-holder .diamond-blue {
+.diamond-holder .diamond:nth-child(2){
     margin-left: 0;
     margin-bottom: 0;
 }
 
-.diamond-holder .diamond-black {
+.diamond-holder .diamond:last-child {
     margin-left: 0;
 }
 

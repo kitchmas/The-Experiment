@@ -12,6 +12,7 @@ class SimpleSorter extends React.Component {
     state = {
         animateDiamondClass: "",
         selectedPatterns: [],
+        answerPatterns:["red","blue","green","black"],
         diamondSorterContent: [{ id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }],
         currentPhasePatterns: [],
         gamePhase: 0,
@@ -89,11 +90,11 @@ class SimpleSorter extends React.Component {
 
         // Check if the arrays postion elments === null
         for (let i = 0; i < pattern.pattern.length; i++) {
-
-            if (pattern.pattern[i] != 0 && diamondSorterContent[i].value === 0) {
+            debugger;
+            if (pattern.pattern[i] != 0 && diamondSorterContent[i].value === 0 && pattern.pattern[i] === this.state.answerPatterns[i]) {
                 diamondSorterContent[i].value = pattern.pattern[i];
                 diamondSorterContent[i].id = pattern.id;
-            } else if (diamondSorterContent[i].value != 0 && pattern.pattern[i] != 0) {
+            } else if ((diamondSorterContent[i].value != 0 && pattern.pattern[i] != 0) || (pattern.pattern[i] != 0 && pattern.pattern[i] != this.state.answerPatterns[i])) {
                 failed = true;
                 break;
             }
@@ -110,6 +111,28 @@ class SimpleSorter extends React.Component {
                 selectedPatterns: selectedPatterns
             }, console.log(this.state))
         }
+    }
+    rotateDown = () => {
+        debugger;
+      let diamondSorterContent =  this.state.diamondSorterContent,
+      answerPatterns = this.state.answerPatterns,
+      newDiamondSorterContent = [0,0,0,0],
+      newAnswerPatterns =[0,0,0,0];
+     
+      newDiamondSorterContent[0] = diamondSorterContent[2];
+      newDiamondSorterContent[1] = diamondSorterContent[0];
+      newDiamondSorterContent[2] = diamondSorterContent[3];
+      newDiamondSorterContent[3] = diamondSorterContent[1];
+
+      newAnswerPatterns[0] = answerPatterns[2];
+      newAnswerPatterns[1] = answerPatterns[0];
+      newAnswerPatterns[2] = answerPatterns[3];
+      newAnswerPatterns[3] = answerPatterns[1];
+
+      this.setState({
+           diamondSorterContent:newDiamondSorterContent,
+           answerPatterns:newAnswerPatterns
+      });
     }
     render() {
         let phase1 = this.state.currentPhasePatterns.map((pattern, index) =>
@@ -130,7 +153,10 @@ class SimpleSorter extends React.Component {
                 </div>
                 <div className="shape-sorter-wrapper">
                     <DiamondSorter
-                        onClick={this.patternClicked}
+
+                        // onClick={this.patternClicked}
+                        answerPatterns={this.state.answerPatterns}
+                        onClick={this.rotateDown}
                         pattern={this.state.diamondSorterContent} />
                 </div>
             </div>

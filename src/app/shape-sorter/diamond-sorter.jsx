@@ -6,6 +6,7 @@ import '../content/css/diamond-sorter.css';
 class DiamondSorter extends React.Component {
     render() {
         return (
+            <div>
         <div className={this.props.animateDiamondClass + ' diamond-holder diamond-sorter'}>
             <div onClick={()=>this.props.onClick(this.props.pattern[0].id)} className={this.props.pattern[0].value !=0 ?"diamond diamond-" + this.props.pattern[0].value :"diamond " + this.props.answerPatterns[0]} >
             </div>
@@ -15,7 +16,10 @@ class DiamondSorter extends React.Component {
             </div>
             <div onClick={()=>this.props.onClick(this.props.pattern[3].id)} className={this.props.pattern[3].value  !=0 ?"diamond diamond-" + this.props.pattern[3].value:"diamond " + this.props.answerPatterns[3]} >
             </div>
-        </div>);
+        </div>
+        <i class="fas fa-sync-alt"></i>
+        </div>
+        );
     }
 }
 

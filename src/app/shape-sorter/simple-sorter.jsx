@@ -16,7 +16,11 @@ class SimpleSorter extends React.Component {
         diamondSorterContent: [{ id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }],
         currentPhasePatterns: [],
         gamePhase: 0,
-        challangePatternsPhase1: [],
+        challangePatternsPhase1: [["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"]],
+        challangePatternsPhase2:[["red", 0, 0, 0],[0, 0, 0, "black"],[0, "green", "blue", 0],[0, "red", "blue", 0],[0, "black", "green", 0],[0, 0, "green", 0],[0, "blue", "green", 0],["blue",0,0,0]],
+        challangePatternsPhase3:[["red", 0, 0, "black"],[0, 0, "green", 0],[0, "green", 0, 0],[0, 0, "blue", 0],[0, "blue", 0, 0],[0, "green", "blue", 0],[0,0,0,"red",],["black",0,0,0],["black", 0, 0, "red"],[0, 0, 0, "black"]],
+        challangePatternsPhase4: [["red", "blue", 0, 0],[0, 0, "green", "black"],["blue", "red", 0, 0],[0, 0, "black", "green"],["green", "black", 0, 0],["green", 0, "black", 0],[0, "blue", 0, "black"],["red", 0, 0, 0],[0, 0, 0, "black"],[0, 0, "green", 0]],
+        challangePatternsPhase5:[["red",0,"green",0],[0,"blue",0,"black"],["red", "blue", 0, 0],[0, 0, "green", "black"],["blue", "red", 0, 0],["green", 0, 0, 0], [0, 0, 0, "blue"],[0, "blue", 0, 0], [0, 0, "green", 0]],
         singles: [["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"]],
         vertical: [["red", 0, 0, "black"], ["black", 0, 0, "red"], ["green", 0, 0, "blue"], ["blue", 0, 0, "green"]],
         horizontal: [[0, "blue", "green", 0], [0, "green", "blue", 0], [0, "red", "black", 0], [0, "black", "red", 0]],
@@ -27,11 +31,46 @@ class SimpleSorter extends React.Component {
         triangles: [["red", "green", "blue", 0], ["green", 0, "red", "blue"], [0, "blue", "green", "red"], ["blue", "red", "green", 0],
         [0, "green", "blue", "black"], ["green", "black", 0, "blue"], ["black", "blue", "green", 0], ["blue", 0, "black", "green"],
         ["red", "green", 0, "black"], ["green", "black", "red", 0], ["black", 0, "green", "red"], [0, "red", "black", "green"],
-        ["red", 0, "blue", "black"], [0, "black", "red", "blue"], ["black", "blue", 0, "red"], ["blue", "red", "black", 0]]
+        ["red", 0, "blue", "black"], [0, "black", "red", "blue"], ["black", "blue", 0, "red"], ["blue", "red", "black", 0]],
+        all:[["red", "green", "blue", 0], ["green", 0, "red", "blue"], [0, "blue", "green", "red"], ["blue", "red", "green", 0],
+        [0, "green", "blue", "black"], ["green", "black", 0, "blue"], ["black", "blue", "green", 0], ["blue", 0, "black", "green"],
+        ["red", "green", 0, "black"], ["green", "black", "red", 0], ["black", 0, "green", "red"], [0, "red", "black", "green"],
+        ["red", 0, "blue", "black"], [0, "black", "red", "blue"], ["black", "blue", 0, "red"], ["blue", "red", "black", 0],
+        ["red", "blue", 0, 0], ["red", 0, "blue", 0], [0, 0, "blue", "red"], [0, "red", 0, "blue"],
+        ["blue", "black", 0, 0], ["black", 0, "blue", 0], [0, 0, "black", "blue"], [0, "blue", 0, "black"],
+        ["green", "black", 0, 0], ["green", 0, "black", 0], [0, 0, "black", "green"], [0, "black", 0, "green"],
+        ["red", "green", 0, 0], ["green", 0, "red", 0], [0, 0, "green", "red"], [0, "red", 0, "green"],
+        ["red", "blue", 0, 0], ["red", 0, "blue", 0], [0, 0, "blue", "red"], [0, "red", 0, "blue"],
+        ["blue", "black", 0, 0], ["black", 0, "blue", 0], [0, 0, "black", "blue"], [0, "blue", 0, "black"],
+        ["green", "black", 0, 0], ["green", 0, "black", 0], [0, 0, "black", "green"], [0, "black", 0, "green"],
+        ["red", "green", 0, 0], ["green", 0, "red", 0], [0, 0, "green", "red"], [0, "red", 0, "green"],
+        ["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"],
+        ["red", 0, 0, "black"], ["black", 0, 0, "red"], ["green", 0, 0, "blue"], ["blue", 0, 0, "green"],
+        [0, "blue", "green", 0], [0, "green", "blue", 0], [0, "red", "black", 0], [0, "black", "red", 0]],
+        
+        
+    }
+    shuffle = (array) => {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
     }
     componentWillMount = () => {
         // Perform the set up for the challenge here
-        let currentPhasePatterns = this.state.singles.map((pattern, index) => {
+        let currentPhasePatterns = this.shuffle(this.state.challangePatternsPhase5).map((pattern, index) => {
             return { id: index += "singles", pattern: pattern, selected: false }
         }
         );

@@ -1,22 +1,74 @@
-
-
-
-.diamond-sorter .red{
+.diamond-sorter .red {
     background: #E74C3C;
     opacity: 0.5;
 }
 
-.diamond-sorter .blue{
+.diamond-sorter .blue {
     background: #81CFE0;
     opacity: 0.5;
 }
 
-.diamond-sorter .green{
+.diamond-sorter .green {
     background: #66CC99;
     opacity: 0.5;
 }
 
-.diamond-sorter .black{
+.diamond-sorter .black {
     background: #4D4D4D;
     opacity: 0.5;
+}
+
+.rotate-wrapper {
+    width: 30px;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    position: absolute;
+    top: 122px;
+    left: 122px;
+}
+
+.rotate-wrapper .fa-sync-alt {
+    font-size: 26px;
+}
+
+.diamond-sorter:hover+.rotate-wrapper {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.rotate-wrapper:hover {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.rotate {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(o);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media(max-width:767px) {
+    .rotate-wrapper {
+        top: 85px;
+        left: 85px;
+    }
+    .rotate-wrapper .fa-sync-alt {
+        font-size: 26px;
+    }
 }

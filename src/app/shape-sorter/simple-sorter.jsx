@@ -16,11 +16,16 @@ class SimpleSorter extends React.Component {
         diamondSorterContent: [{ id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }],
         currentPhasePatterns: [],
         gamePhase: 0,
-        challangePatternsPhase1: [["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"]],
-        challangePatternsPhase2:[["red", 0, 0, 0],[0, 0, 0, "black"],[0, "green", "blue", 0],[0, "red", "blue", 0],[0, "black", "green", 0],[0, 0, "green", 0],[0, "blue", "green", 0],["blue",0,0,0]],
-        challangePatternsPhase3:[["red", 0, 0, "black"],[0, 0, "green", 0],[0, "green", 0, 0],[0, 0, "blue", 0],[0, "blue", 0, 0],[0, "green", "blue", 0],[0,0,0,"red",],["black",0,0,0],["black", 0, 0, "red"],[0, 0, 0, "black"]],
-        challangePatternsPhase4: [["red", "blue", 0, 0],[0, 0, "green", "black"],["blue", "red", 0, 0],[0, 0, "black", "green"],["green", "black", 0, 0],["green", 0, "black", 0],[0, "blue", 0, "black"],["red", 0, 0, 0],[0, 0, 0, "black"],[0, 0, "green", 0]],
-        challangePatternsPhase5:[["red",0,"green",0],[0,"blue",0,"black"],["red", "blue", 0, 0],[0, 0, "green", "black"],["blue", "red", 0, 0],["green", 0, 0, 0], [0, 0, 0, "blue"],[0, "blue", 0, 0], [0, 0, "green", 0]],
+        challangePatterns1: [["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"]],
+        challangePatterns2:[["red", 0, 0, 0],[0, 0, 0, "black"],[0, "green", "blue", 0],[0, "red", "blue", 0],[0, "black", "green", 0],[0, 0, "green", 0],[0, "blue", "green", 0],["blue",0,0,0]],
+        challangePatterns3:[["red", 0, 0, "black"],[0, 0, "green", 0],[0, "green", 0, 0],[0, 0, "blue", 0],[0, "blue", 0, 0],[0, "green", "blue", 0],[0,0,0,"red",],["black",0,0,0],["black", 0, 0, "red"],[0, 0, 0, "black"]],
+        challangePatterns4: [["red", "blue", 0, 0],[0, 0, "green", "black"],["blue", "red", 0, 0],[0, 0, "black", "green"],["green", "black", 0, 0],["green", 0, "black", 0],[0, "blue", 0, "black"],["red", 0, 0, 0],[0, 0, 0, "black"],[0, 0, "green", 0]],
+        challangePatterns5:[["red",0,"green",0],[0,"blue",0,"black"],["red", "blue", 0, 0],[0, 0, "green", "black"],["blue", "red", 0, 0],["green", 0, 0, 0], [0, 0, 0, "blue"],[0, "blue", 0, 0], [0, 0, "green", 0]],
+        
+
+        challengePatternsRotate1:[[0, 0, "red", 0], ["green", 0, 0, "blue"],["black", 0, 0,0],[0, "blue", 0, 0],["blue", "black", 0, 0],["green", "blue", 0, 0],["black", "red", 0, 0]],
+       
+       
         singles: [["red", 0, 0, 0], [0, "blue", 0, 0], [0, 0, "green", 0], [0, 0, 0, "black"]],
         vertical: [["red", 0, 0, "black"], ["black", 0, 0, "red"], ["green", 0, 0, "blue"], ["blue", 0, 0, "green"]],
         horizontal: [[0, "blue", "green", 0], [0, "green", "blue", 0], [0, "red", "black", 0], [0, "black", "red", 0]],
@@ -70,7 +75,7 @@ class SimpleSorter extends React.Component {
     }
     componentWillMount = () => {
         // Perform the set up for the challenge here
-        let currentPhasePatterns = this.shuffle(this.state.challangePatternsPhase5).map((pattern, index) => {
+        let currentPhasePatterns = this.shuffle(this.state.challengePatternsRotate1).map((pattern, index) => {
             return { id: index += "singles", pattern: pattern, selected: false }
         }
         );
@@ -192,7 +197,6 @@ class SimpleSorter extends React.Component {
                 </div>
                 <div className="shape-sorter-wrapper">
                     <DiamondSorter
-
                         // onClick={this.patternClicked}
                         answerPatterns={this.state.answerPatterns}
                         onClick={this.rotateDown}

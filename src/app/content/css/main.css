@@ -12,9 +12,18 @@ body {
     font-family: SpaceGrotesk, sans-serif;
 }
 
-
-.full-page-fex-col-wrapper{
+.full-page-fex-col-wrapper {
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
+
+.relative-wrapper {
+    position: relative;
+}
+
+.center-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

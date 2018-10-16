@@ -1,11 +1,11 @@
-.fade-wrapper{
+.fade-wrapper {
     position: relative;
-    width:80%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
 }
 
-.fade-left{
+.fade-left {
     width: 50px;
     height: 100%;
     background: linear-gradient(to right, #f5f6fa, transparent 90%);
@@ -13,7 +13,7 @@
     z-index: 1;
 }
 
-.fade-right{
+.fade-right {
     width: 50px;
     height: 100%;
     background: linear-gradient(to left, #f5f6fa, transparent 90%);
@@ -28,7 +28,7 @@
     justify-content: space-between;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    width:1500px;
+    width: 1500px;
     position: relative;
 }
 
@@ -39,34 +39,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    scroll-snap-align:center;
+    scroll-snap-align: center;
 }
 
-.carousel::-webkit-scrollbar { 
+
+/* .carousel::-webkit-scrollbar { 
     display: none; 
+} */
+
+.carousel>div:first-child {
+    scroll-snap-align: start;
 }
 
-.carousel>div:first-child{
-    scroll-snap-align:start;
+.carousel>div:last-child {
+    scroll-snap-align: end;
 }
 
-.carousel>div:last-child{
-    scroll-snap-align:end;
-}
+@media (min-width: 576px) {}
 
-@media (min-width: 576px) {  }
+@media (min-width: 768px) {}
 
-
-@media (min-width: 768px) {  }
-
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
     .carousel {
-    scroll-snap-type:none;
+        scroll-snap-type: none;
     }
-
     .carousel>div {
-    scroll-snap-align:none;
-   }
- }
+        scroll-snap-align: none;
+    }
+}
 
-@media (min-width: 1200px) {  }
+@media (min-width: 1200px) {}

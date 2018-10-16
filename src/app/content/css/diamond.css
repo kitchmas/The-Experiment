@@ -20,7 +20,7 @@
     margin: auto */
 }
 
- .diamond {
+.diamond {
     height: 130px;
     width: 130px;
     margin: 5px;
@@ -29,12 +29,11 @@
     transform: rotate(45deg);
 }
 
-
 .diamond-red {
     background: #E74C3C;
 }
 
- .diamond-blue {
+.diamond-blue {
     background: #81CFE0;
 }
 
@@ -42,7 +41,7 @@
     background: #66CC99;
 }
 
- .diamond-black {
+.diamond-black {
     background: #4D4D4D;
 }
 
@@ -50,11 +49,11 @@
     margin-bottom: 0;
 }
 
-.diamond-holder .diamond{
+.diamond-holder .diamond {
     transform: rotate(0deg);
 }
 
-.diamond-holder .diamond:nth-child(2){
+.diamond-holder .diamond:nth-child(2) {
     margin-left: 0;
     margin-bottom: 0;
 }

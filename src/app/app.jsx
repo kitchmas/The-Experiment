@@ -1,7 +1,6 @@
 import React from 'react';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+import fontAwesome from '@fortawesome/fontawesome'
+import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
 fontAwesome.library.add(faSyncAlt);
 
 import { BrowserRouter, Route } from 'react-router-dom';

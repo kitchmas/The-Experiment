@@ -1,7 +1,9 @@
 import React from 'react';
 
+import shuffle from '../helpers/shuffle.js'
+
 import { Diamond } from '../diamond/diamond.jsx';
-import '../content/css/diamond-light-up-animation.css';
+import '../content/css/diamond-animation.css';
 
 class DiamondOddOneOutChallenge extends React.Component {
     state = {
@@ -53,15 +55,15 @@ class DiamondOddOneOutChallenge extends React.Component {
     resetGame = () => {
         var clickOrder = [0, 1, 2, 3];
 
-        clickOrder = this.shuffle(clickOrder);
+        clickOrder = shuffle(clickOrder);
         clickOrder = clickOrder.slice(1);
 
         if (this.state.round === 2) {
             clickOrder = [...clickOrder, ...clickOrder];
-            this.shuffle(clickOrder);
+            shuffle(clickOrder);
         } else if (this.state.round === 3) {
             clickOrder = [...clickOrder, ...clickOrder, ...clickOrder];
-            this.shuffle(clickOrder);
+            shuffle(clickOrder);
         }
 
         this.setState({
@@ -71,24 +73,6 @@ class DiamondOddOneOutChallenge extends React.Component {
             this.playAnimation();
         });
 
-    }
-    shuffle = (array) => {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
     }
     checkSuccess = () => {
         if (this.state.clickOrder.indexOf(this.state.currentClickOrder[0]) === -1) {

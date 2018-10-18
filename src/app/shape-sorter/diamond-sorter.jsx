@@ -2,6 +2,7 @@ import React from 'react';
 
 import '../content/css/diamond.css';
 import '../content/css/diamond-sorter.css';
+import '../content/css/diamond-animation.css';
 
 class DiamondSorter extends React.Component {
     render() {
@@ -17,15 +18,17 @@ class DiamondSorter extends React.Component {
                     <div className={this.props.pattern[3].value != 0 ? "diamond diamond-" + this.props.pattern[3].value : "diamond " + this.props.answerPatterns[3]} >
                     </div>
                 </div>
-                <div onClick={() => this.props.onClick()} className="rotate-wrapper">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
+                {this.props.isRotatePhase &&
+                    <div onClick={() => this.props.onClick()} className="rotate-wrapper">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                }
             </div>
         );
     }
 }
 
-export { DiamondSorter }
+export default DiamondSorter
 
 
 

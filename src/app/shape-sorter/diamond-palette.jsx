@@ -21,7 +21,7 @@ class DiamondPallete extends React.Component {
     }
 }
 
-export { DiamondPallete }
+export default DiamondPallete 
 
 
 

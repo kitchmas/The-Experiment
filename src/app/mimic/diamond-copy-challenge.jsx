@@ -1,7 +1,9 @@
 import React from 'react';
 
+import shuffle from '../helpers/shuffle.js'
+
 import { Diamond } from '../diamond/diamond.jsx';
-import '../content/css/diamond-light-up-animation.css';
+import '../content/css/diamond-animation.css';
 
 
 class DiamondCopyChallenge extends React.Component {
@@ -55,7 +57,7 @@ class DiamondCopyChallenge extends React.Component {
             clickOrder = [...clickOrder, ...availableClicks]
         }
 
-        clickOrder = this.shuffle(clickOrder);
+        clickOrder = shuffle(clickOrder);
 
         if (this.state.round > 1) {
             if (this.state.round === 2) {
@@ -71,24 +73,6 @@ class DiamondCopyChallenge extends React.Component {
             this.playAnimation();
         });
 
-    }
-    shuffle = (array) => {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
     }
     checkSuccess = () => {
         for (let i = 0; i < this.state.currentClickOrder.length; i++) {

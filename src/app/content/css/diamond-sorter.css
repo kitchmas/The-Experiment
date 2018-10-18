@@ -1,3 +1,14 @@
+.shape-sorter-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.diamond .black {
+    margin-left: 0;
+}
+
 .diamond-sorter .red {
     background: #E74C3C;
     opacity: 0.5;

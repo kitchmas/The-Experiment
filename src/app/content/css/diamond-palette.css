@@ -30,19 +30,6 @@
     background: #4D4D4D;
 }
 
-.diamond-holder-pallete .red {
-    margin-bottom: 0;
-}
-
-.diamond-holder .diamond{
-    transform: rotate(0deg);
-}
-
-.diamond-holder-pallet .blue {
-    margin-left: 0;
-    margin-bottom: 0;
-}
-
 .selected{
-    opacity: 0.5;
+    opacity: 0.7;
 }

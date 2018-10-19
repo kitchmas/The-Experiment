@@ -85,6 +85,34 @@
     transform: rotate(225deg);
 }
 
+#rotate{
+    animation: rotate;
+    animation-duration: 2s;
+}
+
+#rotate-toggle{
+    animation: rotate-toggle;
+    animation-duration: 2s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(45deg);
+    }
+    to {
+        transform: rotate(135deg);
+    }
+}
+
+@keyframes rotate-toggle {
+    from {
+        transform: rotate(45deg);
+    }
+    to {
+        transform: rotate(135deg);
+    }
+}
+
 @keyframes diamond-red-flash {
     from {
         filter: brightness(100%);

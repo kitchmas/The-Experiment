@@ -1,29 +1,26 @@
 import React from 'react';
 
-import shuffle from '../helpers/shuffle.js'
+import shuffle from '../../helpers/shuffle.js'
 
 import { Diamond } from '../diamond/diamond.jsx';
-import '../content/css/diamond-animation.css';
+import '../../content/css/diamond-animation.css';
 
-class DiamondOppositeChallenge extends React.Component {
+
+class DiamondCopyChallenge extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     state = {
         clickOrder: [],
         currentClickOrder: [],
         animateDiamondClass: "",
         round: 1,
-        locked: true,
+        locked: true
     }
     animateDiamondClassColors = ["play-red-inf", "play-blue-inf", "play-green-inf", "play-black-inf"];
     componentDidMount = () => {
-        this.setState({
-            animateDiamondClass: "rotate-to-green",
-        }, () => {
-            setTimeout(() => {
-                this.resetGame();
-            }, 4000);
-        });
+        this.resetGame();
     }
-
     playAnimation = () => {
         var that = this;
         that.setState({ locked: true });
@@ -53,19 +50,22 @@ class DiamondOppositeChallenge extends React.Component {
         }
     }
     resetGame = () => {
-        var clickOrder = [0, 1, 2, 3];
+        var availableClicks = [0, 1, 2, 3],
+            clickOrder = [];
+
+        for (var i = 0; i < this.state.round; i++) {
+            clickOrder = [...clickOrder, ...availableClicks]
+        }
 
         clickOrder = shuffle(clickOrder);
 
-        if (this.state.round === 1) {
-            clickOrder = clickOrder.slice(3);
+        if (this.state.round > 1) {
+            if (this.state.round === 2) {
+                clickOrder = clickOrder.slice(3);
+            } else if (this.state.round === 3) {
+                clickOrder = clickOrder.slice(6);
+            }
         }
-        else if (this.state.round === 2) {
-            clickOrder = clickOrder.slice(2);
-        } else if (this.state.round === 3) {
-            clickOrder = clickOrder.slice(1);
-        }
-
         this.setState({
             clickOrder: clickOrder,
             currentClickOrder: []
@@ -76,24 +76,7 @@ class DiamondOppositeChallenge extends React.Component {
     }
     checkSuccess = () => {
         for (let i = 0; i < this.state.currentClickOrder.length; i++) {
-            let oppositeClick;
-            switch (this.state.currentClickOrder[i]) {
-                case 0:
-                    oppositeClick = 3;
-                    break;
-                case 1:
-                    oppositeClick = 2;
-                    break;
-                case 2:
-                    oppositeClick = 1;
-                    break;
-                case 3:
-                    oppositeClick = 0;
-                    break;
-                default:
-                    oppositeClick = null;
-            }
-            if (oppositeClick !== this.state.clickOrder[i]) {
+            if (this.state.currentClickOrder[i] !== this.state.clickOrder[i]) {
                 this.gameOver();
                 break;
             }
@@ -115,7 +98,7 @@ class DiamondOppositeChallenge extends React.Component {
                 this.resetGame();
             }, 1000);
         } else {
-            this.props.history.push("/mimic/3")
+            this.props.history.push("/mimic/2")
         }
     }
     gameOver = () => {
@@ -128,55 +111,67 @@ class DiamondOppositeChallenge extends React.Component {
         }, 1000);
     }
     redClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 0];
-        this.setState({
-            animateDiamondClass: "play-red",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.state.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 0];
+            this.setState({
+                animateDiamondClass: "play-red",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     blueClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 1]
-        this.setState({
-            animateDiamondClass: "play-blue",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.state.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 1]
+            this.setState({
+                animateDiamondClass: "play-blue",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     greenClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 2]
-        this.setState({
-            animateDiamondClass: "play-green",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.state.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 2]
+            this.setState({
+                animateDiamondClass: "play-green",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     blackClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 3]
-        this.setState({
-            animateDiamondClass: "play-black",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        debugger;
+        if (!this.state.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 3]
+            this.setState({
+                animateDiamondClass: "play-black",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     render() {
         return (
             <div className="center-page-wrapper">
                 <Diamond
-                    stageWrapperId="rotated-green"
-                    animateDiamondClass={this.state.animateDiamondClass}
-                    locked={this.state.locked}
-                    redClicked={this.redClicked}
-                    blueClicked={this.blueClicked}
-                    greenClicked={this.greenClicked}
-                    blackClicked={this.blackClicked} />
+                    wrapperId={this.state.stageWrapperId}
+                    wrapperClass={this.state.animateDiamondClass}
+                    topDiamondClass="diamond-red"
+                    rightDiamondClass="diamond-blue"
+                    leftDiamondClass="diamond-green"
+                    bottomDiamondClass="diamond-black"
+                    topDiamondClicked={this.redClicked}
+                    rightDiamondClicked={this.blueClicked}
+                    leftDiamondClicked={this.greenClicked}
+                    bottomDiamondClicked={this.blackClicked} />
             </div>
         );
     }
 };
 
-export { DiamondOppositeChallenge }
+export { DiamondCopyChallenge }

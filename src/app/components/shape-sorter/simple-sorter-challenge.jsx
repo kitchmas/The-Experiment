@@ -1,23 +1,25 @@
 import React from 'react';
 
-import shuffle from '../helpers/shuffle.js'
-import patterns from './patterns.js'
+import shuffle from '../../helpers/shuffle.js'
+import patterns from '../../helpers/patterns.js'
 
-import DiamondSorter  from './diamond-sorter.jsx';
-import DiamondPallete from './diamond-palette.jsx';
+import Diamond from '../diamond/diamond.jsx'
 import Carousel from '../carousel/carousel.jsx'
+import RotateButton from '../rotate-button/rotate-button.jsx'
 
-import '../content/css/diamond-sorter.css';
+import '../../content/css/diamond-sorter.css';
+import '../../content/css/diamond-palette.css';
 
 class SimpleSorter extends React.Component {
     state = {
         animateDiamondClass: "",
+        animateDiamondId: "",
         selectedPatterns: [],
         answerPatterns: ["red", "blue", "green", "black"],
         diamondSorterContent: [{ id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }, { id: null, value: 0 }],
         currentPhasePatterns: [],
-        normalPatterns:[],
-        rotatePatterns:[],
+        normalPatterns: [],
+        rotatePatterns: [],
         gamePhase: 0,
         isRotatePhase: true,
     }
@@ -30,14 +32,10 @@ class SimpleSorter extends React.Component {
         }));
 
         if (gamePhase === 0) {
-            debugger;
             gamePhase++;
             let normalPatterns = shuffle(patterns.normalPatterns),
                 rotatePatterns = shuffle(patterns.rotatePatterns),
-                // currentPhase = this.phaseSetup(patterns.challangePatterns1);
-         
-                currentPhase = this.phaseSetup(patterns.rotatePatterns[1]);
-
+                currentPhase = this.phaseSetup(patterns.challangePatterns1);
 
             this.setState((prev) => ({
                 currentPhasePatterns: currentPhase,
@@ -55,12 +53,12 @@ class SimpleSorter extends React.Component {
                 currentPhasePatterns: currentPhase
             }));
         } else {
-            let currentPhase = this.phaseSetup(this.state.rotatePatterns[gamePhase - 3]);
+            let currentPhase = this.phaseSetup(this.state.rotatePatterns[gamePhase - 4]);
             gamePhase++;
             this.setState((prev) => ({
                 gamePhase: gamePhase,
                 currentPhasePatterns: currentPhase,
-                isRotatePhase:true
+                isRotatePhase: true
             }));
         }
     }
@@ -111,25 +109,18 @@ class SimpleSorter extends React.Component {
         } else {
             this.addPattern(id);
         }
-
-        //    3 check if game is won.diagonals
-
     }
 
     removePattern = (id) => {
         let selectedPatterns = this.state.selectedPatterns.slice(),
             selectedPattern = selectedPatterns.find((obj) => { return obj.id === id; });
 
-        //   Remove and deselct
-        // Should use set state here
         selectedPattern.selected = false;
         selectedPatterns.splice(selectedPatterns.indexOf(selectedPattern), 1);
 
         let diamondSorterContent = this.state.diamondSorterContent;
         this.setState({ selectedPatterns: selectedPatterns });
 
-
-        //Remove the pattern from the shape
         for (let i = 0; i < diamondSorterContent.length; i++) {
             if (diamondSorterContent[i].id === id) {
                 diamondSorterContent[i].value = 0;
@@ -146,8 +137,6 @@ class SimpleSorter extends React.Component {
         let diamondSorterContent = this.state.diamondSorterContent;
         let failed = false;
 
-
-        // Check if the arrays postion elments === null
         for (let i = 0; i < pattern.pattern.length; i++) {
             if (pattern.pattern[i] != 0 && diamondSorterContent[i].value === 0 && pattern.pattern[i] === this.state.answerPatterns[i]) {
                 diamondSorterContent[i].value = pattern.pattern[i];
@@ -171,47 +160,70 @@ class SimpleSorter extends React.Component {
         }
     }
     rotateDown = () => {
-        if (this.state.isRotatePhase) {
-            let diamondSorterContent = this.state.diamondSorterContent,
-                answerPatterns = this.state.answerPatterns,
-                newDiamondSorterContent = [0, 0, 0, 0],
-                newAnswerPatterns = [0, 0, 0, 0];
+        if (this.state.isRotatePhase && !this.state.locked) {
 
-            newDiamondSorterContent[0] = diamondSorterContent[2];
-            newDiamondSorterContent[1] = diamondSorterContent[0];
-            newDiamondSorterContent[2] = diamondSorterContent[3];
-            newDiamondSorterContent[3] = diamondSorterContent[1];
+            this.setState((prev) => ({
+                animateDiamondId: prev.animateDiamondId === "" || prev.animateDiamondId === "rotate" ? "rotate-toggle" : "rotate",
+                locked: true
+            }));
+            setTimeout(() => {
+                let diamondSorterContent = this.state.diamondSorterContent,
+                    answerPatterns = this.state.answerPatterns,
+                    newDiamondSorterContent = [0, 0, 0, 0],
+                    newAnswerPatterns = [0, 0, 0, 0];
 
-            newAnswerPatterns[0] = answerPatterns[2];
-            newAnswerPatterns[1] = answerPatterns[0];
-            newAnswerPatterns[2] = answerPatterns[3];
-            newAnswerPatterns[3] = answerPatterns[1];
+                newDiamondSorterContent[0] = diamondSorterContent[2];
+                newDiamondSorterContent[1] = diamondSorterContent[0];
+                newDiamondSorterContent[2] = diamondSorterContent[3];
+                newDiamondSorterContent[3] = diamondSorterContent[1];
 
-            this.setState({
-                diamondSorterContent: newDiamondSorterContent,
-                answerPatterns: newAnswerPatterns
-            });
+                newAnswerPatterns[0] = answerPatterns[2];
+                newAnswerPatterns[1] = answerPatterns[0];
+                newAnswerPatterns[2] = answerPatterns[3];
+                newAnswerPatterns[3] = answerPatterns[1];
+
+                this.setState({
+                    diamondSorterContent: newDiamondSorterContent,
+                    answerPatterns: newAnswerPatterns,
+                    locked:false
+                });
+            }, 1999);
         }
     }
     render() {
-        let patterns = this.state.currentPhasePatterns.map((pattern, index) =>
-            <div key={pattern.id}>
-                <DiamondPallete id={pattern.id}
-                    onClick={this.patternClicked}
-                    pattern={pattern.pattern}
-                    selected={pattern.selected} />
-            </div>);
+        let diamondSorterContent = this.state.diamondSorterContent,
+            answerPatterns = this.state.answerPatterns,
+
+            patterns = this.state.currentPhasePatterns.map((pattern, index) =>
+                <div key={pattern.id}>
+                    <Diamond
+                        wrapperId={pattern.id}
+                        wrapperClass={pattern.selected ? 'selected diamond-holder-pallete' : '' + 'diamond-holder-pallete'}
+                        mainDiamondClicked={() => { this.patternClicked(pattern.id) }}
+                        topDiamondClass={pattern.pattern[0]}
+                        rightDiamondClass={pattern.pattern[1]}
+                        leftDiamondClass={pattern.pattern[2]}
+                        bottomDiamondClass={pattern.pattern[3]}
+                    />
+                </div>
+            );
         return (
             <div className="full-page-fex-col-wrapper">
                 <Carousel items={patterns} />
-                <div className="shape-sorter-wrapper">
-                    <DiamondSorter
-                        // onClick={this.patternClicked}
-                        animateDiamondClass={this.state.animateDiamondClass}
-                        answerPatterns={this.state.answerPatterns}
-                        onClick={this.rotateDown}
-                        pattern={this.state.diamondSorterContent}
-                        isRotatePhase={this.state.isRotatePhase} />
+                <div className="center-page-wrapper">
+                    <div className="relative-wrapper">
+                        <Diamond
+                            wrapperId={this.state.animateDiamondId}
+                            wrapperClass={this.state.animateDiamondClass + ' diamond-sorter'}
+                            mainDiamondClicked={this.rotateDown}
+                            topDiamondClass={diamondSorterContent[0].value != 0 ? "diamond-" + diamondSorterContent[0].value : answerPatterns[0]}
+                            rightDiamondClass={diamondSorterContent[1].value != 0 ? "diamond-" + diamondSorterContent[1].value : answerPatterns[1]}
+                            leftDiamondClass={diamondSorterContent[2].value != 0 ? "diamond-" + diamondSorterContent[2].value : answerPatterns[2]}
+                            bottomDiamondClass={diamondSorterContent[3].value != 0 ? "diamond-" + diamondSorterContent[3].value : answerPatterns[3]}
+                            animateDiamondClass={this.state.animateDiamondClass} >
+                            <RotateButton rotate={this.rotateDown} />
+                        </Diamond>
+                    </div>
                 </div>
             </div>
         )

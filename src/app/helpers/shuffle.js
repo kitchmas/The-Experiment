@@ -1,5 +1,4 @@
 var shuffle = (array) => {
-    debugger;
     var currentIndex = array.length,
         temporaryValue, randomIndex;
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import shuffle from '../helpers/shuffle.js'
+import shuffle from '../../helpers/shuffle.js'
 
 import { Diamond } from '../diamond/diamond.jsx';
-import '../content/css/diamond-animation.css';
+import '../../content/css/diamond-animation.css';
 
 class DiamondOddOneOutChallenge extends React.Component {
     state = {
@@ -106,52 +106,64 @@ class DiamondOddOneOutChallenge extends React.Component {
         }, 1000);
     }
     redClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 0];
-        this.setState({
-            animateDiamondClass: "play-red",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.setState.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 0];
+            this.setState({
+                animateDiamondClass: "play-red",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     blueClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 1]
-        this.setState({
-            animateDiamondClass: "play-blue",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.setState.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 1]
+            this.setState({
+                animateDiamondClass: "play-blue",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     greenClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 2]
-        this.setState({
-            animateDiamondClass: "play-green",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.setState.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 2]
+            this.setState({
+                animateDiamondClass: "play-green",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
+
     blackClicked = () => {
-        let currentClickOrder = [...this.state.currentClickOrder, 3]
-        this.setState({
-            animateDiamondClass: "play-black",
-            currentClickOrder: currentClickOrder
-        }, () => {
-            this.checkSuccess();
-        });
+        if (!this.setState.locked) {
+            let currentClickOrder = [...this.state.currentClickOrder, 3]
+            this.setState({
+                animateDiamondClass: "play-black",
+                currentClickOrder: currentClickOrder
+            }, () => {
+                this.checkSuccess();
+            });
+        }
     }
     render() {
         return (
             <div className="center-page-wrapper">
                 <Diamond
-                    stageWrapperId="rotated-black"
-                    animateDiamondClass={this.state.animateDiamondClass}
-                    locked={this.state.locked}
-                    redClicked={this.redClicked}
-                    blueClicked={this.blueClicked}
-                    greenClicked={this.greenClicked}
-                    blackClicked={this.blackClicked} />
+                    wrapperId="rotated-black"
+                    wrapperClass={this.state.animateDiamondClass}
+                    topDiamondClass="diamond-red"
+                    rightDiamondClass="diamond-blue"
+                    leftDiamondClass="diamond-green"
+                    bottomDiamondClass="diamond-black"
+                    topDiamondClicked={this.redClicked}
+                    rightDiamondClicked={this.blueClicked}
+                    leftDiamondClicked={this.greenClicked}
+                    bottomDiamondClicked={this.blackClicked} />
             </div>
         );
     }

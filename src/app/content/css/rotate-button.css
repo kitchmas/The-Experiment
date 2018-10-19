@@ -1,0 +1,30 @@
+.rotate-wrapper .fa-sync-alt {
+    font-size: 26px;
+}
+
+.diamond-sorter:hover+.rotate-wrapper {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.rotate-wrapper:hover {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.rotate {
+    animation-name: rotate-button;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes rotate-button {
+    from {
+        transform: rotate(o);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

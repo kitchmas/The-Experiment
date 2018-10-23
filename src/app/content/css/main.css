@@ -10,6 +10,8 @@
 body {
     background: #f5f6fa;
     font-family: SpaceGrotesk, sans-serif;
+    margin: 0;
+    font-size: 18px;
 }
 
 .full-page-fex-col-wrapper {
@@ -33,4 +35,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 99vh;
+}
+
+@media(max-width:767px) {
+    body {
+        font-size: 16px;
+    }
 }

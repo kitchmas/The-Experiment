@@ -1,0 +1,53 @@
+.nav-bar {
+    display: flex;
+    background: #24252a;
+    margin: 0;
+    padding: 0;
+    color: white;
+    list-style: none;
+    height: 56px;
+    align-items: center;
+}
+
+.nav-bar li {
+    padding: 0 20px;
+}
+
+.nav-bar li:hover a {
+    color: #66CC99;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.nav-bar a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-bar .active {
+    color: #66CC99;
+    text-decoration: underline;
+}
+
+.nav-bar li:first-child {
+    width: 117px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-bar .diamond-nav {
+    height: 67px;
+    width: 67px;
+    margin-top: 54px;
+}
+
+.nav-bar .diamond-nav:hover {
+    background: #66CC99;
+    transition: 0.5s;
+}
+
+.nav-bar .diamond-nav .diamond {
+    width: 26px;
+    height: 26px;
+}

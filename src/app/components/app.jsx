@@ -5,7 +5,9 @@ fontAwesome.library.add(faSyncAlt);
 
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import About  from './about/about.jsx';
 import Home  from './home/home.jsx';
+import Experiments  from './experiments/experiments.jsx';
 import NavBar  from './nav/nav-bar.jsx';
 import DiamondCopyChallenge  from './mimic/diamond-copy-challenge.jsx';
 import DiamondOppositeChallenge  from './mimic/diamond-opposite-challenge.jsx';
@@ -22,11 +24,13 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div>
+                <NavBar />
                     <Route exact path="/" component={Home} />
                     <Route path="/mimic/1" component={DiamondCopyChallenge} />
                     <Route path="/mimic/2" component={DiamondOppositeChallenge} />
                     <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
-                    <NavBar />
+                    <Route path="/about" component={About} />
+                    <Route path="/experiments" component={Experiments} />
                 </div>
             </BrowserRouter>
             

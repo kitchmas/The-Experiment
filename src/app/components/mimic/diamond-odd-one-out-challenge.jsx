@@ -2,7 +2,7 @@ import React from 'react';
 
 import shuffle from '../../helpers/shuffle.js'
 
-import { Diamond } from '../diamond/diamond.jsx';
+import Diamond  from '../diamond/diamond.jsx';
 import '../../content/css/diamond-animation.css';
 
 class DiamondOddOneOutChallenge extends React.Component {
@@ -169,4 +169,4 @@ class DiamondOddOneOutChallenge extends React.Component {
     }
 };
 
-export { DiamondOddOneOutChallenge }
+export default DiamondOddOneOutChallenge

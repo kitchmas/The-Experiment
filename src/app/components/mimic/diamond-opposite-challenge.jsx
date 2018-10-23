@@ -2,7 +2,7 @@ import React from 'react';
 
 import shuffle from '../../helpers/shuffle.js'
 
-import { Diamond } from '../diamond/diamond.jsx';
+import  Diamond  from '../diamond/diamond.jsx';
 import '../../content/css/diamond-animation.css';
 
 class DiamondOppositeChallenge extends React.Component {
@@ -190,4 +190,4 @@ class DiamondOppositeChallenge extends React.Component {
     }
 };
 
-export { DiamondOppositeChallenge }
+export default DiamondOppositeChallenge

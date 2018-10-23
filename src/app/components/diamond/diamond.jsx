@@ -2,7 +2,6 @@ import React from 'react';
 
 import '../../content/css/diamond.css';
 
-
 class Diamond extends React.Component {
     mainDiamondClicked = () => {
         if (this.props.mainDiamondClicked)
@@ -36,7 +35,6 @@ class Diamond extends React.Component {
                 {this.props.children}
             </React.Fragment>
             );
-
     }
 }
 

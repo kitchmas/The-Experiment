@@ -2,9 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div>
@@ -14,4 +11,4 @@ class Home extends React.Component {
     }
 }
 
-export {Home}
+export default Home

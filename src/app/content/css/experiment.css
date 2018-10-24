@@ -1,0 +1,15 @@
+.experiments-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.experiments-wrapper .experiment {
+    width: 387px;
+    height: 387px;
+    background-color: red;
+    margin: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}

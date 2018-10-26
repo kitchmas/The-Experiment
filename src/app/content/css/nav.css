@@ -51,11 +51,6 @@
     transform: rotate(225deg);
 }
 
-.nav-bar .diamond-nav .diamond {
-    width: 26px;
-    height: 26px;
-}
-
 @media(max-width:767px) {
     .nav-bar {
         height: 40px;
@@ -71,17 +66,5 @@
         height: 45px;
         width: 45px;
         margin-top: 39px;
-    }
-    .nav-bar .diamond-nav .diamond {
-        width: 18px;
-        height: 18px;
-        margin: 3px;
-    }
-    .nav-bar .diamond-nav .diamond:nth-child(2) {
-        margin-left: 0;
-        margin-bottom: 0;
-    }
-    .nav-bar .diamond-nav .diamond:last-child {
-        margin-left: 0;
     }
 }

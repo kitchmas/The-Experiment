@@ -230,4 +230,4 @@ class SimpleSorter extends React.Component {
     }
 }
 
-export { SimpleSorter }
+export default SimpleSorter 

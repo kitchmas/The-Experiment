@@ -12,7 +12,7 @@ import NavBar  from './nav/nav-bar.jsx';
 import DiamondCopyChallenge  from './mimic/diamond-copy-challenge.jsx';
 import DiamondOppositeChallenge  from './mimic/diamond-opposite-challenge.jsx';
 import DiamondOddOneOutChallenge  from './mimic/diamond-odd-one-out-challenge.jsx';
-import  {SimpleSorter}  from './shape-sorter/simple-sorter-challenge.jsx';
+import SimpleSorter from './shape-sorter/simple-sorter-challenge.jsx';
 
 import '../content/css/main.css';
 
@@ -29,7 +29,8 @@ class App extends React.Component {
                     <Route path="/mimic/1" component={DiamondCopyChallenge} />
                     <Route path="/mimic/2" component={DiamondOppositeChallenge} />
                     <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
-                    <Route path="/about" component={About} />
+                    <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
+                    <Route path="/sorter/1" component={SimpleSorter} />
                     <Route path="/experiments" component={Experiments} />
                 </div>
             </BrowserRouter>

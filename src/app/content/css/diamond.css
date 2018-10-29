@@ -16,6 +16,10 @@
     transform: rotate(45deg);
 }
 
+.diamond:hover {
+    cursor: pointer;
+}
+
 .diamond-red {
     background: #E74C3C;
 }

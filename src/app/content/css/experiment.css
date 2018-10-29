@@ -12,64 +12,52 @@
     display: flex;
     align-items: center;
     position: relative;
- 
 }
 
-.experiments-wrapper  .diamond-holder {
-        height: 200px;
-        width: 200px;
-        opacity: 0.7;
-        transition: 1s;
-        transform: rotate(45deg);
-    }
-
-    .number, .go{
-        position: absolute;
-        font-size: 112px;
-        line-height: 0px;
-        color: black;
-    }
-
-    .number{
-        padding: 40px;
-        transition: 2s;
-        opacity: 10;
-        pointer-events: none
-    }
-
-    .go{
-        transition: 1s;
-        opacity: 0;
-        pointer-events: none
-    }
-
-    .diamond-holder:hover
-    {
-        transition: 1s;
-        transform: rotate(135deg);
-        opacity: 10;
-        cursor: pointer;
-    }
-
-    .diamond-holder:hover~.go,
-    .number:hover~.go
-    {
-        transition: 2s;
-        opacity: 10;
-    }
-
-    .diamond-holder:hover~.number,
-    .number:hover{
-        transition: 1s;
-        opacity: 0;
-    }
-
-
-@media(max-width:767px) {
-    .diamond-holder {
-        height: 200px;
-        width: 200px;
-    }
- 
+.experiments-wrapper .diamond-holder {
+    height: 200px;
+    width: 200px;
+    opacity: 0.7;
+    transition: 1s;
+    transform: rotate(45deg);
 }
 
+.number,
+.go {
+    position: absolute;
+    font-size: 112px;
+    line-height: 0px;
+    color: black;
+}
+
+.number {
+    padding: 40px;
+    transition: 2s;
+    opacity: 10;
+    pointer-events: none
+}
+
+.go {
+    transition: 1s;
+    opacity: 0;
+    pointer-events: none
+}
+
+.experiments-wrapper .diamond-holder:hover {
+    transition: 1s;
+    transform: rotate(135deg);
+    opacity: 10;
+    cursor: pointer;
+}
+
+.experiments-wrapper .diamond-holder:hover~.go,
+.number:hover~.go {
+    transition: 2s;
+    opacity: 10;
+}
+
+.experiments-wrapper .diamond-holder:hover~.number,
+.number:hover {
+    transition: 1s;
+    opacity: 0;
+}

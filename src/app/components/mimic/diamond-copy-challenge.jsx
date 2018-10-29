@@ -13,13 +13,16 @@ class DiamondCopyChallenge extends React.Component {
     state = {
         clickOrder: [],
         currentClickOrder: [],
-        animateDiamondClass: "",
+        animateDiamondClass: "grow",
         round: 1,
         locked: true
     }
     animateDiamondClassColors = ["play-red-inf", "play-blue-inf", "play-green-inf", "play-black-inf"];
     componentDidMount = () => {
-        this.resetGame();
+        setTimeout( () => {
+            this.resetGame();
+        },5000);
+       
     }
     playAnimation = () => {
         var that = this;
@@ -159,7 +162,7 @@ class DiamondCopyChallenge extends React.Component {
         return (
             <div className="center-page-wrapper">
                 <Diamond
-                    wrapperId={this.state.stageWrapperId}
+                    wrapperId="grow"
                     wrapperClass={this.state.animateDiamondClass}
                     topDiamondClass="diamond-red"
                     rightDiamondClass="diamond-blue"

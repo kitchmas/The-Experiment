@@ -85,14 +85,19 @@
     transform: rotate(225deg);
 }
 
-#rotate{
+#rotate {
     animation: rotate;
     animation-duration: 2s;
 }
 
-#rotate-toggle{
+#rotate-toggle {
     animation: rotate-toggle;
     animation-duration: 2s;
+}
+
+#grow {
+    animation: grow;
+    animation-duration: 5s;
 }
 
 @keyframes rotate {
@@ -190,5 +195,29 @@
     }
     to {
         transform: rotate(225deg);
+    }
+}
+
+@keyframes grow {
+    from {
+        height: 1px;
+        width: 1px;
+    }
+    to {
+        height: 275px;
+        width: 275px;
+    }
+}
+
+@media(max-width:767px) {
+    @keyframes grow {
+        from {
+            height: 1px;
+            width: 1px;
+        }
+        to {
+            height: 200px;
+            width: 200px;
+        }
     }
 }

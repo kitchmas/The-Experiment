@@ -42,6 +42,7 @@
     margin-top: 54px;
     transition: 1.5s;
     transform: rotate(45deg);
+    z-index: 99;
 }
 
 .nav-bar .diamond-nav:hover {

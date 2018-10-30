@@ -208,9 +208,9 @@ class SimpleSorter extends React.Component {
                 </div>
             );
         return (
-            <div className="full-page-fex-col-wrapper">
+            <div>
                 <Carousel items={patterns} />
-                <div className="center-page-wrapper">
+                <div className="center-wrapper-horizontal padding-gapper-2">
                     <div className="relative-wrapper">
                         <Diamond
                             wrapperId={this.state.animateDiamondId}

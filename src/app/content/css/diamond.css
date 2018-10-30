@@ -53,6 +53,10 @@
     margin-left: 0;
 }
 
+.fade-wrapper {
+    margin-top: 20px;
+}
+
 @media(max-width:767px) {
     .diamond-holder {
         height: 200px;

@@ -1,0 +1,158 @@
+.video-phone{
+    width: 300px;
+    height:500px;
+    background-color: #f2d984;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10%;
+    box-shadow:2px 2px 0 2px #f0f0d6;
+}
+
+.video-phone .call-section{
+    display: flex;
+    justify-content: space-around;
+    flex: 3;
+}
+
+.video-phone .call-section .screen-wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+.video-phone .call-section  .screen{
+    width:85%;
+    height: 90%;
+    background-color: black;
+    border-radius: 10%;
+    box-shadow:0 0 0 5px #2e3131;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.video-phone .call-section  .screen.ringing{
+    background-color: green;
+}
+
+.video-phone .call-section  .screen.ringing:after{
+    content:'Ring, ring, ring...';
+    font-size:100%;
+    animation-name: ringing;
+    animation-duration: 2s;
+    animation-iteration-count: infinite; 
+}
+
+.video-phone .call-section .screen .caller-voice-wrapper{
+  background: white;
+  border-radius:5%; 
+  width: 90%;
+  position: absolute;
+  bottom: 8px;
+  padding: 4px;
+  
+}
+
+.video-phone .call-section .screen .caller-voice-wrapper .caller-box-voice{
+    border: 1px solid black;
+    font-size: 14px;
+  }
+
+
+.video-phone .call-section .call-buttons-wrapper{
+    width:8%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.video-phone .call-section .call-buttons-wrapper .call-button{
+    height: 20%;
+    flex: 1 0 100%;
+
+}
+
+.video-phone .call-section .call-buttons-wrapper .call-button.answer{
+    background-color: #66CC99;
+    box-shadow:1px 1px 0 1px #4daf7c;
+}
+
+.video-phone .call-section .call-buttons-wrapper .call-button.answer.ringing{
+    animation-name: ringing;
+    animation-duration: 2s;
+    animation-iteration-count: infinite; 
+}
+
+.video-phone .call-section .call-buttons-wrapper .call-button.answer:hover{
+    position:relative;
+    top:2px;
+    left:2px;
+    background-color: #58bc8a;
+    box-shadow:-1px -1px 0 1px #4daf7c;
+}
+
+.video-phone .call-section .call-buttons-wrapper .call-button.hang-up{
+    background-color: #E74C3C;
+    box-shadow:1px 1px 0 1px #cf000f;
+}
+
+.video-phone .call-section .call-buttons-wrapper .call-button.hang-up:hover{
+    position:relative;
+    top:2px;
+    left:2px;
+    background-color: #ce4435;
+    box-shadow:-1px -1px 0 1px #cf000f;
+}
+
+.video-phone .answer-section{
+    flex:1;
+    display: flex;
+    justify-content: space-around;
+}
+
+.video-phone .answer-section .answer-buttons{
+    flex:1 0 48%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content:space-around; 
+    font-size: 14px;
+}
+
+.video-phone .answer-section .answer-buttons .answer-button{
+    width: 40%;
+    height: 40%;
+    background-color: #81CFE0;
+    box-shadow:1px 1px 0 1px #3498db;
+    padding: 4px;
+    text-align: center;
+    vertical-align: center;
+}
+
+.video-phone .answer-section .answer-buttons .answer-button:hover{
+    background-color: #72b9c9;
+    position:relative;
+    top:2px;
+    left:2px;
+    height:  calc(45% - 6px);
+    box-shadow:-1px -1px 0 1px #3498db;
+}
+
+.video-phone .answer-section .dummy-section{
+    width:15%;
+}
+
+
+@keyframes ringing {
+  from{
+   color:green;
+  }
+  to{
+    color: white;
+    background-color: green;
+  }
+}

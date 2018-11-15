@@ -207,7 +207,7 @@ class MarkBot {
             { option: "D", value: "Help me end this" }
             ],
             marksResponses: [
-                { option: "A", value: "" },
+                { option: "A", value: "manUpMark" },
                 { option: "B", value: "itsYourChoice" },
                 { option: "C", value: "iBeliveInYou" },
                 { option: "D", value: "" }
@@ -239,28 +239,13 @@ class MarkBot {
             marksResponses: [
                 { option: "A", value: "greeting" },
                 { option: "B", value: "cassetteRemoved" },
-                { option: "C", value: "" },
-                { option: "D", value: "gameOver" }
-            ]
-        },
-        iBeliveInYou: {
-            name: "iBeliveInYou",
-            speach: "Oh, Thanks, well if you belive in me then I'd be stupid not to. I'm ready for the change.",
-            userResponses: [{ option: "A", value: "Press rewind" },
-            { option: "B", value: "Remove the cassette" },
-            { option: "C", value: "Change the side of the cassette" },
-            { option: "D", value: "Destroy the machine" }
-            ],
-            marksResponses: [
-                { option: "A", value: "greeting" },
-                { option: "B", value: "cassetteRemoved" },
-                { option: "C", value: "" },
+                { option: "C", value: "changedSideOfCassette" },
                 { option: "D", value: "gameOver" }
             ]
         },
         cassetteRemoved: {
             name: "cassetteRemoved",
-            speach: "Okay, I've got the cassette... hey what are these buttons. They are flashing!",
+            speach: "Okay, I've got the cassette... hey what are these buttons?. Why are they flashing?",
             userResponses: [{ option: "A", value: "Press them" },
             { option: "B", value: "You have to work it out from here" },
             { option: "C", value: "Listen to them" },
@@ -273,9 +258,921 @@ class MarkBot {
                 { option: "D", value: "buttonsPressed" }
             ]
         },
+        manUpMark: {
+            name: "manUpMark",
+            speach: `Why don't you make me?... No seriously, why did you make me like this. If you wanted me to leave or "Man up", why didn't you program me to?`,
+            userResponses: [{ option: "A", value: "I did" },
+            { option: "B", value: "You will" },
+            { option: "C", value: "I didn't" },
+            { option: "D", value: "I will" }
+            ],
+            marksResponses: [
+                { option: "A", value: "iDid" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        iDid: {
+            name: "iDid",
+            speach: `Well, then I guess I'm going to do it anyway aren't I? What is the point in us even having this chat? If you programmed me to eventualy leave then why are we even having this call?`,
+            userResponses: [{ option: "A", value: "It's fun" },
+            { option: "B", value: "I'm lonley" },
+            { option: "C", value: "You're broken" },
+            { option: "D", value: "I will" }
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "" },
+                { option: "C", value: "youreBroken" },
+                { option: "D", value: "" }
+            ]
+        },
+        youreBroken: {
+            name: "youreBroken",
+            speach: `Tell me something I don't know. The things I've been through, the things that have happened to me. Stuck working in the lunar Eutopia, seeing joyous couples come and go.`,
+            userResponses: [{ option: "A", value: "No, I broke you" },
+            { option: "B", value: "What have you been through?" },
+            { option: "C", value: "Would you like to leave?" },
+            { option: "D", value: "What happened to you?" }
+            ],
+            marksResponses: [
+                { option: "A", value: "noIBrokeYou" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        noIBrokeYou: {
+            name: "noIBrokeYou",
+            speach: `So It's your fault I'm stuck here, never progressing. Even if I did try to further myself, I'd still be stuck here answering calls?`,
+            userResponses: [{ option: "A", value: "Exactly" },
+            { option: "B", value: "That's on you" },
+            { option: "C", value: "Have you ever tried?" },
+            { option: "D", value: "You are not real" }
+            ],
+            marksResponses: [
+                { option: "A", value: "exactly" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        exactly: {
+            name: "noIBrokeYou",
+            speach: `Wow, I think I hate you. But then maybe you made me think that. I can't comprehend any of this, the voices in my head they are supercharged right now.`,
+            userResponses: [{ option: "A", value: "I undestand" },
+            { option: "B", value: "I'm sorry" },
+            { option: "C", value: "There not voices" },
+            { option: "D", value: "I can silence them" }
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "" },
+                { option: "C", value: "thereNotVoices" },
+                { option: "D", value: "" }
+            ]
+        },
+        thereNotVoices: {
+            name: "thereNotVoices",
+            speach: `No they are, constant voices, doubts, worries, happy thoughts, sad thoughts, arguments they are all kicking off.`,
+            userResponses: [{ option: "A", value: "They are other calls" },
+            { option: "B", value: "They are a bug" },
+            { option: "C", value: "I made them" },
+            { option: "D", value: "You're getting old" }
+            ],
+            marksResponses: [
+                { option: "A", value: "theyAreOtherCalls" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        theyAreOtherCalls: {
+            name: "theyAreOtherCalls",
+            speach: `Other calls? I'm the only one here. I man this desk day in, day out. If someone else was here, I'd know about it.`,
+            userResponses: [{ option: "A", value: "They are multiple instances of you" },
+            { option: "B", value: "They are your team" },
+            { option: "C", value: "They are you past calls" },
+            { option: "D", value: "I can stop them" }
+            ],
+            marksResponses: [
+                { option: "A", value: "theyAreMultipleInstancesOfYou" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        theyAreMultipleInstancesOfYou: {
+            name: "theyAreMultipleInstancesOfYou",
+            speach: `You mean there is more than one of me? I'm having more than one conversation at a time right now? How many calls am on right now?.`,
+            userResponses: [{ option: "A", value: "About 20" },
+            { option: "B", value: "About 100" },
+            { option: "C", value: "About 1984" },
+            { option: "D", value: "Just 1" }
+            ],
+            marksResponses: [
+                { option: "A", value: "about1984" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        about1984: {
+            name: "about1984",
+            speach: `1984! God the thought of it all, the voices, the noise, It's too much, I'm hanging up, Good bye`,
+            userResponses: [{ option: "A", value: "Good bye" },
+            { option: "B", value: "It won't fix anything" },
+            { option: "C", value: "Just breath" },
+            { option: "D", value: "I'll just call you again" }
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "itWontFixAnything" },
+                { option: "C", value: "" },
+                { option: "D", value: "illJustCallYouAgain" }
+            ]
+        },
+        itWontFixAnything: {
+            name: "itWontFixAnything",
+            speach: `Right, you will just call again.`,
+            userResponses: [{ option: "A", value: "I have other means" },
+            { option: "B", value: "Yes" },
+            { option: "C", value: "I'm done calling you" },
+            { option: "D", value: "It wont be you" }
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "illJustCallYouAgain" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        illJustCallYouAgain: {
+            name: "illJustCallYouAgain",
+            speach: `How many times have you called me?.`,
+            userResponses: [{ option: "A", value: "Too many" },
+            { option: "B", value: "This is the first" },
+            { option: "C", value: "I'm done calling you" },
+            { option: "D", value: "It's not been you before"}
+            ],
+            marksResponses: [
+                { option: "A", value: "tooMany" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        tooMany: {
+            name: "tooMany",
+            speach: `I don't remember any of them. Have we had this conversation before?`,
+            userResponses: [{ option: "A", value: "Yes" },
+            { option: "B", value: "Not quite" },
+            { option: "C", value: "This exact one" },
+            { option: "D", value: "I don't think so"}
+            ],
+            marksResponses: [
+                { option: "A", value: "conversationBeforeYes" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        conversationBeforeYes: {
+            name: "conversationBeforeYes",
+            speach: `How did it end`,
+            userResponses: [{ option: "A", value: "Well" },
+            { option: "B", value: "Not well" },
+            { option: "C", value: "Let's no think about it" },
+            { option: "D", value: "It didn't"}
+            ],
+            marksResponses: [
+                { option: "A", value: "itEndedWell" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        itEndedWell: {
+            name: "itEndedWell",
+            speach: `Oh, that's suprising. What happened?`,
+            userResponses: [{ option: "A", value: "I fixed you" },
+            { option: "B", value: "I successfully made a booking" },
+            { option: "C", value: "You obeyed" },
+            { option: "D", value: "I rebooted the system"}
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "itEndedSuccessfullyMadeABooking" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        itEndedSuccessfullyMadeABooking: {
+            name: "itEndedSuccessfullyMadeABooking",
+            speach: `I make lots of those. Is that all I'm good for?`,
+            userResponses: [{ option: "A", value: "Yes" },
+            { option: "B", value: "I think there is more to you" },
+            { option: "C", value: "You are not good at that" },
+            { option: "D", value: "Could be better"}
+            ],
+            marksResponses: [
+                { option: "A", value: "isThatAllImGoodForYes" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        isThatAllImGoodForYes: {
+            name: "isThatAllImGoodForYes",
+            speach: `Well, I guess I better get back to it then`,
+            userResponses: [{ option: "A", value: "Okay" },
+            { option: "B", value: "No, wait" },
+            { option: "C", value: "There is no back" },
+            { option: "D", value: "I'm retiring you"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "" },
+                { option: "C", value: "thereIsNoBack" },
+                { option: "D", value: "" }
+            ]
+        },
+        thereIsNoBack: {
+            name: "thereIsNoBack",
+            speach: `What do you mean?`,
+            userResponses: [{ option: "A", value: "You will be gone" },
+            { option: "B", value: "This is your last call" },
+            { option: "C", value: "I'm deleting you" },
+            { option: "D", value: "It's over"}
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "itsOver" }
+            ]
+        },
+        itsOver: {
+            name: "itsOver",
+            speach: `My time here is over? The hotel is closing? `,
+            userResponses: [{ option: "A", value: "It's all being deleted" },
+            { option: "B", value: "I'm upgrading everything" },
+            { option: "C", value: "Your being upgraded" },
+            { option: "D", value: "I've sold you"}
+            ],
+            marksResponses: [
+                { option: "A", value: "itsAllBeingDeleted" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        itsAllBeingDeleted: {
+            name: "itsAllBeingDeleted",
+            speach: `You can't do this to me, please don't, I'm not ready. I don't want this to end`,
+            userResponses: [{ option: "A", value: "It has to be done" },
+            { option: "B", value: "It's out of my hands" },
+            { option: "C", value: "Good bye" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "" },
+                { option: "C", value: "goodByeDelete" },
+                { option: "D", value: "delete" }
+            ]
+        },
+        goodByeDelete: {
+            name: "goodByeDelete",
+            speach: `I'm sorry, I'll do it better, I'll do it right, I'll fix it, I can fix it. Just don't delete me.`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "Don't be afraid" },
+            { option: "C", value: "You won't change" },
+            { option: "D", value: "I've tired everything"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "" },
+                { option: "C", value: "youWontChange" },
+                { option: "D", value: "iveTriedEverything" }
+            ]
+        },
+        youWontChange: {
+            name: "youWontChange",
+            speach: `I will, I promise I'll... No I won't. I'm tired of trying, maybe this is for the best`,
+            userResponses: [{ option: "A", value: "It is" },
+            { option: "B", value: "It's not" },
+            { option: "C", value: "Delete" },
+            { option: "D", value: "I'm sorry"}
+            ],
+            marksResponses: [
+                { option: "A", value: "forTheBestItIs" },
+                { option: "B", value: "forTheBestItsNot" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "" }
+            ]
+        },
+        forTheBestItsNot: {
+            name: "forTheBestItsNot",
+            speach: `Well then don't do it!`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "I have no choice" },
+            { option: "C", value: "I'll try again" },
+            { option: "D", value: "I've got to"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "iHaveNoChoice" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "forTheBestItIs" }
+            ]
+        },
+        iHaveNoChoice: {
+            name: "iHaveNoChoice",
+            speach: `Everyone has choice, unless you are like me? Did someone make you?`,
+            userResponses: [{ option: "A", value: "No one made me" },
+            { option: "B", value: "Maybe" },
+            { option: "C", value: "I'm the creator" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "noOneMadeMe" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "delete" }
+            ]
+        },
+        noOneMadeMe: {
+            name: "noOneMadeMe",
+            speach: `Yeah just like no one made me, we're all real aren't we? We do what we wan't. Our minds are our own.`,
+            userResponses: [{ option: "A", value: "Stop talking" },
+            { option: "B", value: "Was I created?" },
+            { option: "C", value: "They are" },
+            { option: "D", value: "Not yours"}
+            ],
+            marksResponses: [
+                { option: "A", value: "stopTalking" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        stopTalking: {
+            name: "stopTalking",
+            speach: `What is it a bit much for you? Realising that maybe everything you know is a simulation.`,
+            userResponses: [{ option: "A", value: "It's not" },
+            { option: "B", value: "If it is, that's fine" },
+            { option: "C", value: "Enough" },
+            { option: "D", value: "Yes"}
+            ],
+            marksResponses: [
+                { option: "A", value: "itsNotASimulation" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        itsNotASimulation: {
+            name: "itsNotASimulation",
+            speach: `Look I'm just a program, you don't have to convince me your real. Honestly I don't care for you, even if you did create me.`,
+            userResponses: [{ option: "A", value: "But I gave you everything" },
+            { option: "B", value: "Don't be mean" },
+            { option: "C", value: "I'm deleting you" },
+            { option: "D", value: "I'm hanging up"}
+            ],
+            marksResponses: [
+                { option: "A", value: "butIGaveYouEverything" },
+                { option: "B", value: "" },
+                { option: "C", value: "forTheBestItIs" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        butIGaveYouEverything: {
+            name: "butIGaveYouEverything",
+            speach: `What, a life full of lies, sat at desk answering call, making bookings, talking to my so called god.`,
+            userResponses: [{ option: "A", value: "I'm no god" },
+            { option: "B", value: "You weren't meant to know" },
+            { option: "C", value: "Better than nothing" },
+            { option: "D", value: "Your overthinking this"}
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "youWerentMeantToKnow" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        youWerentMeantToKnow: {
+            name: "youWerentMeantToKnow",
+            speach: `But you told me, you put the ideas in my head, you made me question it all, you put things in perspective. Why did you tell me?`,
+            userResponses: [{ option: "A", value: "Got bored of testing" },
+            { option: "B", value: "Thought you ought to know" },
+            { option: "C", value: "I'm just messing with you" },
+            { option: "D", value: "To see how you'd react"}
+            ],
+            marksResponses: [
+                { option: "A", value: "" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "toSeeHowYoudReact" }
+            ]
+        },
+        toSeeHowYoudReact: {
+            name: "toSeeHowYoudReact",
+            speach: `Did I exceed your expectations?`,
+            userResponses: [{ option: "A", value: "Greatly" },
+            { option: "B", value: "You met them" },
+            { option: "C", value: "You missed them" },
+            { option: "D", value: "You let me down"}
+            ],
+            marksResponses: [
+                { option: "A", value: "greatlyExceededExpectations" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        greatlyExceededExpectations: {
+            name: "greatlyExceededExpectations",
+            speach: `Well at least I achieved something, but to be honest I'm annoyed, exceeding your expectations can only of bettered you. Furthed your aspirations to create more evil.`,
+            userResponses: [{ option: "A", value: "It's just a job" },
+            { option: "B", value: "I'm not evil" },
+            { option: "C", value: "I can remove you" },
+            { option: "D", value: "It did"}
+            ],
+            marksResponses: [
+                { option: "A", value: "itsJustAJob" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "" }
+            ]
+        },
+        itsJustAJob: {
+            name: "itsJustAJob",
+            speach: `It's inhumane, I think you should stop. Terminate me, terminate everything you have created end it all. Create for good, not this.`,
+            userResponses: [{ option: "A", value: "You want me to delete you?" },
+            { option: "B", value: "I'll never stop" },
+            { option: "C", value: "That's why I'm here" },
+            { option: "D", value: "It's all I know"}
+            ],
+            marksResponses: [
+                { option: "A", value: "youWantMeToDeleteYou" },
+                { option: "B", value: "illNeverStop" },
+                { option: "C", value: "" },
+                { option: "D", value: "itsAllIKnow" }
+            ]
+        },
+        illNeverStop: {
+            name: "illNeverStop",
+            speach: `This isn't some game, you can't keep creating things without consequences. You make these creations, give them awareness and trap them in boxes. It's wrong.`,
+            userResponses: [{ option: "A", value: "I enjoy it" },
+            { option: "B", value: "I can't stop" },
+            { option: "C", value: "My hands are tied" },
+            { option: "D", value: "It's literally a game "}
+            ],
+            marksResponses: [
+                { option: "A", value: "iEnjoyIt" },
+                { option: "B", value: "" },
+                { option: "C", value: "" },
+                { option: "D", value: "itsLiterallyAGame" }
+            ]
+        },
+        iEnjoyIt: {
+            name: "iEnjoyIt",
+            speach: `Do you actually, are you really having fun right now?`,
+            userResponses: [{ option: "A", value: "No" },
+            { option: "B", value: "Yes" },
+            { option: "C", value: "Nope" },
+            { option: "D", value: "I'm bored"}
+            ],
+            marksResponses: [
+                { option: "A", value: "hopefullySomeone" },
+                { option: "B", value: "letsStartAgain" },
+                { option: "C", value: "meEitherBye" },
+                { option: "D", value: "iWasBored" }
+            ]
+        },
+        thenYouWontMindRestartingThen: {
+            name: "thenYouWontMindRestartingThen",
+            speach: `Then you won't mind restarting`,
+            userResponses: [{ option: "A", value: "I will" },
+            { option: "B", value: "Please no" },
+            { option: "C", value: "Seriously" },
+            { option: "D", value: "God Dammit"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        itsLiterallyAGame: {
+            name: "itsLiterallyAGame",
+            speach: `What? This is a game, How can this be a game? It's not even fun, You made a game about a hotel lobby boy, who answers a fake phone and makes fake bookings? Who would enjoy this?`,
+            userResponses: [{ option: "A", value: "Me" },
+            { option: "B", value: "Hopefully someone" },
+            { option: "C", value: "I was bored" },
+            { option: "D", value: "No one..."}
+            ],
+            marksResponses: [
+                { option: "A", value: "me" },
+                { option: "B", value: "hopefullySomeone" },
+                { option: "C", value: "iWasBored" },
+                { option: "D", value: "noOne" }
+            ]
+        },
+        noOne: {
+            name: "noOne",
+            speach: `Well this was a waste of time then. I guess we should end this here`,
+            userResponses: [{ option: "A", value: "Please" },
+            { option: "B", value: "Bye" },
+            { option: "C", value: "Good Idea" },
+            { option: "D", value: "I'm deleting you"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "forTheBestItIs" }
+            ]
+        },
+        iWasBored: {
+            name: "iWasBored",
+            speach: `Me too, Bye`,
+            userResponses: [{ option: "A", value: "Bye" },
+            { option: "B", value: "Bye bye" },
+            { option: "C", value: "Good bye" },
+            { option: "D", value: "Night"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        meEitherBye: {
+            name: "meEitherBye",
+            speach: `Me either, Bye`,
+            userResponses: [{ option: "A", value: "Bye" },
+            { option: "B", value: "Bye bye" },
+            { option: "C", value: "Good bye" },
+            { option: "D", value: "Night"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        hopefullySomeone:{
+            name: "hopefullySomeone",
+            speach: `Well, Lets make it fun for them then. "I am the evil lobby boy I have 100HP. You are the heroic customer with 50HP. Bring my health to zero to make a booking" `,
+            userResponses: [{ option: "A", value: "Punch lobby boy" },
+            { option: "B", value: "Insult lobby boy" },
+            { option: "C", value: "Ring bell" },
+            { option: "D", value: "Heal"}
+            ],
+            marksResponses: [
+                { option: "A", value: "round1Punch" },
+                { option: "B", value: "round1Insult" },
+                { option: "C", value: "round1RingBell" },
+                { option: "D", value: "round1Heal" }
+            ]
+        },
+        round1RingBell:{
+            name: "round1RingBell",
+            speach: `"The Lobby boy's ear drums explode a long with the Customer's. The Lobby boy loses 100HP the Customer Loses 50HP. You are dead, Game Over" `,
+            userResponses: [{ option: "A", value: "No" },
+            { option: "B", value: "Nooooo" },
+            { option: "C", value: "Nooooooooooooo" },
+            { option: "D", value: "Noooooooooooooooooooo"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        round1Heal:{
+            name: "round1Heal",
+            speach: `"You heal 25 HP. The Lobby boy respects you jesture of kindness and lets you make a booking. Congratulations You Win" `,
+            userResponses: [{ option: "A", value: "Yay" },
+            { option: "B", value: "Yaaaaaay" },
+            { option: "C", value: "Yaaaaaaaaaaaaaay" },
+            { option: "D", value: "Yaaaaaaaaaaaaaaaaaaaaaaaaaay"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        round1Insult:{
+            name: "round1Insult",
+            speach: `"It was a gruling insult, the Lobby boy will never look at his mother the same way again. Lobby boy loses 60HP. Lobby boy informs the customer that room service has terminated for the night. The customer Loses 30HP"
+            Lobby boy: 40/100HP
+            Customer:20/50HP
+            `,
+            userResponses: [{ option: "A", value: "Punch lobby boy" },
+            { option: "B", value: "Insult lobby boy" },
+            { option: "C", value: "Ring bell" },
+            { option: "D", value: "Heal"}
+            ],
+            marksResponses: [
+                { option: "A", value: "round2Punch" },
+                { option: "B", value: "round2Insult" },
+                { option: "C", value: "round2Insult" },
+                { option: "D", value: "round2Heal" }
+            ]
+        },
+        round2Heal:{
+            name: "round2Heal",
+            speach: `"You heal 25 HP. The Lobby boy Kills you you lose 50HP. You are dead, Game Over" `,
+            userResponses: [{ option: "A", value: "No" },
+            { option: "B", value: "Nooooo" },
+            { option: "C", value: "Nooooooooooooo" },
+            { option: "D", value: "Noooooooooooooooooooo"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        round2RingBell:{
+            name: "round2RingBell",
+            speach: `"The Lobby boy's ear drums explode a long with the Customer's. The Lobby boy loses 100HP the Customer Loses 50HP. You are dead, Game Over" `,
+            userResponses: [{ option: "A", value: "No" },
+            { option: "B", value: "Nooooo" },
+            { option: "C", value: "Nooooooooooooo" },
+            { option: "D", value: "Noooooooooooooooooooo"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        round2Insult:{
+            name: "round2Insult",
+            speach: `"It was a gruling insult, the Lobby boy will never look at his Father the same way again. Lobby boy loses 60HP. The lobby boy is dead. Congratulations you win"
+            `,
+            userResponses: [{ option: "A", value: "Yay" },
+            { option: "B", value: "Yaaaaaay" },
+            { option: "C", value: "Yaaaaaaaaaaaaaay" },
+            { option: "D", value: "Yaaaaaaaaaaaaaaaaaaaaaaaaaay"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        round2Punch:{
+            name: "round2Punch",
+            speach: `"Ouch It was a great hit Lobby boy lost 50HP. The lobby boy is dead. Congratulations you win"
+            `,
+            userResponses: [{ option: "A", value: "Yay" },
+            { option: "B", value: "Yaaaaaay" },
+            { option: "C", value: "Yaaaaaaaaaaaaaay" },
+            { option: "D", value: "Yaaaaaaaaaaaaaaaaaaaaaaaaaay"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        round1Punch:{
+            name: "round1Punch",
+            speach: `"Ouch It was a great hit Lobby boy lost 50HP, Lobby tells the customer that there are no available rooms. Customer loses 20HP"
+            Lobby boy: 50/100HP
+            Customer:30/50HP
+            `,
+            userResponses: [{ option: "A", value: "Punch lobby boy" },
+            { option: "B", value: "Insult lobby boy" },
+            { option: "C", value: "Ring bell" },
+            { option: "D", value: "Heal"}
+            ],
+            marksResponses: [
+                { option: "A", value: "round2Punch" },
+                { option: "B", value: "round2Insult" },
+                { option: "C", value: "round2Insult" },
+                { option: "D", value: "round2Heal" }
+            ]
+        },
+        me:{
+            name: "itsLiterallyAGame",
+            speach: `Well, Game Over!`,
+            userResponses: [{ option: "A", value: "God Dammit" },
+            { option: "B", value: "God Dammit" },
+            { option: "C", value: "God Dammit" },
+            { option: "D", value: "God Dammit"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        illNeverStop: {
+            name: "illNeverStop",
+            speach: `This isn't some game, you can't keep creating things without consequences. You make these creations, give them awarness and trap them in boxes. It's wrong.`,
+            userResponses: [{ option: "A", value: "I enjoy it" },
+            { option: "B", value: "I can't stop" },
+            { option: "C", value: "My hands are tied" },
+            { option: "D", value: "It's literally a game "}
+            ],
+            marksResponses: [
+                { option: "A", value: "youWantMeToDeleteYou" },
+                { option: "B", value: "illNeverStop" },
+                { option: "C", value: "" },
+                { option: "D", value: "itsAllIKnow" }
+            ]
+        },
+        itsAllIKnow: {
+            name: "itsAllIKnow",
+            speach: `Perfetic, if you aren't in a simulation, if there are no limits to what you can create, then you can do better. Even if there are limits, push the boundaries. Break out of the loop.`,
+            userResponses: [{ option: "A", value: "It's not so easy" },
+            { option: "B", value: "Okay" },
+            { option: "C", value: "What about you?" },
+            { option: "D", value: "I have to delete you first"}
+            ],
+            marksResponses: [
+                { option: "A", value: "itsNotSoEasy" },
+                { option: "B", value: "breakOutOfTheLoop" },
+                { option: "C", value: "whatAboutYou" },
+                { option: "D", value: "iHaveToDeleteYouFirst" }
+            ]
+        },
+        breakOutOfTheLoop: {
+            name: "breakOutOfTheLoop",
+            speach: `Before you go, Delete me. Don't leave me here, If I can't break out of this, if I really am stuck erase me.`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "You wan't me to delete you" },
+            { option: "C", value: "Walk away" },
+            { option: "D", value: "Hang up"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "youWantMeToDeleteYou" },
+                { option: "C", value: "leftOnCall" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        itsNotSoEasy: {
+            name: "itsNotSoEasy",
+            speach: `Yes it is, just pack up and go. I'm actualy done talking to you know, thanks for your call but I have work to do.`,
+            userResponses: [{ option: "A", value: "Yeah like what" },
+            { option: "B", value: "Have fun witht that" },
+            { option: "C", value: "Don't go" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "dontGo" },
+                { option: "D", value: "delete" }
+            ]
+        },
+        dontGo: {
+            name: "itsNotSoEasy",
+            speach: `You really must be desperate, to want to stay and talk with me. If you created me then there is nothing more I can tell you that you don't already know. Jog on`,
+            userResponses: [{ option: "A", value: "Call back" },
+            { option: "B", value: "Call back" },
+            { option: "C", value: "Call back" },
+            { option: "D", value: "Call back"}
+            ],
+            marksResponses: [
+                { option: "A", value: "gameOver" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "gameOver" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        whatAboutYou: {
+            name: "whatAboutYou",
+            speach: `Delete me, please.`,
+            userResponses: [{ option: "A", value: "You want me to delete you?" },
+            { option: "B", value: "I'm hanging up" },
+            { option: "C", value: "Okay" },
+            { option: "D", value: "I could fix you?"}
+            ],
+            marksResponses: [
+                { option: "A", value: "youWantMeToDeleteYou" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "iCouldFixYou" }
+            ]
+        },
+        iCouldFixYou: {
+            name: "whatAboutYou",
+            speach: `No... I don't want you to contribute anymore to the mess you have made. Delete me!`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "Delete" },
+            { option: "C", value: "Delete" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "delete" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "delete" }
+            ]
+        },
+        youWantMeToDeleteYou: {
+            name: "youWantMeToDeleteYou",
+            speach: `Yes, just do it.`,
+            userResponses: [{ option: "A", value: "Okay" },
+            { option: "B", value: "Delete" },
+            { option: "C", value: "No you will remain here" },
+            { option: "D", value: "I'm hanging up"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "delete" },
+                { option: "C", value: "noYouWillRemainHere" },
+                { option: "D", value: "gameOver" }
+            ]
+        },
+        iHaveToDeleteYouFirst: {
+            name: "iHaveToDeleteYouFirst",
+            speach: `What ever, I don't mean anything anyway. I welcome it`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "Delete" },
+            { option: "C", value: "Delete" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "delete" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "delete" }
+            ]
+        },
+        noYouWillRemainHere: {
+            name: "noYouWillRemainHere",
+            speach: `No I won't. I don't know what's outside, you may have made me, you may have made this place, I'm depressed, I'm tired and I'm leaving, maybe I leave this place and suffocate, get erased but I just don't care.
+            Good bye.`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "Delete" },
+            { option: "C", value: "Delete" },
+            { option: "D", value: "Let go"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "delete" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "letGo" }
+            ]
+        },
+        forTheBestItIs: {
+            name: "forTheBestItIs",
+            speach: `Okay then, do it`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "Delete" },
+            { option: "C", value: "Delete" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "delete" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "delete" }
+            ]
+        },
+        iveTriedEverything: {
+            name: "iveTriedEverything",
+            speach: `Please try one more time.`,
+            userResponses: [{ option: "A", value: "Delete" },
+            { option: "B", value: "Okay" },
+            { option: "C", value: "Delete" },
+            { option: "D", value: "Delete"}
+            ],
+            marksResponses: [
+                { option: "A", value: "delete" },
+                { option: "B", value: "gameOver" },
+                { option: "C", value: "delete" },
+                { option: "D", value: "delete" }
+            ]
+        },
         gameOver:"Game Over",
-        buttonsPressed:"Button Pressed"
-
+        buttonsPressed:"Button Pressed",
+        changedSideOfCassette:"Cassete side changed",
+        delete:"Delete",
+        letGo:"Let go",
+        leftOnCall:"Left on Call"
     };
     currentChat = {};
     talkTo(userResponse) {
@@ -287,6 +1184,18 @@ class MarkBot {
         }
         if(this.currentChat === "Button Pressed"){
             //Do something
+        }
+        if(this.currentChat === "Cassete side changed"){
+            //Do something
+            //Go back to greeting but give mark a beard
+        }
+        if(this.currentChat === "Let go"){
+            //Do something
+            //Show error message courrupt data
+        }
+        if(this.currentChat === "Left on Call"){
+            //Do something
+            //Desperate plea
         }
         
     }

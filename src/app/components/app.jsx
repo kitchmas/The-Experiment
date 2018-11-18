@@ -14,6 +14,9 @@ import DiamondOppositeChallenge  from './mimic/diamond-opposite-challenge.jsx';
 import DiamondOddOneOutChallenge  from './mimic/diamond-odd-one-out-challenge.jsx';
 import SimpleSorter from './shape-sorter/simple-sorter-challenge.jsx';
 
+import Mark  from './mark/mark.jsx';
+import VideoPhone  from './phone/video-phone.jsx';
+
 import '../content/css/main.css';
 
 class App extends React.Component {
@@ -25,7 +28,8 @@ class App extends React.Component {
             <BrowserRouter>
                 <div>
                 <NavBar />
-                    <Route exact path="/" component={Home} />
+                    {/* <Route exact path="/" component={Phone} /> */}
+                    <Route exact path="/" component={VideoPhone} /> 
                     <Route path="/mimic/1" component={DiamondCopyChallenge} />
                     <Route path="/mimic/2" component={DiamondOppositeChallenge} />
                     <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />

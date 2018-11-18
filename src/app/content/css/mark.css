@@ -1,0 +1,320 @@
+/* .mark{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mark .hair{
+    background-color: #4E342E;
+    flex: 1;
+    height: 200px;
+    width: 150px;
+    border-radius: 20px;
+    padding: 20% 5% 0 5%;
+}
+
+.mark .face{
+    display: block;
+    background-color:#FFDCB5;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mark .forehead{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .eye-brow-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .eye-brow-row .eye-brow{
+    background-color: #3E2723;
+    width: 40%;
+    height: 40%;
+    margin:0 5%;
+}
+
+.mark .eye-brow-row .eye-brow:first-child{
+    border-radius:  0 20px 0 20px;
+}
+
+.mark .eye-brow-row .eye-brow:nth-child(2){
+    border-radius: 20px 0  20px 0;
+}
+
+.mark .eye-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .eye-row .eye{
+    background-color:  white;
+    flex:0.4;
+    height:90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0 5%;
+    border-radius: 20px;
+}
+
+.mark .eye-row .eye .iris{
+    background-color:  #96281b;
+    height: 100%;
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.mark .eye-row .eye .iris .pupil{
+    background-color:  black;
+    flex:0.5;
+    height: 50%;
+    border-radius: 50%;
+}
+
+.mark .nose-row{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.mark .nose-row .nose{
+    border-right:2px solid black;
+    border-bottom:2px solid black;
+    height: 100%;
+    flex:0.1;
+}
+
+.mark .mouth-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .mouth-row .mouth{
+  border: 2px solid #ec644b;
+  background-color: #ec644b;
+  border-radius: 20px 10px ;
+  flex: 0.5;
+  height: 20%;
+
+   /* animation-name: talking;
+   animation-duration: 0.5s;
+    animation-iteration-count: infinite; */
+/* } */
+
+
+/* .mark .chin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+
+.mark .neck{
+    background-color: #FFDCB5;
+    height: 30px;
+    width: 20%;
+}
+
+.mark .torso{
+    background-color: #fff68f;
+    height: 80px;
+    width: 200px;
+    border-radius: 20px 20px 0 0;
+}
+
+@keyframes talking {
+    0%,10% {
+        border-radius: 20px 10px ;
+        flex: 0.5;
+        height: 20%;
+    }
+    90%, 100%   {
+        border-radius: 50%;
+        flex: 0.2;
+        height: 90%;
+        background: black;
+    }
+} */
+
+.mark{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width should always be 2/3 of height */
+    height: 90%;
+    width: 90%;
+}
+
+.mark .hair{
+    background-color: #4E342E;
+    flex: 10;
+    width: 80%;
+    border-radius: 25% 25% 5% 5%;
+    padding: 20% 5% 0 5%;
+}
+
+.mark .face{
+    display: block;
+    background-color:#FFDCB5;
+    height: 100%;
+    border-radius: 25% 25% 32% 32%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mark .forehead{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .eye-brow-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .eye-brow-row .eye-brow{
+    background-color: #3E2723;
+    width: 40%;
+    height: 40%;
+    margin:0 5%;
+}
+
+.mark .eye-brow-row .eye-brow:first-child{
+    border-radius:  0 70% 0 70%;
+}
+
+.mark .eye-brow-row .eye-brow:nth-child(2){
+    border-radius: 70% 0  70% 0;
+}
+
+.mark .eye-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .eye-row .eye{
+    background-color:  white;
+    flex:0.4;
+    height:90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0 5%;
+    border-radius: 50%;
+}
+
+.mark .eye-row .eye .iris{
+    background-color:  #96281b;
+    height: 90%;
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.mark .eye-row .eye .iris .pupil{
+    background-color:  black;
+    flex:0.5;
+    height: 50%;
+    border-radius: 50%;
+}
+
+.mark .nose-row{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.mark .nose-row .nose{
+    border-right:2px solid black;
+    border-bottom:2px solid black;
+    height: 100%;
+    flex:0.1;
+}
+
+.mark .mouth-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.mark .mouth-row .mouth{
+  background-color: #ec644b;
+  flex: 0.5;
+  height: 20%;
+
+   /* animation-name: talking;
+   animation-duration: 0.5s;
+    animation-iteration-count: infinite; */
+}
+
+.mark .mouth-row .mouth.speaking{
+   animation-name: talking;
+   animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+}
+
+
+.mark .chin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+
+.mark .neck{
+    background-color: #FFDCB5;
+    flex:2;
+    width: 20%;
+    border: 50%
+}
+
+.mark .torso{
+    background-color: #fff68f;
+    flex:3;
+    width: 100%;
+    border-radius: 50% 50% 0 0;
+}
+
+@keyframes talking {
+    0%,10% {
+        flex: 0.5;
+        height: 20%;
+    }
+    90%, 100%   {
+        border-radius: 50%;
+        flex: 0.2;
+        height: 90%;
+        background: black;
+    }
+}
+

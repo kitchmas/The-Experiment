@@ -147,7 +147,6 @@ class DiamondCopyChallenge extends React.Component {
         }
     }
     blackClicked = () => {
-        debugger;
         if (!this.state.locked) {
             let currentClickOrder = [...this.state.currentClickOrder, 3]
             this.setState({

@@ -1,0 +1,70 @@
+
+
+.board .board-row{
+    display: flex;
+ 
+}
+
+.board .board-cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+}
+
+
+
+
+.tile-icon{
+    border-radius: 20%;
+    background-color: brown;
+    width: 98%;
+    height: 98%;
+}
+
+.tile-icon.fire{
+    background-color: orangered;
+}
+
+.tile-icon.water{
+    background-color: blue;
+}
+
+.tile-icon.ice{
+    background-color: blanchedalmond;
+}
+
+.tile-bag{
+    background-color: cornflowerblue;
+    width: 250px;
+    border-radius: 6px;
+    padding: 20px 20px 20px 20px;
+    margin: 0 auto;
+}
+
+.tile-bag h2{
+    margin:0; 
+}
+
+.tile-bag .tile-row{
+    display: flex;
+    justify-content: space-around;
+    align-content: space-between;
+}
+
+.tile-bag .tile-icon{
+    height:50px;
+    width:50px;
+    margin:  5px 5px 5px 0;
+}
+
+
+
+.tile-bag .tile-description{
+    flex: 2;
+    margin: 5px;
+    font-size: 14px;
+}
+

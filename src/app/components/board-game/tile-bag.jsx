@@ -9,9 +9,9 @@ class TileBag extends React.Component {
     render() {
         return(
         <div className="tile-bag">
-                <div onClick={(e) => this.props.fireClicked("fire",e)} className="fire tile-icon"></div>
-                <div onClick={(e) => this.props.waterClicked("water",e)} className="water tile-icon"></div>
-                <div onClick={(e) => this.props.iceClicked("ice",e)} className="ice tile-icon"></div>
+                <div onClick={(e) => this.props.newTileClicked("fire",e)} className="fire tile-icon"></div>
+                <div onClick={(e) => this.props.newTileClicked("water",e)} className="water tile-icon"></div>
+                <div onClick={(e) => this.props.newTileClicked("ice",e)} className="ice tile-icon"></div>
         </div>)
     }
 }

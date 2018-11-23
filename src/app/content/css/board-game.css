@@ -1,3 +1,9 @@
+.board{
+    border-radius: 5px;
+    background: white;
+    border: 20px solid white;
+}
+
 .board .board-row {
     display: flex;
 }
@@ -8,26 +14,27 @@
     align-items: center;
     height: 100px;
     width: 100px;
-    border: 1px solid black;
+    border: 2px solid black;
     position: relative;
+    border-radius: 5px;
 }
 
 .tile-icon {
     border-radius: 20%;
-    width: 98%;
-    height: 98%;
+    width: 90px;
+    height: 90px;
 }
 
 .tile-icon.fire {
-    background-color: orangered;
+    background-color: #f22613;
 }
 
 .tile-icon.water {
-    background-color: blue;
+    background-color: #19b5fe;
 }
 
 .tile-icon.ice {
-    background-color: blanchedalmond;
+    background-color: #e4f1fe;
 }
 
 .tile-bag {

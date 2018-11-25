@@ -7,15 +7,22 @@ import '../../content/css/board-game.css';
 class Board extends React.Component {
     state = {
         tiles: [Array(3).fill({ type: null }), Array(3).fill({ type: null }), Array(3).fill({ type: null })],
-        selectedCell: null
+        // tiles: [[{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
+        // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
+        // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
+        // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
+        // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }]],
+        selectedCell: null,
+        tileBagContent: [{ type: "water" }, { type: "fire" }, { type: "earth" }]
     }
     renderTile = (index) => {
         return <Tile type={this.state.tiles[index[0]][index[1]].type} />
     }
     showTileBag = (indexMap) => {
-        if (JSON.stringify(this.state.selectedCell) === JSON.stringify(indexMap)) return <TileBag newTileClicked={this.newTileClicked} />
+        if (JSON.stringify(this.state.selectedCell) === JSON.stringify(indexMap))
+            return <TileBag tiles={this.state.tileBagContent} newTileClicked={this.newTileClicked} />
     }
- 
+
     convertAdjacentTiles = (array, selectedCellIndex, from, too) => {
         let tryTransformTile = (indexArr) => {
             if ((indexArr[0] >= 0 && indexArr[0] <= array.length - 1) &&
@@ -41,6 +48,7 @@ class Board extends React.Component {
         }
     }
     newTileClicked = (type, e) => {
+        debugger;
         e.stopPropagation();
         let selectedCellIndex = this.state.selectedCell,
             tilesCopy = this.state.tiles.slice(),
@@ -48,15 +56,47 @@ class Board extends React.Component {
         selectedTileCopy.type = type;
         tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]] = selectedTileCopy;
 
-        if (type === "water")
-            this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "water");
-        if (type === "fire") {
-            this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "water", null);
-            this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "water");
-        }
-        if (type === "ice")
-            this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "ice");
+        switch (type) {
+            case "water":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "water");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "lava", "obsidian");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "earth", "mud");
+                break;
+            case "fire":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "water");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "fire");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "fire");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "glass");
 
+                break;
+            case "ice":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "ice");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "earth");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "water");
+                break;
+            case "wood":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "fire");
+                break;
+            case "sand":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "glass");
+                break;
+            case "glass":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "lava");
+                break;
+            case "lava":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "obsidian");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "lava");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "lava");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "lava");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "lava");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava");
+                break;
+            case "plant":
+                break;
+            default:
+
+        }
         this.setState({
             tiles: tilesCopy,
             selectedCell: null
@@ -65,6 +105,123 @@ class Board extends React.Component {
     render() {
         return (
             <div>
+                {/* <div className="board">
+                    <div className="board-row">
+                        <div className="board-cell" onClick={() => this.cellClicked([0, 0])}>
+                            {this.showTileBag([0, 0])}
+                            {this.renderTile([0, 0])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([0, 1])}>
+                            {this.showTileBag([0, 1])}
+                            {this.renderTile([0, 1])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([0, 2])}>
+                            {this.showTileBag([0, 2])}
+                            {this.renderTile([0, 2])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([0, 3])}>
+                            {this.showTileBag([0, 3])}
+                            {this.renderTile([0, 3])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([0, 4])}>
+                            {this.showTileBag([0, 4])}
+                            {this.renderTile([0, 4])}
+                        </div>
+                    </div>
+                    <div className="board-row">
+                        <div className="board-cell" onClick={() => this.cellClicked([1, 0])}>
+                            {this.showTileBag([1, 0])}
+                            {this.renderTile([1, 0])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([1, 1])}>
+                            {this.showTileBag([1, 1])}
+                            {this.renderTile([1, 1])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([1, 2])}>
+                            {this.showTileBag([1, 2])}
+                            {this.renderTile([1, 2])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([1, 3])}>
+                            {this.showTileBag([1, 3])}
+                            {this.renderTile([1, 3])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([1, 4])}>
+                            {this.showTileBag([1, 4])}
+                            {this.renderTile([1, 4])}
+                        </div>
+                    </div>
+                    <div className="board-row">
+                        <div className="board-cell" onClick={() => this.cellClicked([2, 0])}>
+                            {this.showTileBag([2, 0])}
+                            {this.renderTile([2, 0])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([2, 1])}>
+                            {this.showTileBag([2, 1])}
+                            {this.renderTile([2, 1])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([2, 2])}>
+                            {this.showTileBag([2, 2])}
+                            {this.renderTile([2, 2])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([2, 3])}>
+                            {this.showTileBag([2, 3])}
+                            {this.renderTile([2, 3])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([2, 4])}>
+                            {this.showTileBag([2, 4])}
+                            {this.renderTile([2, 4])}
+                        </div>
+                    </div>
+                    <div className="board-row">
+                        <div className="board-cell" onClick={() => this.cellClicked([3, 0])}>
+                            {this.showTileBag([3, 0])}
+                            {this.renderTile([3, 0])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([3, 1])}>
+                            {this.showTileBag([3, 1])}
+                            {this.renderTile([3, 1])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([3, 2])}>
+                            {this.showTileBag([3, 2])}
+                            {this.renderTile([3, 2])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([3, 3])}>
+                            {this.showTileBag([3, 3])}
+                            {this.renderTile([3, 3])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([3, 4])}>
+                            {this.showTileBag([3, 4])}
+                            {this.renderTile([3, 4])}
+                        </div>
+                    </div>
+                    <div className="board-row">
+                        <div className="board-cell" onClick={() => this.cellClicked([4, 0])}>
+                            {this.showTileBag([4, 0])}
+                            {this.renderTile([4, 0])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([4, 1])}>
+                            {this.showTileBag([4, 1])}
+                            {this.renderTile([4, 1])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([4, 2])}>
+                            {this.showTileBag([4, 2])}
+                            {this.renderTile([4, 2])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([4, 3])}>
+                            {this.showTileBag([4, 3])}
+                            {this.renderTile([4, 3])}
+                        </div>
+                        <div className="board-cell" onClick={() => this.cellClicked([4, 4])}>
+                            {this.showTileBag([4, 4])}
+                            {this.renderTile([4, 4])}
+                        </div>
+                    </div>
+                </div> */}
+
+
+
+
+
                 <div className="board">
                     <div className="board-row">
                         <div className="board-cell" onClick={() => this.cellClicked([0, 0])}>
@@ -107,6 +264,7 @@ class Board extends React.Component {
                             {this.showTileBag([2, 2])}
                             {this.renderTile([2, 2])}
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Tile from '../board-game/tile.jsx';
 import '../../content/css/board-game.css';
 
 
@@ -7,12 +8,27 @@ import '../../content/css/board-game.css';
 
 class TileBag extends React.Component {
     render() {
-        return(
-        <div className="tile-bag">
-                <div onClick={(e) => this.props.newTileClicked("fire",e)} className="fire tile-icon"></div>
-                <div onClick={(e) => this.props.newTileClicked("water",e)} className="water tile-icon"></div>
-                <div onClick={(e) => this.props.newTileClicked("ice",e)} className="ice tile-icon"></div>
-        </div>)
+        let tiles = this.props.tiles.map((tile, i) => {
+            debugger;
+            return (<Tile key={i} type={tile.type}
+                onClick={(e) => this.props.newTileClicked(tile.type, e)} />
+            )
+        });
+        return (
+            <div className="tile-bag" >
+                {tiles}
+                {/* <div onClick={(e) => this.props.newTileClicked("fire", e)} className="fire tile-icon">Fire</div>
+                <div onClick={(e) => this.props.newTileClicked("water", e)} className="water tile-icon">Water</div>
+                <div onClick={(e) => this.props.newTileClicked("earth", e)} className="earth tile-icon">Earth</div>
+                <div onClick={(e) => this.props.newTileClicked("ice", e)} className="ice tile-icon">Ice</div>
+                <div onClick={(e) => this.props.newTileClicked("sand", e)} className="sand tile-icon">Sand</div>
+                <div onClick={(e) => this.props.newTileClicked("plant", e)} className="plant tile-icon">Plant</div>
+                <div onClick={(e) => this.props.newTileClicked("seed", e)} className="seed tile-icon">Seed</div>
+                <div onClick={(e) => this.props.newTileClicked("wood", e)} className="wood tile-icon">Wood</div>
+                <div onClick={(e) => this.props.newTileClicked("lava", e)} className="lava tile-icon">Lava</div>
+                <div onClick={(e) => this.props.newTileClicked("obsidian", e)} className="obsidian tile-icon">Obsidian</div>
+                <div onClick={(e) => this.props.newTileClicked("mud", e)} className="mud tile-icon">Mud</div> */}
+            </div>)
     }
 }
 

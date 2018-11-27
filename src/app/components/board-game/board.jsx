@@ -3,6 +3,7 @@ import React from 'react';
 import Tile from '../board-game/tile.jsx';
 import TileBag from '../board-game/tile-bag.jsx';
 import '../../content/css/board-game.css';
+import shuffle from '../../helpers/shuffle';
 
 class Board extends React.Component {
     state = {
@@ -13,7 +14,79 @@ class Board extends React.Component {
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }]],
         selectedCell: null,
-        tileBagContent: [{ type: "water" }, { type: "fire" }, { type: "earth" }]
+        tileBagContent: [{ type: "fire" }],
+        previouslyDrawnTiles: [],
+        starterTiles: [{ type: "water" }, { type: "fire" }, { type: "earth" }]
+    }
+    componentWillMount = () => {
+        this.turnSetup();
+
+    }
+    turnSetup = () => {
+        let starterTiles = this.state.starterTiles.slice(),
+            previouslyDrawnTiles = this.state.previouslyDrawnTiles,
+            tileBagContent = [];
+
+        shuffle(starterTiles);
+
+        const previouslyDrawnTilesLength = previouslyDrawnTiles.length;
+        if (previouslyDrawnTilesLength > 1) {
+            const previouslyDrawnTiles1 = previouslyDrawnTiles[previouslyDrawnTilesLength - 1],
+                previouslyDrawnTiles2 = previouslyDrawnTiles[previouslyDrawnTilesLength - 2];
+
+            if (previouslyDrawnTiles1 === starterTiles[0] && previouslyDrawnTiles1 === previouslyDrawnTiles2) {
+                tileBagContent.push(starterTiles[1]);
+                previouslyDrawnTiles.push(starterTiles[1]);
+            }
+            else
+            tileBagContent.push(starterTiles[0]);
+            previouslyDrawnTiles.push(starterTiles[0]);
+        } else {
+            tileBagContent.push(starterTiles[0]);
+            previouslyDrawnTiles.push(starterTiles[0]);
+        }
+
+        this.setState({
+            tileBagContent: tileBagContent,
+            previouslyDrawnTiles: previouslyDrawnTiles
+        });
+
+        this.checkForThreeOfAkind()
+    }
+    checkForThreeOfAkind = () => {
+        let tiles = this.state.tiles.slice(),
+            selectedCellIndex = this.state.selectedCell;
+
+        if (selectedCellIndex === null)
+            return;
+        // for(let i = 0; i < tiles.length; i++ ){
+        //     for(let j = 0; j < tiles[i].length; j++){
+
+        let matchedTiles = 0;
+
+        let countMatchingTiles = (indexArr) => {
+            if ((indexArr[0] >= 0 && indexArr[0] <= tiles.length - 1) &&
+                (indexArr[1] >= 0 && indexArr[1] <= tiles[indexArr[0]].length - 1)
+                && (tiles[indexArr[0]][indexArr[1]].type === tiles[selectedCellIndex[0]][selectedCellIndex[1]].type)) {
+
+                matchedTiles++;
+            }
+        }
+
+        countMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
+        countMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]);
+        countMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]);
+        countMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
+
+        if (matchedTiles > 1) {
+            this.convertAdjacentTiles(tiles, [i, j], tiles[i][j].type, null)
+        }
+
+
+
+
+        //     }
+        // }
     }
     renderTile = (index) => {
         return <Tile type={this.state.tiles[index[0]][index[1]].type} />
@@ -22,7 +95,6 @@ class Board extends React.Component {
         if (JSON.stringify(this.state.selectedCell) === JSON.stringify(indexMap))
             return <TileBag tiles={this.state.tileBagContent} newTileClicked={this.newTileClicked} />
     }
-
     convertAdjacentTiles = (array, selectedCellIndex, from, too) => {
         let tryTransformTile = (indexArr) => {
             if ((indexArr[0] >= 0 && indexArr[0] <= array.length - 1) &&
@@ -48,7 +120,6 @@ class Board extends React.Component {
         }
     }
     newTileClicked = (type, e) => {
-        debugger;
         e.stopPropagation();
         let selectedCellIndex = this.state.selectedCell,
             tilesCopy = this.state.tiles.slice(),
@@ -60,7 +131,7 @@ class Board extends React.Component {
             case "water":
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "water");
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "lava", "obsidian");
-                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "earth", "mud");
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "earth", "sand");
                 break;
             case "fire":
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "water");
@@ -68,7 +139,9 @@ class Board extends React.Component {
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "fire");
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava");
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "glass");
-
+                break;
+            case "water":
+                this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "sand");
                 break;
             case "ice":
                 this.convertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "ice");
@@ -101,6 +174,7 @@ class Board extends React.Component {
             tiles: tilesCopy,
             selectedCell: null
         });
+        this.turnSetup();
     }
     render() {
         return (

@@ -22,6 +22,13 @@ class Board extends React.Component {
         this.turnSetup();
 
     }
+    renderTile = (index) => {
+        return <Tile type={this.state.tiles[index[0]][index[1]].type} />
+    }
+    showTileBag = (indexMap) => {
+        if (JSON.stringify(this.state.selectedCell) === JSON.stringify(indexMap))
+            return <TileBag tiles={this.state.tileBagContent} newTileClicked={this.newTileClicked} />
+    }
     turnSetup = () => {
         let starterTiles = this.state.starterTiles.slice(),
             previouslyDrawnTiles = this.state.previouslyDrawnTiles,
@@ -39,7 +46,7 @@ class Board extends React.Component {
                 previouslyDrawnTiles.push(starterTiles[1]);
             }
             else
-            tileBagContent.push(starterTiles[0]);
+                tileBagContent.push(starterTiles[0]);
             previouslyDrawnTiles.push(starterTiles[0]);
         } else {
             tileBagContent.push(starterTiles[0]);
@@ -47,7 +54,8 @@ class Board extends React.Component {
         }
 
         this.setState({
-            tileBagContent: tileBagContent,
+            tileBagContent: [{ type: "fire" },{ type: "water" }],
+            // tileBagContent: tileBagContent,
             previouslyDrawnTiles: previouslyDrawnTiles
         });
 
@@ -62,38 +70,89 @@ class Board extends React.Component {
         // for(let i = 0; i < tiles.length; i++ ){
         //     for(let j = 0; j < tiles[i].length; j++){
 
-        let matchedTiles = 0;
-
-        let countMatchingTiles = (indexArr) => {
+        let checkMatchingTiles = (indexArr) => {
             if ((indexArr[0] >= 0 && indexArr[0] <= tiles.length - 1) &&
                 (indexArr[1] >= 0 && indexArr[1] <= tiles[indexArr[0]].length - 1)
                 && (tiles[indexArr[0]][indexArr[1]].type === tiles[selectedCellIndex[0]][selectedCellIndex[1]].type)) {
 
-                matchedTiles++;
+                return (true)
+            }
+        }
+        let convertPlacedTile = false;
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1]])) {
+            tiles[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tiles[selectedCellIndex[0] - 2][selectedCellIndex[1]].type = null;
+            convertPlacedTile = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]])) {
+            tiles[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            tiles[selectedCellIndex[0] + 2][selectedCellIndex[1]].type = null;
+            convertPlacedTile = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]])) {
+            tiles[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tiles[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            convertPlacedTile = true;
+        }
+        debugger;
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1] ) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 2])) {
+           
+            tiles[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            tiles[selectedCellIndex[0]][selectedCellIndex[1] - 2].type = null;
+            convertPlacedTile = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 2])) {
+            tiles[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            tiles[selectedCellIndex[0]][selectedCellIndex[1] + 2].type = null;
+            convertPlacedTile = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
+            tiles[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            tiles[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            convertPlacedTile = true;
+        }
+
+        if (convertPlacedTile)
+            tiles[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
+
+
+        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]);
+        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 2]);
+        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]);
+        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 2]);
+        // checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
+        // checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]]);
+
+        // if (matchedTiles > 1) {
+        //     this.clearThreeOfAkindTiles(tiles, [selectedCellIndex[0], selectedCellIndex[1]], tiles[selectedCellIndex[0]][selectedCellIndex[1]].type)
+        //     tiles[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
+        // }
+
+        this.setState({
+            tiles: tiles
+        })
+    }
+
+    clearThreeOfAkindTiles = (array, selectedCellIndex, from) => {
+        let tryTransformTile = (indexArr) => {
+            if ((indexArr[0] >= 0 && indexArr[0] <= array.length - 1) &&
+                (indexArr[1] >= 0 && indexArr[1] <= array[indexArr[0]].length - 1)
+                && (array[indexArr[0]][indexArr[1]].type === from)) {
+                let tile = Object.assign({}, array[indexArr[0]][indexArr[1]]);
+                tile.type = null;
+                array[indexArr[0]][indexArr[1]] = tile;
             }
         }
 
-        countMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
-        countMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]);
-        countMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]);
-        countMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
+        tryTransformTile([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
+        tryTransformTile([selectedCellIndex[0] - 2, selectedCellIndex[1]]);
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 1]);
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 2]);
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] + 1]);
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] + 2]);
+        tryTransformTile([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
+        tryTransformTile([selectedCellIndex[0] + 2, selectedCellIndex[1]]);
 
-        if (matchedTiles > 1) {
-            this.convertAdjacentTiles(tiles, [i, j], tiles[i][j].type, null)
-        }
-
-
-
-
-        //     }
-        // }
-    }
-    renderTile = (index) => {
-        return <Tile type={this.state.tiles[index[0]][index[1]].type} />
-    }
-    showTileBag = (indexMap) => {
-        if (JSON.stringify(this.state.selectedCell) === JSON.stringify(indexMap))
-            return <TileBag tiles={this.state.tileBagContent} newTileClicked={this.newTileClicked} />
     }
     convertAdjacentTiles = (array, selectedCellIndex, from, too) => {
         let tryTransformTile = (indexArr) => {

@@ -78,16 +78,54 @@ class Board extends React.Component {
                 return (true)
             }
         }
-        let convertPlacedTile = false;
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1]])) {
-            tiles[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tiles[selectedCellIndex[0] - 2][selectedCellIndex[1]].type = null;
-            convertPlacedTile = true;
+        let threeOrMoreMatchesFound = false;
+        let tilesCopy = tiles.slice;
+        // check cell above and left or right of that
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]])) {
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            if(checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] -1])){
+                tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] -1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+            if(checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] +1])){
+                tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] +1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+           
         }
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]])) {
-            tiles[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            tiles[selectedCellIndex[0] + 2][selectedCellIndex[1]].type = null;
-            convertPlacedTile = true;
+        //check cell 2 above and left or right that
+        if(checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1]])){
+            tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1]].type = null;
+            if(checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1] -1])){
+                tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1] -1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+            if(checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1] +1])){
+                tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1] +1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+        }
+        //check cell 1 below and left or right that
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]])){
+            if(checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] -1])){
+                tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] -1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+            if(checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] +1])){
+                tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] +1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+        }  
+        //check cell 2 below and left or right that 
+        if(checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]])) {
+            if(checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1] -1])){
+                tilesCopy[selectedCellIndex[0] + 2][selectedCellIndex[1] -1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
+            if(checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1] +1])){
+                tilesCopy[selectedCellIndex[0] + 2][selectedCellIndex[1] +1].type = null;
+                threeOrMoreMatchesFound = true;
+            }
         }
         if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]])) {
             tiles[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
@@ -112,7 +150,7 @@ class Board extends React.Component {
             convertPlacedTile = true;
         }
 
-        if (convertPlacedTile)
+        if (convertPlacedTile || threeOrMoreMatchesFound)
             tiles[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
 
 

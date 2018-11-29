@@ -30,12 +30,21 @@ class Board extends React.Component {
             return <TileBag tiles={this.state.tileBagContent} newTileClicked={this.newTileClicked} />
     }
     turnSetup = () => {
+        this.setState({
+            selectedCell: null,
+        });
+
+        this.checkForThreeOfAkind();
+        this.drawNextTile();
+    }
+    drawNextTile = () => {
         let starterTiles = this.state.starterTiles.slice(),
             previouslyDrawnTiles = this.state.previouslyDrawnTiles,
             tileBagContent = [];
 
         shuffle(starterTiles);
 
+        //Draws the next tile and if the same tile has been drawn three times in a row it draws a different tile
         const previouslyDrawnTilesLength = previouslyDrawnTiles.length;
         if (previouslyDrawnTilesLength > 1) {
             const previouslyDrawnTiles1 = previouslyDrawnTiles[previouslyDrawnTilesLength - 1],
@@ -54,143 +63,143 @@ class Board extends React.Component {
         }
 
         this.setState({
-            tileBagContent: [{ type: "fire" },{ type: "water" }],
-            // tileBagContent: tileBagContent,
+            tileBagContent: tileBagContent,
             previouslyDrawnTiles: previouslyDrawnTiles
         });
-
-        this.checkForThreeOfAkind()
     }
     checkForThreeOfAkind = () => {
-        let tiles = this.state.tiles.slice(),
+        let tilesCopy = this.state.tiles.slice(),
             selectedCellIndex = this.state.selectedCell;
 
         if (selectedCellIndex === null)
             return;
-        // for(let i = 0; i < tiles.length; i++ ){
-        //     for(let j = 0; j < tiles[i].length; j++){
 
         let checkMatchingTiles = (indexArr) => {
-            if ((indexArr[0] >= 0 && indexArr[0] <= tiles.length - 1) &&
-                (indexArr[1] >= 0 && indexArr[1] <= tiles[indexArr[0]].length - 1)
-                && (tiles[indexArr[0]][indexArr[1]].type === tiles[selectedCellIndex[0]][selectedCellIndex[1]].type)) {
-
+            if ((indexArr[0] >= 0 && indexArr[0] <= tilesCopy.length - 1) &&
+                (indexArr[1] >= 0 && indexArr[1] <= tilesCopy[indexArr[0]].length - 1)
+                && (tilesCopy[indexArr[0]][indexArr[1]].type === tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]].type)) {
                 return (true)
             }
         }
+
         let threeOrMoreMatchesFound = false;
-        let tilesCopy = tiles.slice;
-        // check cell above and left or right of that
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]])) {
+        // check cells above 
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1]])) {
             tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            if(checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] -1])){
-                tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] -1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
-            if(checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] +1])){
-                tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] +1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
-           
-        }
-        //check cell 2 above and left or right that
-        if(checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1]])){
             tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1]].type = null;
-            if(checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1] -1])){
-                tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1] -1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
-            if(checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1] +1])){
-                tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1] +1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
+            threeOrMoreMatchesFound = true;
         }
-        //check cell 1 below and left or right that
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]])){
-            if(checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] -1])){
-                tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] -1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
-            if(checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] +1])){
-                tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] +1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
-        }  
-        //check cell 2 below and left or right that 
-        if(checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]])) {
-            if(checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1] -1])){
-                tilesCopy[selectedCellIndex[0] + 2][selectedCellIndex[1] -1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
-            if(checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1] +1])){
-                tilesCopy[selectedCellIndex[0] + 2][selectedCellIndex[1] +1].type = null;
-                threeOrMoreMatchesFound = true;
-            }
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] - 1])) {
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] - 1].type = null;
+            threeOrMoreMatchesFound = true;
         }
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+
+        // check cells below and above
         if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]])) {
-            tiles[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tiles[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            convertPlacedTile = true;
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
         }
-        debugger;
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1] ) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 2])) {
-           
-            tiles[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            tiles[selectedCellIndex[0]][selectedCellIndex[1] - 2].type = null;
-            convertPlacedTile = true;
+
+        // check cells below 
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]])) {
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0] + 2][selectedCellIndex[1]].type = null;
+            threeOrMoreMatchesFound = true;
         }
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] - 1])) {
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] - 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+
+        // check cells left 
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 2])) {
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 2].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] - 1])) {
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] - 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] - 1])) {
+            debugger;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] - 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+
+        // check cells left & right
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1]] - 1) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+
+        // check cells right 
         if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 2])) {
-            tiles[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            tiles[selectedCellIndex[0]][selectedCellIndex[1] + 2].type = null;
-            convertPlacedTile = true;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 2].type = null;
+            threeOrMoreMatchesFound = true;
         }
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
-            tiles[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            tiles[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            convertPlacedTile = true;
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
         }
 
-        if (convertPlacedTile || threeOrMoreMatchesFound)
-            tiles[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
+        // check cells above and right 
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
 
+        // check cells above and left 
+        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1])) {
+            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
 
-        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]);
-        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 2]);
-        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]);
-        // checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 2]);
-        // checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
-        // checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]]);
+        // check cells below and right 
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
 
-        // if (matchedTiles > 1) {
-        //     this.clearThreeOfAkindTiles(tiles, [selectedCellIndex[0], selectedCellIndex[1]], tiles[selectedCellIndex[0]][selectedCellIndex[1]].type)
-        //     tiles[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
-        // }
+        // check cells below and left 
+        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1])) {
+            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
+            threeOrMoreMatchesFound = true;
+        }
+
+        if (threeOrMoreMatchesFound)
+            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
 
         this.setState({
-            tiles: tiles
+            tiles: tilesCopy
         })
-    }
-
-    clearThreeOfAkindTiles = (array, selectedCellIndex, from) => {
-        let tryTransformTile = (indexArr) => {
-            if ((indexArr[0] >= 0 && indexArr[0] <= array.length - 1) &&
-                (indexArr[1] >= 0 && indexArr[1] <= array[indexArr[0]].length - 1)
-                && (array[indexArr[0]][indexArr[1]].type === from)) {
-                let tile = Object.assign({}, array[indexArr[0]][indexArr[1]]);
-                tile.type = null;
-                array[indexArr[0]][indexArr[1]] = tile;
-            }
-        }
-
-        tryTransformTile([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
-        tryTransformTile([selectedCellIndex[0] - 2, selectedCellIndex[1]]);
-        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 1]);
-        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 2]);
-        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] + 1]);
-        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] + 2]);
-        tryTransformTile([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
-        tryTransformTile([selectedCellIndex[0] + 2, selectedCellIndex[1]]);
-
     }
     convertAdjacentTiles = (array, selectedCellIndex, from, too) => {
         let tryTransformTile = (indexArr) => {
@@ -209,20 +218,20 @@ class Board extends React.Component {
         tryTransformTile([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
 
     }
-    cellClicked = (index) => {
-        if (this.state.tiles[index[0]][index[1]].type === null) {
-            this.setState({
-                selectedCell: index
-            })
-        }
-    }
-    newTileClicked = (type, e) => {
-        e.stopPropagation();
+    placeTile = (type) => {
         let selectedCellIndex = this.state.selectedCell,
             tilesCopy = this.state.tiles.slice(),
             selectedTileCopy = Object.assign({}, tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]]);
         selectedTileCopy.type = type;
         tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]] = selectedTileCopy;
+
+        this.setState({
+            tiles: tilesCopy
+        });
+    }
+    transformAdjacentTiles = (type) => {
+        let selectedCellIndex = this.state.selectedCell,
+            tilesCopy = this.state.tiles.slice();
 
         switch (type) {
             case "water":
@@ -265,179 +274,36 @@ class Board extends React.Component {
             case "plant":
                 break;
             default:
-
         }
         this.setState({
             tiles: tilesCopy,
-            selectedCell: null
         });
+    }
+    cellClicked = (index) => {
+        if (this.state.tiles[index[0]][index[1]].type === null) {
+            this.setState({
+                selectedCell: index
+            })
+        }
+    }
+    newTileClicked = (type, e) => {
+        e.stopPropagation();
+        this.placeTile(type);
+        this.transformAdjacentTiles(type);
         this.turnSetup();
     }
     render() {
+        let boardRows = this.state.tiles.map((rows, i) => {
+            let boardCols = rows.map((cols, j) =>
+                <div className="board-cell" onClick={() => this.cellClicked([i, j])}>
+                    {this.showTileBag([i, j])}
+                    {this.renderTile([i, j])}
+                </div>)
+            return <div className="board-row" >{boardCols}</div>
+        });
         return (
-            <div>
-                {/* <div className="board">
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 0])}>
-                            {this.showTileBag([0, 0])}
-                            {this.renderTile([0, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 1])}>
-                            {this.showTileBag([0, 1])}
-                            {this.renderTile([0, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 2])}>
-                            {this.showTileBag([0, 2])}
-                            {this.renderTile([0, 2])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 3])}>
-                            {this.showTileBag([0, 3])}
-                            {this.renderTile([0, 3])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 4])}>
-                            {this.showTileBag([0, 4])}
-                            {this.renderTile([0, 4])}
-                        </div>
-                    </div>
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 0])}>
-                            {this.showTileBag([1, 0])}
-                            {this.renderTile([1, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 1])}>
-                            {this.showTileBag([1, 1])}
-                            {this.renderTile([1, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 2])}>
-                            {this.showTileBag([1, 2])}
-                            {this.renderTile([1, 2])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 3])}>
-                            {this.showTileBag([1, 3])}
-                            {this.renderTile([1, 3])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 4])}>
-                            {this.showTileBag([1, 4])}
-                            {this.renderTile([1, 4])}
-                        </div>
-                    </div>
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 0])}>
-                            {this.showTileBag([2, 0])}
-                            {this.renderTile([2, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 1])}>
-                            {this.showTileBag([2, 1])}
-                            {this.renderTile([2, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 2])}>
-                            {this.showTileBag([2, 2])}
-                            {this.renderTile([2, 2])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 3])}>
-                            {this.showTileBag([2, 3])}
-                            {this.renderTile([2, 3])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 4])}>
-                            {this.showTileBag([2, 4])}
-                            {this.renderTile([2, 4])}
-                        </div>
-                    </div>
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([3, 0])}>
-                            {this.showTileBag([3, 0])}
-                            {this.renderTile([3, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([3, 1])}>
-                            {this.showTileBag([3, 1])}
-                            {this.renderTile([3, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([3, 2])}>
-                            {this.showTileBag([3, 2])}
-                            {this.renderTile([3, 2])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([3, 3])}>
-                            {this.showTileBag([3, 3])}
-                            {this.renderTile([3, 3])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([3, 4])}>
-                            {this.showTileBag([3, 4])}
-                            {this.renderTile([3, 4])}
-                        </div>
-                    </div>
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([4, 0])}>
-                            {this.showTileBag([4, 0])}
-                            {this.renderTile([4, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([4, 1])}>
-                            {this.showTileBag([4, 1])}
-                            {this.renderTile([4, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([4, 2])}>
-                            {this.showTileBag([4, 2])}
-                            {this.renderTile([4, 2])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([4, 3])}>
-                            {this.showTileBag([4, 3])}
-                            {this.renderTile([4, 3])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([4, 4])}>
-                            {this.showTileBag([4, 4])}
-                            {this.renderTile([4, 4])}
-                        </div>
-                    </div>
-                </div> */}
-
-
-
-
-
-                <div className="board">
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 0])}>
-                            {this.showTileBag([0, 0])}
-                            {this.renderTile([0, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 1])}>
-                            {this.showTileBag([0, 1])}
-                            {this.renderTile([0, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([0, 2])}>
-                            {this.showTileBag([0, 2])}
-                            {this.renderTile([0, 2])}
-                        </div>
-                    </div>
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 0])}>
-                            {this.showTileBag([1, 0])}
-                            {this.renderTile([1, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 1])}>
-                            {this.showTileBag([1, 1])}
-                            {this.renderTile([1, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([1, 2])}>
-                            {this.showTileBag([1, 2])}
-                            {this.renderTile([1, 2])}
-                        </div>
-                    </div>
-                    <div className="board-row">
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 0])}>
-                            {this.showTileBag([2, 0])}
-                            {this.renderTile([2, 0])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 1])}>
-                            {this.showTileBag([2, 1])}
-                            {this.renderTile([2, 1])}
-                        </div>
-                        <div className="board-cell" onClick={() => this.cellClicked([2, 2])}>
-                            {this.showTileBag([2, 2])}
-                            {this.renderTile([2, 2])}
-                        </div>
-
-                    </div>
-                </div>
+            <div className="board">
+                {boardRows}
             </div>
         )
     }

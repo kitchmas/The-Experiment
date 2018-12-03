@@ -5,26 +5,34 @@ import shuffle from '../../helpers/shuffle';
 
 class Game extends React.Component {
     state = {
-        tiles: [Array(3).fill({ type: null }), Array(3).fill({ type: null }), Array(3).fill({ type: null })],
+        tiles: [Array(3).fill({ type: null, status: null, effect:null }), Array(3).fill({ type: null, status: null, effect:null }), Array(3).fill({ type: null, status: null, effect:null })],
         // tiles: [[{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }]],
         selectedCell: null,
-        tileBagContent: [{ type: "fire" }],
+        tileBagContent: [{ type: "plant", status: null, effect:null }, { type: "plant", status: null, effect:null }, { type: "plant", status: null, effect:null }],
         previouslyDrawnTiles: [],
-        starterTiles: [{ type: "water" }, { type: "fire" }, { type: "earth" }]
+        starterTiles: [{ type: "seed", status: null, effect:null }, { type: "soil", status: null, effect:null }, { type: "water", status: null, effect:null }]
     }
     componentWillMount = () => {
         this.turnSetup();
     }
     turnSetup = () => {
-        this.setState({
-            selectedCell: null,
-        });
+       
+        var tiles = this.state.tiles.slice();
+
 
         // this.checkForThreeOfAkind();
+        tiles = this.wiltPlants(tiles);
+     
+        tiles = this.plantsAttack(tiles);
+        this.setState({
+            selectedCell: null,
+            tiles:tiles
+        });
+
         this.drawNextTile();
     }
     drawNextTile = () => {
@@ -53,7 +61,8 @@ class Game extends React.Component {
         }
 
         this.setState({
-            tileBagContent: tileBagContent,
+            tileBagContent: [{ type: "seed" }, { type: "soil" }, { type: "water" }],
+            // tileBagContent: tileBagContent,
             previouslyDrawnTiles: previouslyDrawnTiles
         });
     }
@@ -196,14 +205,14 @@ class Game extends React.Component {
         let tryTransformTile = (indexArr) => {
             if ((indexArr[0] >= 0 && indexArr[0] <= array.length - 1) &&
                 (indexArr[1] >= 0 && indexArr[1] <= array[indexArr[0]].length - 1)
-                && (array[indexArr[0]][indexArr[1]].type === from)) {
+                && (array[indexArr[0]][indexArr[1]].type === from || from === "all")) {
                 let tile = Object.assign({}, array[indexArr[0]][indexArr[1]]);
                 tile.type = too;
                 array[indexArr[0]][indexArr[1]] = tile;
                 oneOrMoreTilesConverted = true;
             }
         },
-        oneOrMoreTilesConverted = false;
+            oneOrMoreTilesConverted = false;
 
         tryTransformTile([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
         tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 1]);
@@ -223,6 +232,63 @@ class Game extends React.Component {
             tiles: tilesCopy
         });
     }
+    // transformAdjacentTiles = (type) => {
+    //     let selectedCellIndex = this.state.selectedCell,
+    //         tilesCopy = this.state.tiles.slice(),
+    //         oneOrMoreTilesConverted = false;
+
+
+    //     switch (type) {
+    //         case "water":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "vapour") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "lava", "obsidian") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "earth", "sand") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "water") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "fire":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "vapour") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "water") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "fire") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "fire") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "glass") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "fire") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "ice":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "ice") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "earth") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "water") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "ice") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "wood":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "fire") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "wood") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "sand":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "glass") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "sand") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "glass":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "glass") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "earth":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "sand") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "earth") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "lava":
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "obsidian") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "lava") ? oneOrMoreTilesConverted = true : null;
+    //             break;
+    //         case "plant":
+    //             break;
+    //         default:
+    //     }
     transformAdjacentTiles = (type) => {
         let selectedCellIndex = this.state.selectedCell,
             tilesCopy = this.state.tiles.slice(),
@@ -230,64 +296,72 @@ class Game extends React.Component {
 
 
         switch (type) {
+            case "soil":
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "seed", "soilSeed") ? oneOrMoreTilesConverted = true : null;
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "wetSoil") ? oneOrMoreTilesConverted = true : null;
+                break;
+            case "seed":
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soil", "soilSeed") ? oneOrMoreTilesConverted = true : null;
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wetSoil", "sapling") ? oneOrMoreTilesConverted = true : null;
+                break;
+            case "seed":
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soil", "soilSeed") ? oneOrMoreTilesConverted = true : null;
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wetSoil", "sapling") ? oneOrMoreTilesConverted = true : null;
+                break;
             case "water":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "vapour") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "lava", "obsidian") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "earth", "sand") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "water") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "fire":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "vapour") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "water") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "fire") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "fire") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "glass") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "fire") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "ice":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "ice") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "earth") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "water") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "ice") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "wood":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "fire") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "wood") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "sand":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "glass") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "sand") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "glass":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "fire", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "glass") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "earth":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "sand") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "earth") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "lava":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "obsidian") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "ice", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wood", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "plant", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "sand", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "glass", "lava") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "vapour", "lava") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "plant":
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soil", "wetSoil") ? oneOrMoreTilesConverted = true : null;
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "sapling", "plant") ? oneOrMoreTilesConverted = true : null;
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soilSeed", "sapling") ? oneOrMoreTilesConverted = true : null;
+                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wiltedPlant", "plant") ? oneOrMoreTilesConverted = true : null;
                 break;
             default:
         }
-
-
 
         this.setState({
             tiles: tilesCopy,
         });
 
         return oneOrMoreTilesConverted;
+    }
+    wiltPlants = (tiles) => {
+        tiles = tiles.map(row => {
+            return row.map(tile => {
+                if (tile.type === "wiltedPlant" && tile.status === null) {
+                    let newTile = Object.assign({}, tile);
+                    newTile.status = "willDie";
+                    tile = newTile;
+                } else if (tile.type === "wiltedPlant" && tile.status === "willDie") {
+                    let newTile = Object.assign({}, tile);
+                    newTile.status = null;
+                    newTile.type = "deadPlant"
+                    tile = newTile;
+                }
+                // Probably a plant that is wilted and watered has a status of willDie need a better fix
+                if ((tile.type === "plant" && tile.status === null) || (tile.type === "plant" && tile.status === "willDie")) {
+                    let newTile = Object.assign({}, tile);
+                    newTile.status = "willWilt";
+                    tile = newTile;
+                } else if (tile.type === "plant" && tile.status === "willWilt") {
+                    let newTile = Object.assign({}, tile);
+                    newTile.status = null;
+                    newTile.type = "wiltedPlant",
+                    newTile.effect = null,
+                    tile = newTile;
+                } 
+                return tile;
+            });
+        });
+        return tiles;
+    }
+    plantsAttack = (tiles) => {
+        tiles.forEach((row, rowIndex) => {
+            row.forEach((tile, tileIndex) => {
+                if (tile.type === "plant") {
+                    this.tryAndConvertAdjacentTiles(tiles, [rowIndex,tileIndex], "all", null);
+                }
+            });
+        });
+        return tiles;
     }
     cellClicked = (index) => {
         if (this.state.tiles[index[0]][index[1]].type === null) {

@@ -85,6 +85,40 @@
     background-color: coral;
 }
 
+.tile-icon.soil {
+    background-color: brown;
+}
+
+tile-icon.seed {
+    background-color: yellow;
+}
+
+.tile-icon.soilSeed {
+    background-color: coral;
+}
+
+.tile-icon.sappling {
+    background-color: green;
+}
+
+.tile-icon.plant {
+    background-color: greenyellow;
+}
+
+.tile-icon.wetSoil {
+    background-color: rgb(80, 29, 29);
+    color:white;
+}
+
+.tile-icon.wiltedPlant {
+    background-color: rosybrown;
+}
+
+.tile-icon.deadPlant {
+    background-color: black;
+    color:white;
+}
+
 .tile-bag {
     background-color: #6495ed;
     width: 550px;

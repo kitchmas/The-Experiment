@@ -7,9 +7,10 @@ import '../../content/css/board-game.css';
 
 class Board extends React.Component {
     renderTile = (index) => {
-        return <Tile type={this.props.tiles[index[0]][index[1]].type} />
+        return <Tile tile={this.props.tiles[index[0]][index[1]]} />
     }
     showTileBag = (indexMap) => {
+        debugger;
         if (JSON.stringify(this.props.selectedCell) === JSON.stringify(indexMap))
             return <TileBag tiles={this.props.tileBagContent} newTileClicked={this.props.newTileClicked} />
     }

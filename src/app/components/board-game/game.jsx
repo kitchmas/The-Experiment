@@ -2,234 +2,44 @@ import React from 'react';
 
 import Board from '../board-game/board.jsx';
 import shuffle from '../../helpers/shuffle';
+import { Tile, WaterTile, SoilTile, SeedTile, PlantTile } from '../../helpers/microGarden/tile.js';
+
+// import Tile from '../board-game/tile.js'; 
+import { TileTypes, TileStatus, TileEffects } from '../board-game/tile-enums.js';
 
 class Game extends React.Component {
     state = {
-        tiles: [Array(3).fill({ type: null, status: null, effect:null }), Array(3).fill({ type: null, status: null, effect:null }), Array(3).fill({ type: null, status: null, effect:null })],
+        tiles: [Array(3).fill(new Tile()), Array(3).fill(new Tile()), Array(3).fill(new Tile())],
         // tiles: [[{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }],
         // [{ type: null }, { type: null }, { type: null }, { type: null }, { type: null }]],
         selectedCell: null,
-        tileBagContent: [{ type: "plant", status: null, effect:null }, { type: "plant", status: null, effect:null }, { type: "plant", status: null, effect:null }],
-        previouslyDrawnTiles: [],
-        starterTiles: [{ type: "seed", status: null, effect:null }, { type: "soil", status: null, effect:null }, { type: "water", status: null, effect:null }]
+        tileBagContent: [new WaterTile(), new SoilTile(), new SeedTile()],
     }
     componentWillMount = () => {
         this.turnSetup();
     }
     turnSetup = () => {
-       
-        var tiles = this.state.tiles.slice();
+
+        // var tiles = this.state.tiles.slice();
 
 
-        // this.checkForThreeOfAkind();
-        tiles = this.wiltPlants(tiles);
-     
-        tiles = this.plantsAttack(tiles);
-        this.setState({
-            selectedCell: null,
-            tiles:tiles
-        });
+        // // this.checkForThreeOfAkind();
+        // tiles = this.wiltPlants(tiles);
+
+        // tiles = this.plantsAttack(tiles);
+        // this.setState({
+        //     selectedCell: null,
+        //     tiles:tiles
+        // });
 
         this.drawNextTile();
     }
     drawNextTile = () => {
-        let starterTiles = this.state.starterTiles.slice(),
-            previouslyDrawnTiles = this.state.previouslyDrawnTiles,
-            tileBagContent = [];
-
-        shuffle(starterTiles);
-
-        //Draws the next tile and if the same tile has been drawn three times in a row it draws a different tile
-        const previouslyDrawnTilesLength = previouslyDrawnTiles.length;
-        if (previouslyDrawnTilesLength > 1) {
-            const previouslyDrawnTiles1 = previouslyDrawnTiles[previouslyDrawnTilesLength - 1],
-                previouslyDrawnTiles2 = previouslyDrawnTiles[previouslyDrawnTilesLength - 2];
-
-            if (previouslyDrawnTiles1 === starterTiles[0] && previouslyDrawnTiles1 === previouslyDrawnTiles2) {
-                tileBagContent.push(starterTiles[1]);
-                previouslyDrawnTiles.push(starterTiles[1]);
-            }
-            else
-                tileBagContent.push(starterTiles[0]);
-            previouslyDrawnTiles.push(starterTiles[0]);
-        } else {
-            tileBagContent.push(starterTiles[0]);
-            previouslyDrawnTiles.push(starterTiles[0]);
-        }
-
         this.setState({
-            tileBagContent: [{ type: "seed" }, { type: "soil" }, { type: "water" }],
-            // tileBagContent: tileBagContent,
-            previouslyDrawnTiles: previouslyDrawnTiles
-        });
-    }
-    checkForThreeOfAkind = () => {
-        let tilesCopy = this.state.tiles.slice(),
-            selectedCellIndex = this.state.selectedCell;
-
-        if (selectedCellIndex === null)
-            return;
-
-        let checkMatchingTiles = (indexArr) => {
-            if ((indexArr[0] >= 0 && indexArr[0] <= tilesCopy.length - 1) &&
-                (indexArr[1] >= 0 && indexArr[1] <= tilesCopy[indexArr[0]].length - 1)
-                && (tilesCopy[indexArr[0]][indexArr[1]].type === tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]].type)) {
-                return (true)
-            }
-        }
-
-        let threeOrMoreMatchesFound = false;
-        // check cells above 
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 2, selectedCellIndex[1]])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] - 2][selectedCellIndex[1]].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] - 1])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] - 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells below and above
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells below 
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 2, selectedCellIndex[1]])) {
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] + 2][selectedCellIndex[1]].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] - 1])) {
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] - 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells left 
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 2])) {
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 2].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] - 1])) {
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] - 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] - 1])) {
-            debugger;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] - 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells left & right
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1]] - 1) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells right 
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 2])) {
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 2].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-        if (checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1]) && checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells above and right 
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells above and left 
-        if (checkMatchingTiles([selectedCellIndex[0] - 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1])) {
-            tilesCopy[selectedCellIndex[0] - 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells below and right 
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] + 1])) {
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] + 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        // check cells below and left 
-        if (checkMatchingTiles([selectedCellIndex[0] + 1, selectedCellIndex[1]]) && checkMatchingTiles([selectedCellIndex[0], selectedCellIndex[1] - 1])) {
-            tilesCopy[selectedCellIndex[0] + 1][selectedCellIndex[1]].type = null;
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1] - 1].type = null;
-            threeOrMoreMatchesFound = true;
-        }
-
-        if (threeOrMoreMatchesFound)
-            tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]].type = null;
-
-        this.setState({
-            tiles: tilesCopy
-        })
-    }
-    tryAndConvertAdjacentTiles = (array, selectedCellIndex, from, too) => {
-
-        let tryTransformTile = (indexArr) => {
-            if ((indexArr[0] >= 0 && indexArr[0] <= array.length - 1) &&
-                (indexArr[1] >= 0 && indexArr[1] <= array[indexArr[0]].length - 1)
-                && (array[indexArr[0]][indexArr[1]].type === from || from === "all")) {
-                let tile = Object.assign({}, array[indexArr[0]][indexArr[1]]);
-                tile.type = too;
-                array[indexArr[0]][indexArr[1]] = tile;
-                oneOrMoreTilesConverted = true;
-            }
-        },
-            oneOrMoreTilesConverted = false;
-
-        tryTransformTile([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
-        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 1]);
-        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] + 1]);
-        tryTransformTile([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
-
-        return oneOrMoreTilesConverted;
-    }
-    placeTile = (type) => {
-        let selectedCellIndex = this.state.selectedCell,
-            tilesCopy = this.state.tiles.slice(),
-            selectedTileCopy = Object.assign({}, tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]]);
-        selectedTileCopy.type = type;
-        tilesCopy[selectedCellIndex[0]][selectedCellIndex[1]] = selectedTileCopy;
-
-        this.setState({
-            tiles: tilesCopy
+            tileBagContent: [new WaterTile(), new SoilTile(), new SeedTile()]
         });
     }
     // transformAdjacentTiles = (type) => {
@@ -289,39 +99,35 @@ class Game extends React.Component {
     //             break;
     //         default:
     //     }
-    transformAdjacentTiles = (type) => {
+    transformAdjacentTiles = (tile) => {
         let selectedCellIndex = this.state.selectedCell,
-            tilesCopy = this.state.tiles.slice(),
-            oneOrMoreTilesConverted = false;
+            tilesCopy = this.state.tiles.slice();
 
 
-        switch (type) {
-            case "soil":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "seed", "soilSeed") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "water", "wetSoil") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "seed":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soil", "soilSeed") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wetSoil", "sapling") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "seed":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soil", "soilSeed") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wetSoil", "sapling") ? oneOrMoreTilesConverted = true : null;
-                break;
-            case "water":
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soil", "wetSoil") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "sapling", "plant") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "soilSeed", "sapling") ? oneOrMoreTilesConverted = true : null;
-                this.tryAndConvertAdjacentTiles(tilesCopy, selectedCellIndex, "wiltedPlant", "plant") ? oneOrMoreTilesConverted = true : null;
-                break;
-            default:
-        }
+        let tryTransformTile = (indexArr) => {
+            if ((indexArr[0] >= 0 && indexArr[0] <= tilesCopy.length - 1) &&
+                (indexArr[1] >= 0 && indexArr[1] <= tilesCopy[indexArr[0]].length - 1)
+               ) {
+                let tileToChange =  tilesCopy[indexArr[0]][indexArr[1]];
+                if (tileToChange.type === TileTypes.None && tile.type !== TileTypes.Water) {
+                    tilesCopy[indexArr[0]][indexArr[1]] = tile.getInstance();
+                } else{
+                    tileToChange.placeTileOntop(tile);
+                }
+            }
+        };
+
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1]]);
+        tryTransformTile([selectedCellIndex[0] - 1, selectedCellIndex[1]]);
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] - 1]);
+        tryTransformTile([selectedCellIndex[0], selectedCellIndex[1] + 1]);
+        tryTransformTile([selectedCellIndex[0] + 1, selectedCellIndex[1]]);
+
 
         this.setState({
             tiles: tilesCopy,
         });
 
-        return oneOrMoreTilesConverted;
     }
     wiltPlants = (tiles) => {
         tiles = tiles.map(row => {
@@ -345,9 +151,9 @@ class Game extends React.Component {
                     let newTile = Object.assign({}, tile);
                     newTile.status = null;
                     newTile.type = "wiltedPlant",
-                    newTile.effect = null,
-                    tile = newTile;
-                } 
+                        newTile.effect = null,
+                        tile = newTile;
+                }
                 return tile;
             });
         });
@@ -356,24 +162,22 @@ class Game extends React.Component {
     plantsAttack = (tiles) => {
         tiles.forEach((row, rowIndex) => {
             row.forEach((tile, tileIndex) => {
-                if (tile.type === "plant") {
-                    this.tryAndConvertAdjacentTiles(tiles, [rowIndex,tileIndex], "all", null);
+                if (tile.type === "plant" && tile.effect === "fire") {
+                    this.tryAndConvertAdjacentTiles(tiles, [rowIndex, tileIndex], "all", null);
                 }
             });
         });
         return tiles;
     }
     cellClicked = (index) => {
-        if (this.state.tiles[index[0]][index[1]].type === null) {
             this.setState({
                 selectedCell: index
             })
-        }
     }
-    newTileClicked = (type, e) => {
+    newTileClicked = (tile, e) => {
+        // Tile is now and object
         e.stopPropagation();
-        if (!this.transformAdjacentTiles(type))
-            this.placeTile(type);
+        this.transformAdjacentTiles(tile)
 
         this.turnSetup();
     }

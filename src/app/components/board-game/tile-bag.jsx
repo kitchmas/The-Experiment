@@ -6,8 +6,8 @@ import '../../content/css/board-game.css';
 class TileBag extends React.Component {
     render() {
         let tiles = this.props.tiles.map((tile, i) => {
-            return (<Tile key={i} type={tile.type}
-                onClick={(e) => this.props.newTileClicked(tile.type, e)} />
+            return (<Tile key={i} tile={tile}
+                onClick={(e) => this.props.newTileClicked(tile, e)} />
             )
         });
         return (

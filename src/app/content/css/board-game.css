@@ -97,7 +97,7 @@
     background-color: coral;
 }
 
-.tile-icon.sappling {
+.tile-icon.plant-tile-sapling {
     background-color: green;
 }
 
@@ -107,16 +107,21 @@
 
 .tile-icon.wet-soil-tile {
     background-color: rgb(80, 29, 29);
-    color:white;
+    color: white;
 }
 
-.tile-icon.wiltedPlant {
+.tile-icon.wilted-plant-tile {
     background-color: rosybrown;
 }
 
-.tile-icon.deadPlant {
+.tile-icon.dead-plant-tile {
     background-color: black;
-    color:white;
+    color: white;
+}
+
+.tile-icon.nested-tile {
+    width: 80%;
+    height: 80%;
 }
 
 .tile-bag {

@@ -1,4 +1,5 @@
 const TileTypes = {
+    All: "all",
     None: "none",
     Soil: "soil",
     Seed: "seed",
@@ -8,8 +9,8 @@ const TileTypes = {
     SoilSeed: "soilSeed",
     Sapling: "sapling",
     Plant: "plant",
-    WiltedPlant: "wiltedPlant",
-    DeadPlant: "deadPlant"
+    Weed: "weed",
+    Rock:"rock"
 };
 
 const PlantLifeStatus = {
@@ -20,13 +21,21 @@ const PlantLifeStatus = {
     Dead: "dead"
 };
 
+const WeedLifeStatus = {
+    Sprout: "sprout",
+    Seedling: "seedling",
+    Budding: "budding",
+    FullyGrown: "fullyGrown"
+};
+
 const SeedTypes = {
     None: "none",
     Fire: "fire",
     Water: "water",
-    willDie: "willDie"
+    willDie: "willDie",
+    Weed:"weed"
 };
 
 
 
-export { TileTypes, PlantLifeStatus, SeedTypes };
+export { TileTypes, PlantLifeStatus, SeedTypes, WeedLifeStatus };

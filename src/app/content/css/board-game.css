@@ -28,73 +28,17 @@
     align-items: center;
 }
 
-.tile-icon.fire {
-    background-color: #f22613;
-}
-
-.tile-icon.water-tile {
-    background-color: #19b5fe;
-}
-
-.tile-icon.ice {
-    background-color: #e4f1fe;
-}
-
-.tile-icon.rock {
-    background-color: brown;
-}
-
-.tile-icon.town {
-    background-color: silver;
-}
-
-.tile-icon.plant-tile {
-    background-color: green;
-}
-
-.tile-icon.glass {
-    background-color: silver;
-}
-
-.tile-icon.wood {
-    background-color: brown;
-}
-
-.tile-icon.lava {
-    background-color: red;
-}
-
-.tile-icon.obsidian {
-    background-color: black;
-    color: white;
-}
-
-.tile-icon.sand {
-    background-color: yellow;
-}
-
-.tile-icon.earth {
-    background-color: brown;
-}
-
-.tile-icon.mud {
-    background-color: brown;
-}
-
-.tile-icon.seed {
-    background-color: coral;
-}
-
 .tile-icon.soil-tile {
     background-color: brown;
 }
+
 
 .tile-icon.seed-tile {
     background-color: yellow;
 }
 
-.tile-icon.sowed-soil-tile {
-    background-color: coral;
+.tile-icon.seed-tile-fire {
+    background-color: red;
 }
 
 .tile-icon.plant-tile-sapling {
@@ -103,6 +47,10 @@
 
 .tile-icon.plant-tile {
     background-color: greenyellow;
+}
+
+.tile-icon.rock-tile {
+    background-color: gray;
 }
 
 .tile-icon.wet-soil-tile {

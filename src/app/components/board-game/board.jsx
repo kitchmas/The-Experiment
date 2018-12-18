@@ -10,7 +10,7 @@ class Board extends React.Component {
         return <Tile tile={this.props.tiles[index[0]][index[1]]} />
     }
     showTileBag = (indexMap) => {
-        if (JSON.stringify(this.props.selectedCell) === JSON.stringify(indexMap))
+        if (JSON.stringify(this.props.selectedCellIndex) === JSON.stringify(indexMap) && this.props.turnConfirmed)
             return <TileBag tiles={this.props.tileBagContent} newTileClicked={this.props.newTileClicked} />
     }
     render() {

@@ -14,7 +14,8 @@ const TileTypes = {
 };
 
 const PlantLifeStatus = {
-    Sapling: "sapling",
+    Sprout: "sprout",
+    Budding: "budding",
     FullyGrown: "fullyGrown",
     WillWilt: "willWilt",
     Wilted: "wilted",

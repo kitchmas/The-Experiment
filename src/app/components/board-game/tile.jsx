@@ -6,7 +6,7 @@ import { TileTypes } from './tile-enums';
 class Tile extends React.Component {
     renderChildContent = () => {
        if(this.props.tile.type === TileTypes.Soil && this.props.tile.hasNestedTile){
-           let x = this.props.tile.getNestedChild();
+           let x = this.props.tile.getNestedTile();
             return <div className={"nested-tile tile-icon " +  x.className}>{x.name}</div>
        } else{
            return this.props.tile.name;

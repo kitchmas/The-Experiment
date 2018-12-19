@@ -41,12 +41,32 @@
     background-color: red;
 }
 
-.tile-icon.plant-tile-sapling {
+.tile-icon.plant-tile-sprout {
+    background-color: greenyellow;
+}
+
+.tile-icon.plant-tile-budding {
     background-color: green;
 }
 
 .tile-icon.plant-tile {
     background-color: greenyellow;
+}
+
+.tile-icon.weed-tile-seedling {
+    background-color: goldenrod;
+}
+
+.tile-icon.weed-tile-sprout {
+    background-color: greenyellow;
+}
+
+.tile-icon.weed-tile-budding {
+    background-color: green;
+}
+
+.tile-icon.weed-tile-fullyGrown {
+    background-color: red;
 }
 
 .tile-icon.rock-tile {

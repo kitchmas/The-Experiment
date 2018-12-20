@@ -3,6 +3,8 @@ import React from 'react';
 import cloneDeep from 'lodash.clonedeep';
 
 import Board from '../board-game/board.jsx';
+import TileBag from '../board-game/tile-bag.jsx';
+
 import { EmptyTile, WaterTile, SoilTile, SeedTile, PlantTile, Tile, RockTile, WeedTile } from '../../helpers/microGarden/tile.js';
 import shuffle from '../../helpers/shuffle.js';
 
@@ -11,7 +13,7 @@ import { TileTypes, TileStatus, TileEffects, SeedTypes, PlantLifeStatus } from '
 class Game extends React.Component {
     state = {
         turnConfirmed: true,
-        tiles: [Array(3).fill(new EmptyTile()), Array(3).fill(new EmptyTile()), Array(3).fill(new EmptyTile())],
+        tiles: [Array(5).fill(new EmptyTile()), Array(5).fill(new EmptyTile()), Array(5).fill(new EmptyTile()), Array(5).fill(new EmptyTile()), Array(5).fill(new EmptyTile())],
         selectedCellIndex: null,
         tileBagContent: [new WaterTile(), new SoilTile(), new SeedTile()],
         score: 0,
@@ -29,11 +31,7 @@ class Game extends React.Component {
     }
     turnSetup = () => {
         let tiles = cloneDeep(this.state.tiles),
-            tileBagContent = [new WaterTile(), new SoilTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)],
-            specialTiles = [new SoilTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)];
-
-        shuffle(specialTiles);
-        tileBagContent.push(specialTiles[0]);
+            tileBagContent = [new WaterTile(), new SoilTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)];
 
         this.startGrowing(tiles);
 
@@ -62,17 +60,11 @@ class Game extends React.Component {
                 if (attack.targetType === tileToChange.type || attack.targetType === TileTypes.All) {
                     if (!attack.nestedAttack) {
                         tilesCopy[indexArr[0]][indexArr[1]] = attack.attack();
-                        this.setState((prev) => ({
-                            score: prev.score += tilesCopy[indexArr[0]][indexArr[1]].getScore()
-                        }));
                         if (tileChanged)
                             tileChanged.changed = true;
                     } else if (attack.nestedTileType === tileToChange.nestedTileType || attack.nestedTileType === TileTypes.All) {
                         tileToChange.nestedTileBeingAttacked(attack.attack());
                         tilesCopy[indexArr[0]][indexArr[1]] = tileToChange;
-                        this.setState((prev) => ({
-                            score: prev.score += tilesCopy[indexArr[0]][indexArr[1]].getScore()
-                        }));
                         if (tileChanged)
                             tileChanged.changed = true;
                     }
@@ -80,17 +72,11 @@ class Game extends React.Component {
             }
             else if (tileToChange.canReplaceTile(tile)) {
                 tilesCopy[indexArr[0]][indexArr[1]] = tile.getInstance();
-                this.setState((prev) => ({
-                    score: prev.score += tilesCopy[indexArr[0]][indexArr[1]].getScore()
-                }));
                 if (tileChanged)
                     tileChanged.changed = true;
             } else {
                 if (tileToChange.tryPlaceTileOntop(tile)) {
                     tilesCopy[indexArr[0]][indexArr[1]] = tileToChange;
-                    this.setState((prev) => ({
-                        score: prev.score += tile.getScore()
-                    }));
                     if (tileChanged)
                         tileChanged.changed = true;
                 }
@@ -135,6 +121,7 @@ class Game extends React.Component {
             row.forEach((tile, tileIndex) => {
                 if (tile.type === TileTypes.Soil && tile.canAttack()) {
                     this.transformAdjacentTiles(tiles, tile, [rowIndex, tileIndex], true);
+                    tile.finishedAttacking
                 }
             });
         });
@@ -153,7 +140,7 @@ class Game extends React.Component {
 
         e.stopPropagation();
         this.placeTile(tilesCopy, tile, tileChanged);
-        this.transformAdjacentTiles(tilesCopy, tile, this.state.selectedCellIndex, tileChanged);
+        this.transformAdjacentTiles(tilesCopy, tile, this.state.selectedCellIndex, false, tileChanged);
         this.finishGrowing(tilesCopy, tileChanged);
         this.plantsAttack(tilesCopy, tileChanged);
         rescore = this.rescore(tilesCopy, rescore);
@@ -182,20 +169,30 @@ class Game extends React.Component {
                 tilesChanged: false
             }));
     }
+    showTileBag = () => {
+        if (this.state.selectedCellIndex && this.state.turnConfirmed)
+            return
+    }
     render() {
         return (
             <div className="center-page-wrapper">
                 <div>
                     <div>Score : {this.state.score}</div>
-                    {!this.state.turnConfirmed ? <button onClick={this.confirm}>Confirm</button> : null}
-                    {!this.state.turnConfirmed ? <button onClick={this.goBack}>Back</button> : null}
-                    <Board tiles={this.state.tiles}
-                        cellClicked={this.cellClicked}
-                        newTileClicked={this.newTileClicked}
-                        selectedCellIndex={this.state.selectedCellIndex}
-                        tileBagContent={this.state.tileBagContent}
-                        turnConfirmed={this.state.turnConfirmed}
-                    />
+                    <div class="board-game-wrapper">
+
+                        {!this.state.turnConfirmed ? <button onClick={this.confirm}>Confirm</button> : null}
+                        {!this.state.turnConfirmed ? <button onClick={this.goBack}>Back</button> : null}
+                        <Board tiles={this.state.tiles}
+                            cellClicked={this.cellClicked}
+                            newTileClicked={this.newTileClicked}
+                            selectedCellIndex={this.state.selectedCellIndex}
+                            tileBagContent={this.state.tileBagContent}
+                            turnConfirmed={this.state.turnConfirmed}
+                        />
+                    </div>
+                    <div className={(this.state.selectedCellIndex && this.state.turnConfirmed) ? "" : "hidden"}>
+                        <TileBag tiles={this.state.tileBagContent} newTileClicked={this.newTileClicked} />
+                    </div>
                 </div>
             </div>
         )

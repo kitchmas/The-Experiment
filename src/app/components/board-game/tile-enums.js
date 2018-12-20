@@ -1,40 +1,39 @@
 const TileTypes = {
-    All: "all",
-    None: "none",
-    Soil: "soil",
-    Seed: "seed",
-    Water: "water",
-    WetSoil: "wetSoil",
-    SoilSeed: "soilSeed",
-    SoilSeed: "soilSeed",
-    Sapling: "sapling",
-    Plant: "plant",
-    Weed: "weed",
-    Rock:"rock"
+    All: "All",
+    None: "None",
+    Soil: "Soil",
+    Seed: "Seed",
+    Water: "Water",
+    WetSoil: "Wet Soil",
+    SoilSeed: "Soil Seed",
+    Sapling: "Sapling",
+    Plant: "Plant",
+    Weed: "Weed",
+    Rock:"Rock"
 };
 
 const PlantLifeStatus = {
-    Sprout: "sprout",
-    Budding: "budding",
-    FullyGrown: "fullyGrown",
-    WillWilt: "willWilt",
-    Wilted: "wilted",
-    Dead: "dead"
+    Sprout: "Sprout",
+    Budding: "Budding",
+    FullyGrown: "Plant",
+    WillWilt: "Will Wilt",
+    Wilted: "Wilted",
+    Dead: "Dead"
 };
 
 const WeedLifeStatus = {
-    Sprout: "sprout",
-    Seedling: "seedling",
-    Budding: "budding",
-    FullyGrown: "fullyGrown"
+    Sprout: "Sprout",
+    Seedling: "Seedling",
+    Budding: "Budding",
+    FullyGrown: "FullyGrown"
 };
 
 const SeedTypes = {
-    None: "none",
-    Fire: "fire",
-    Water: "water",
-    willDie: "willDie",
-    Weed:"weed"
+    None: "None",
+    Fire: "Fire",
+    Water: "Water",
+    WillDie: "Will Die",
+    Weed:"Weed"
 };
 
 

@@ -12,7 +12,7 @@ class TileBag extends React.Component {
         });
         return (
             <div className="tile-bag" >
-                {tiles}
+                    {tiles}
             </div>)
     }
 }

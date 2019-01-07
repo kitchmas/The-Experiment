@@ -7,6 +7,7 @@ class Tile {
     className = "tile";
     score = 0;
     canRescore = true;
+    selected = false;
     clone = function () {
         var newTile = new Tile();
         for (var key in newTile) {
@@ -36,7 +37,7 @@ class Tile {
         return false;
     }
     rescore = function () {
-        return 0;
+        return this.score;
     }
     getScore = function () {
         this.canRescore = false;

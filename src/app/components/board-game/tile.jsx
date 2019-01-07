@@ -14,7 +14,7 @@ class Tile extends React.Component {
     }
     render() {
         return (
-            <div className={"tile-icon " + this.props.tile.className} onClick={this.props.onClick}>
+            <div className={this.props.tile.selected ?  "selected-tile tile-icon " + this.props.tile.className : "tile-icon " + this.props.tile.className} onClick={this.props.onClick}>
                 {this.renderChildContent()}
             </div>
         )

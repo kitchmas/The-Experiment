@@ -14,6 +14,14 @@ body {
     font-size: 18px;
 }
 
+h1, h2, h3, h4, h5, h6, p{
+    margin-bottom: 0;
+}
+
+section p:first-of-type{
+    margin-top: 0.25em;
+}
+
 .hidden{
     visibility: hidden;
 }

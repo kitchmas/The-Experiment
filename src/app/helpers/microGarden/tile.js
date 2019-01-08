@@ -50,7 +50,7 @@ class EmptyTile extends Tile {
     constructor() {
         super();
     }
-    name = "Tile"
+    name = ""
     description = "A Simple empty tile. Dose nothing special";
     type = TileTypes.None;
     className = "empty-tile";

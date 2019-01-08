@@ -7,7 +7,6 @@ import TileBag from '../board-game/tile-bag.jsx';
 import BoardGameHelp from '../board-game/board-game-help.jsx';
 
 import { EmptyTile, WaterTile, SoilTile, SeedTile, PlantTile, Tile, RockTile, WeedTile } from '../../helpers/microGarden/tile.js';
-import shuffle from '../../helpers/shuffle.js';
 
 import { TileTypes, TileStatus, TileEffects, SeedTypes, PlantLifeStatus } from '../board-game/tile-enums.js';
 
@@ -204,8 +203,8 @@ class Game extends React.Component {
     render() {
         return (
             <div className="board-game">
-                <div className="space-between-wrapper score">
-                <div>Score : {this.state.score}</div>
+                <div className="center space-between-wrapper score-row">
+                <div className="score">Score : {this.state.score}</div>
                 <BoardGameHelp />
                 </div>
                 <div className="board-game-wrapper center" >

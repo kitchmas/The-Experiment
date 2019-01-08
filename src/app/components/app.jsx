@@ -5,6 +5,8 @@ fontAwesome.library.add(faSyncAlt);
 
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import '../content/css/main.css';
+
 import About  from './about/about.jsx';
 import Home  from './home/home.jsx';
 import Experiments  from './experiments/experiments.jsx';
@@ -19,7 +21,7 @@ import Game  from './board-game/game.jsx';
 import Mark  from './mark/mark.jsx';
 import VideoPhone  from './phone/video-phone.jsx';
 
-import '../content/css/main.css';
+
 
 class App extends React.Component {
     constructor(props) {

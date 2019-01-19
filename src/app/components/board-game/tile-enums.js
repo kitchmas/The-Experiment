@@ -9,7 +9,7 @@ const TileTypes = {
     Sapling: "Sapling",
     Plant: "Plant",
     Weed: "Weed",
-    Rock:"Rock"
+    Rock: "Rock"
 };
 
 const PlantLifeStatus = {
@@ -25,7 +25,9 @@ const WeedLifeStatus = {
     Sprout: "Sprout",
     Seedling: "Seedling",
     Budding: "Budding",
-    FullyGrown: "FullyGrown"
+    FullyGrown: "FullyGrown",
+    Wilted: "Wilted",
+    Dead: "Dead"
 };
 
 const SeedTypes = {
@@ -33,7 +35,7 @@ const SeedTypes = {
     Fire: "Fire",
     Water: "Water",
     WillDie: "Will Die",
-    Weed:"Weed"
+    Weed: "Weed"
 };
 
 

@@ -57,21 +57,7 @@
         cursor: pointer;
     }
     
-    .tile-icon:hover {
-        border: 2px solid #22a7f0;
-    }
-    
-    .board-game-wrapper .tile-icon {
-        transition: 2s;
-    }
-    
     .tile-icon .nested-tile {
-        width: 0;
-        height: 0;
-    }
-    
-    .tile-icon .nested-tile {
-        transition: 1s ease-in-out;
         flex: 0 0 90%;
         height: 90%;
     }
@@ -152,6 +138,35 @@
         background-color: #2e3131;
     }
     
+    .board .soil-tile,
+    .board .water-tile,
+    .board .soil-tile,
+    .board .soil-tile-wet,
+    .board .seed-tile,
+    .board .seed-tile-fire,
+    .board .plant-tile-sprout-fire,
+    .board .plant-tile-budding-fire,
+    .board .plant-tile-fire,
+    .board .plant-tile-sprout,
+    .board .plant-tile-budding,
+    .board .plant-tile,
+    .board .weed-tile-seedling,
+    .board .weed-tile-sprout,
+    .board .weed-tile-budding,
+    .board .weed-tile-fullyGrown,
+    .board .rock-tile,
+    .board .wilted-plant-tile,
+    .board .dead-plant-tile {
+        transition: 2s linear all;
+        animation: placed;
+        animation-duration: 2s;
+    }
+    
+    .tile-icon:hover {
+        border: 2px solid #22a7f0;
+        transition: 0;
+    }
+    
     .tile-bag {
         background-color: #2e3131;
         border-radius: 5px;
@@ -206,9 +221,20 @@
         left: 0;
         width: calc(100vw - (100vw - 100%));
         min-height: 100vh;
-        z-index: 1000;
+        ;
         background-color: #6c9;
         padding: 0 20px;
+        transition: 0.2s;
+    }
+    
+    .help-page.shown {
+        z-index: 1000;
+        animation: help-page-show;
+    }
+    
+    .help-page.hide {
+        opacity: 0;
+        z-index: -999
     }
     
     .help-page .help-page-content {
@@ -319,5 +345,14 @@
                 height: calc(20vw -12px);
                 width: calc(100vw -60px);
             }
+        }
+    }
+    
+    @keyframes placed {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
         }
     }

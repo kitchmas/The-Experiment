@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../content/css/board-game.css';
+import '../../content/css/board-game-help.css';
 
 import SelectCell from '../../content/imgs/SelectCell.png';
 import SelectTile from '../../content/imgs/SelectTile.png';
@@ -29,8 +29,7 @@ class BoardGameHelp extends React.Component {
         return (
             <div>
                 <div onClick={this.helpIconClicked} className="help-icon">?</div>
-                {this.state.showHelp ?
-                    <div className="help-page">
+                    <div className={this.state.showHelp ? "help-page shown" : "help-page hide"}>
                         <div className="help-page-content">
                             <div className="space-between-wrapper heading">
                                 <h1>Rules</h1>
@@ -138,8 +137,7 @@ class BoardGameHelp extends React.Component {
                                 </section>
                             </section>
                         </div>
-                    </div> : null
-                }
+                    </div>
             </div>
         )
     }

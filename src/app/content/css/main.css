@@ -14,15 +14,21 @@ body {
     font-size: 18px;
 }
 
-h1, h2, h3, h4, h5, h6, p{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin-bottom: 0;
 }
 
-section p:first-of-type{
+section p:first-of-type {
     margin-top: 0.25em;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
 }
 
@@ -36,7 +42,7 @@ section p:first-of-type{
     position: relative;
 }
 
-.center{
+.center {
     margin: 0 auto;
 }
 
@@ -64,7 +70,7 @@ section p:first-of-type{
     padding: 32px 20px;
 }
 
-.space-between-wrapper{
+.space-between-wrapper {
     display: flex;
     justify-content: space-between;
 }
@@ -73,9 +79,9 @@ section p:first-of-type{
     padding: 80px;
 }
 
-.experiment-button{
-    background-color:#81cfe0;
-    color:#FFFFFF;
+.experiment-button {
+    background-color: #81cfe0;
+    color: #FFFFFF;
     border-radius: 2px;
     border: 1px solid transparent;
     user-select: none;
@@ -86,28 +92,28 @@ section p:first-of-type{
 }
 
 .experiment-button:hover {
-    background-color:#6caab8;
-  }
-
-  .experiment-button:hover {
-    background-color:#6caab8;
-  }
-  
-.confirm-button{
-   background-color:#6c9;
+    background-color: #6caab8;
 }
 
-.cancel-button{
-    background-color:#e74c3c;
- }
+.experiment-button:hover {
+    background-color: #6caab8;
+}
 
- .confirm-button:hover {
-    background-color:#4e8f6e;
-  }
- 
- .cancel-button:hover {
-    background-color:#b94133;
-  }
+.confirm-button {
+    background-color: #6c9;
+}
+
+.cancel-button {
+    background-color: #e74c3c;
+}
+
+.confirm-button:hover {
+    background-color: #4e8f6e;
+}
+
+.cancel-button:hover {
+    background-color: #b94133;
+}
 
 @media(max-width:767px) {
     body {

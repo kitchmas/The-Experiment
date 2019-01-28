@@ -58,6 +58,13 @@ const Experiments = () => {
                         <span className="go">GO</span>
                     </div>
                 </Link>
+                <Link to="/micro_garden">
+                    <div className="experiment">
+                    <div></div>
+                        <span className="number">5</span>
+                        <span className="go">GO</span>
+                    </div>
+                </Link>
             </div>
         </div>
     )

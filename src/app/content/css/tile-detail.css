@@ -1,0 +1,11 @@
+.tile-detail {
+    display: flex;
+    margin-top: 1em;
+}
+
+.tile-detail .tile-icon {
+    height: 100px;
+    width: 100px;
+    flex: 0 0 100px;
+    margin-right: 0.5em;
+}

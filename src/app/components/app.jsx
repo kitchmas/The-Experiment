@@ -34,13 +34,14 @@ class App extends React.Component {
                 <NavBar />
                     {/* <Route exact path="/" component={Phone} /> */}
                     {/* <Route exact path="/" component={VideoPhone} />  */}
-                    <Route exact path="/" component={Game} />
+                    <Route exact path="/" component={Home} />
+                    <Route path="/experiments" component={Experiments} />
                     <Route path="/mimic/1" component={DiamondCopyChallenge} />
                     <Route path="/mimic/2" component={DiamondOppositeChallenge} />
                     <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
                     <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
                     <Route path="/sorter/1" component={SimpleSorter} />
-                    <Route path="/experiments" component={Experiments} />
+                    <Route path="/micro_garden" component={Game} />
                 </div>
             </BrowserRouter>
             

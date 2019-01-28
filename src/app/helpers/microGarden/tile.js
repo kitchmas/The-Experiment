@@ -84,7 +84,7 @@ class RockTile extends Tile {
         super();
     }
     name = "Rock";
-    description = "Just sits there and get's in the way. Worth 300 points though";
+    description = "Just a rock. Can only be removed by the attack of a Fire plant.";
     type = TileTypes.Rock;
     className = "rock-tile";
     score = 300;
@@ -125,7 +125,7 @@ class SoilTile extends Tile {
         super();
     }
     name = "Soil";
-    description = "Fills tiles in a + pattern with soil";
+    description = "The Soil Tile is the base that all your plant's need to grow. Sow seeds, water and watch your plants florish.";
     type = TileTypes.Soil;
     wet = false;
     watered = true;
@@ -293,7 +293,7 @@ class SeedTile extends Tile {
         }
     }
     name = "Seed";
-    description = "Sows soil with seeds in a + pattern";
+    description = "The Seed Tile will grow into Sprout when watered. Keep watering and you will end up with a Plant.";
     type = TileTypes.Seed;
     seedType = SeedTypes;
     className = "seed-tile";
@@ -322,7 +322,7 @@ class PlantTile extends Tile {
         }
     }
     name = "Plant";
-    description = "Sows soild with seeds in a + pattern";
+    description = "The end result of sowing a seed tile and watering it each turn, from a Sprout to a Plant.";
     type = TileTypes.Plant;
     plantType = SeedTypes;
     lifeStatus = PlantLifeStatus;
@@ -463,7 +463,7 @@ class WeedTile extends Tile {
         this.name = "Weed Sprout";
     }
     name = "Weed";
-    description = "Grows slower than a plant and spreads into adjacent tiles";
+    description = "A pesky little plant that will randomly sprout in empty Soil Tiles. When fully grown it will have a high chance of spreading into adjacent tiles.";
     type = TileTypes.Weed;
     plantType = SeedTypes.Weed;
     lifeStatus = WeedLifeStatus;

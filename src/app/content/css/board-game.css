@@ -215,57 +215,6 @@
         transition: 0.5s;
     }
     
-    .help-page {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100vw - (100vw - 100%));
-        min-height: 100vh;
-        ;
-        background-color: #6c9;
-        padding: 0 20px;
-        transition: 0.2s;
-    }
-    
-    .help-page.shown {
-        z-index: 1000;
-        animation: help-page-show;
-    }
-    
-    .help-page.hide {
-        opacity: 0;
-        z-index: -999
-    }
-    
-    .help-page .help-page-content {
-        max-width: 650px;
-        margin: 0 auto;
-    }
-    
-    .help-page .close {
-        position: fixed;
-        right: 14px;
-    }
-    
-    .help-page .heading {
-        align-items: center;
-    }
-    
-    .help-page .rules-img {
-        width: 100%;
-        max-width: 330px;
-        margin-top: 1em;
-    }
-    
-    .help-page section h3:first-of-type,
-    .help-page section h2:first-of-type {
-        margin-top: 1.5em;
-    }
-    
-    .help-page section h3.selecting-a-cell-heading {
-        margin-top: 1em;
-    }
-    
     @media (orientation: landscape) {
         .board-game .tile-icon {
             font-size: calc(0.6em + 1vh);
@@ -300,16 +249,6 @@
         .tile-bag {
             height: calc(15vw - 14.66);
             width: calc(75vw -73.33px);
-        }
-    }
-    
-    @media(max-width:991px) {
-        .help-page {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: calc(100vw - (100vw - 100%));
-            min-height: 100vh;
         }
     }
     

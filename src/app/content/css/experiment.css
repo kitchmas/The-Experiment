@@ -61,3 +61,24 @@
     transition: 1s;
     opacity: 0;
 }
+
+.experiments-wrapper .board:hover {
+    cursor: pointer;
+}
+
+.experiments-wrapper .board:hover~.go,
+.number:hover~.go {
+    transition: 2s;
+    opacity: 10;
+}
+
+.experiments-wrapper .board:hover~.number,
+.number:hover {
+    transition: 1s;
+    opacity: 0;
+}
+
+.experiments-wrapper .board {
+    height: 200px;
+    width: 200px;
+}

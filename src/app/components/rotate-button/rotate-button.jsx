@@ -5,7 +5,7 @@ import '../../content/css/rotate-button.css';
 const RotateButton = (props) => {
     return(
         <div onClick={() => props.rotate()} className="rotate-wrapper">
-        <i class="fas fa-sync-alt"></i>
+        <i className="fas fa-sync-alt"></i>
        </div>
     )
 }

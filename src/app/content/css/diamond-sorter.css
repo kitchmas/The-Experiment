@@ -1,3 +1,16 @@
+.carousel {
+    margin: 18px auto 0 auto;
+}
+
+.fade-wrapper {
+    margin: 18px auto 0 auto;
+}
+
+.diamond-sorter {
+    width: 200px;
+    height: 200px;
+}
+
 .diamond-sorter .red {
     background: #E74C3C;
     opacity: 0.6;
@@ -28,16 +41,10 @@
     justify-content: center;
     background: white;
     position: absolute;
-    top: 122px;
-    left: 122px;
+    top: 85px;
+    left: 85px;
 }
 
-@media(max-width:767px) {
-    .rotate-wrapper {
-        top: 85px;
-        left: 85px;
-    }
-    .rotate-wrapper .fa-sync-alt {
-        font-size: 26px;
-    }
+.rotate-wrapper .fa-sync-alt {
+    font-size: 26px;
 }

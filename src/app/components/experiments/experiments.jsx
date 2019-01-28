@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Diamond from '../diamond/diamond.jsx';
+import BoardGameIcon from '../board-game/board-game-icon.jsx';
 
 import { Link } from "react-router-dom";
 
@@ -58,9 +59,9 @@ const Experiments = () => {
                         <span className="go">GO</span>
                     </div>
                 </Link>
-                <Link to="/micro_garden">
+                <Link to="/micro_garden" style={{ textDecoration: 'none', color:'black' }}>
                     <div className="experiment">
-                    <div></div>
+                    <BoardGameIcon />
                         <span className="number">5</span>
                         <span className="go">GO</span>
                     </div>

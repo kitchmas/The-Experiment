@@ -1,6 +1,6 @@
 import React from 'react';
 
-import cloneDeep from 'lodash.clonedeep';
+import cloneDeep from 'lodash/clonedeep';
 
 import Board from '../board-game/board.jsx';
 import TileBag from '../board-game/tile-bag.jsx';

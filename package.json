@@ -1,11 +1,12 @@
 {
     "name": "the-experiment",
+    "sideEffects": false,
     "version": "1.0.0",
     "description": "A web dev scrap book",
     "main": "index.jsx",
     "scripts": {
-        "start": "npm run build",
-        "build": "webpack -d && webpack-dev-server --content-base src/ --inline --hot --port 1234 --history-api-fallback"
+        "start": "webpack-dev-server --open --config webpack.dev.config.js",
+        "build": "webpack --config webpack.prod.config.js"
     },
     "author": "me",
     "license": "ISC",
@@ -33,11 +34,17 @@
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-2": "^6.24.1",
+        "clean-webpack-plugin": "^1.0.1",
         "css-loader": "^1.0.0",
         "file-loader": "^2.0.0",
+        "html-webpack-plugin": "^3.2.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.1",
         "style-loader": "^0.22.1",
+        "uglifyjs-webpack-plugin": "^2.1.1",
         "url-loader": "^1.1.2",
         "webpack": "^4.16.2",
-        "webpack-dev-server": "^3.1.5"
+        "webpack-bundle-analyzer": "^3.0.3",
+        "webpack-dev-server": "^3.1.5",
+        "webpack-merge": "^4.2.1"
     }
 }

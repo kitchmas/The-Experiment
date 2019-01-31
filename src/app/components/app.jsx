@@ -1,9 +1,10 @@
 import React from 'react';
-import fontAwesome from '@fortawesome/fontawesome'
+import {library} from '@fortawesome/fontawesome/index'
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
-fontAwesome.library.add(faSyncAlt);
+library.add(faSyncAlt);
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
+import Route  from 'react-router-dom/Route';
 
 import '../content/css/main.css';
 
@@ -18,8 +19,8 @@ import SimpleSorter from './shape-sorter/simple-sorter-challenge.jsx';
 
 
 import Game  from './board-game/game.jsx';
-import Mark  from './mark/mark.jsx';
-import VideoPhone  from './phone/video-phone.jsx';
+// import Mark  from './mark/mark.jsx';
+// import VideoPhone  from './phone/video-phone.jsx';
 
 
 
@@ -49,4 +50,4 @@ class App extends React.Component {
     }
 }
 
-export {App}
+export default App

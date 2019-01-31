@@ -1,5 +1,5 @@
 import React from 'react';
-import DragScroll from 'react-dragscroll';
+import DragScroll from 'react-dragscroll/lib/DragScroll';
 
 import '../../content/css/carousel.css';
 

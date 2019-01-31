@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 
-import { App } from './components/app.jsx';
+import App from './components/app.jsx';
 
 class Index extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class Index extends React.Component {
     }
     render() {
         return (
-                <App />
+            <App />
         );
     }
 }

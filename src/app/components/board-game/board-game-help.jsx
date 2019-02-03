@@ -1,22 +1,22 @@
 import React from 'react';
 
-import '../../content/css/board-game-help.css';
+import '../../../content/css/board-game-help.css';
 
-import SelectCell from '../../content/imgs/SelectCell.png';
-import SelectTile from '../../content/imgs/SelectTile.png';
-import ConfirmTile from '../../content/imgs/ConfirmTile.png';
-import SeedSoil from '../../content/imgs/SeedSoil.png';
-import WetSoil from '../../content/imgs/WetSoil.png';
-import Plant from '../../content/imgs/Plant.png';
-import Budding from '../../content/imgs/Budding.png';
-import Sprout from '../../content/imgs/Sprout.png';
-import Dead from '../../content/imgs/Dead.png';
-import Wilted from '../../content/imgs/Wilted.png';
-import FireAttack from '../../content/imgs/FireAttack.png';
-import WeedFullyGrown from '../../content/imgs/WeedFullyGrown.png';
-import WeedOvergrown from '../../content/imgs/WeedOvergrown.png';
-import WeedSpreading from '../../content/imgs/WeedSpreading.png';
-import WeedSprout from '../../content/imgs/WeedSprout.png';
+import SelectCell from '../../../content/imgs/SelectCell.png';
+import SelectTile from '../../../content/imgs/SelectTile.png';
+import ConfirmTile from '../../../content/imgs/ConfirmTile.png';
+import SeedSoil from '../../../content/imgs/SeedSoil.png';
+import WetSoil from '../../../content/imgs/WetSoil.png';
+import Plant from '../../../content/imgs/Plant.png';
+import Budding from '../../../content/imgs/Budding.png';
+import Sprout from '../../../content/imgs/Sprout.png';
+import Dead from '../../../content/imgs/Dead.png';
+import Wilted from '../../../content/imgs/Wilted.png';
+import FireAttack from '../../../content/imgs/FireAttack.png';
+import WeedFullyGrown from '../../../content/imgs/WeedFullyGrown.png';
+import WeedOvergrown from '../../../content/imgs/WeedOvergrown.png';
+import WeedSpreading from '../../../content/imgs/WeedSpreading.png';
+import WeedSprout from '../../../content/imgs/WeedSprout.png';
 
 import {  WaterTile, SoilTile, SeedTile, PlantTile, RockTile, WeedTile } from '../../helpers/microGarden/tile.js';
 import { TileTypes, TileStatus, TileEffects, SeedTypes, PlantLifeStatus } from '../board-game/tile-enums.js';

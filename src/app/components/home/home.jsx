@@ -1,7 +1,7 @@
 import React from 'react';
-import NavLink from 'react-router-dom/NavLink';
+const NavLink = require('react-router-dom').NavLink;
 
-import '../../content/css/home.css';
+import '../../../content/css/home.css';
 
 class Home extends React.Component {
     render() {

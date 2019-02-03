@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../content/css/board-game.css';
+import '../../../content/css/board-game.css';
 import { TileTypes } from './tile-enums';
 
 class Tile extends React.Component {

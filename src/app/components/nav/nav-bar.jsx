@@ -1,10 +1,8 @@
 import React from 'react';
+const NavLink = require('react-router-dom').NavLink;
 
-import NavLink from 'react-router-dom/NavLink';
-
-
-import '../../content/css/nav.css';
-import '../../content/css/diamond-menu.css';
+import '../../../content/css/nav.css';
+import '../../../content/css/diamond-menu.css';
 
 import Diamond from '../diamond/diamond.jsx';
 

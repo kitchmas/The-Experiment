@@ -41,7 +41,17 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: 'images[name].[ext]',
+                        outputPath: 'images',
+                    },
+                }, ],
+            },
+            {
+                test: /\.(woff|woff2)(\?.*)?$/,
                 use: [{
                     loader: 'url-loader',
                     options: {

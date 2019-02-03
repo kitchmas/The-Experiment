@@ -3,7 +3,7 @@ import React from 'react';
 import Tile from '../board-game/tile.jsx';
 
 
-import '../../content/css/board-game.css';
+import '../../../content/css/board-game.css';
 
 class Board extends React.Component {
     renderTile = (index) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import DragScroll from 'react-dragscroll/lib/DragScroll';
 
-import '../../content/css/carousel.css';
+import '../../../content/css/carousel.css';
 
 const Carousel = ({items}) => {
     return (

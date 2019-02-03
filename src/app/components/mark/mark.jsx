@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../content/css/mark.css';
+import '../../../content/css/mark.css';
 
 class Mark extends React.Component {
     render() {

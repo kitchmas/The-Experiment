@@ -7,8 +7,8 @@ import Diamond from '../diamond/diamond.jsx'
 import Carousel from '../carousel/carousel.jsx'
 import RotateButton from '../rotate-button/rotate-button.jsx'
 
-import '../../content/css/diamond-sorter.css';
-import '../../content/css/diamond-palette.css';
+import '../../../content/css/diamond-sorter.css';
+import '../../../content/css/diamond-palette.css';
 
 class SimpleSorter extends React.Component {
     state = {

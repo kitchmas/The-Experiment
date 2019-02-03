@@ -2,10 +2,11 @@ import React from 'react';
 
 import shuffle from '../../helpers/shuffle.js'
 
-import Diamond  from '../diamond/diamond.jsx';
-import '../../content/css/diamond-animation.css';
+import Diamond from '../diamond/diamond.jsx';
+import '../../../content/css/diamond-animation.css';
 
 class DiamondOddOneOutChallenge extends React.Component {
+    _isMounted = false;
     state = {
         clickOrder: [],
         currentClickOrder: [],
@@ -15,15 +16,23 @@ class DiamondOddOneOutChallenge extends React.Component {
     }
     animateDiamondClassColors = ["play-red-inf", "play-blue-inf", "play-green-inf", "play-black-inf"];
     componentDidMount = () => {
-        this.setState({
-            animateDiamondClass: "rotate-to-black",
-        }, () => {
-            setTimeout(() => {
-                this.resetGame();
-            }, 4000);
-        });
-    }
+        this._isMounted = true;
 
+        if (this._isMounted) {
+            this.setState({
+                animateDiamondClass: "rotate-to-black",
+            }, () => {
+                setTimeout(() => {
+                    if (this._isMounted) {
+                        this.resetGame();
+                    }
+                }, 4000);
+            });
+        }
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     playAnimation = () => {
         var that = this;
         that.setState({ locked: true });

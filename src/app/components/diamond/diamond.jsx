@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../content/css/diamond.css';
+import '../../../content/css/diamond.css';
 
 class Diamond extends React.Component {
     mainDiamondClicked = () => {

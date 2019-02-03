@@ -3,13 +3,14 @@ import React from 'react';
 import shuffle from '../../helpers/shuffle.js'
 
 import  Diamond  from '../diamond/diamond.jsx';
-import '../../content/css/diamond-animation.css';
+import '../../../content/css/diamond-animation.css';
 
 
 class DiamondCopyChallenge extends React.Component {
     constructor(props) {
         super(props);
     }
+    _isMounted = false;
     state = {
         clickOrder: [],
         currentClickOrder: [],
@@ -19,11 +20,16 @@ class DiamondCopyChallenge extends React.Component {
     }
     animateDiamondClassColors = ["play-red-inf", "play-blue-inf", "play-green-inf", "play-black-inf"];
     componentDidMount = () => {
+        this._isMounted = true;
         setTimeout( () => {
+            if (this._isMounted) {
             this.resetGame();
+            }
         },5000);
-       
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+      }
     playAnimation = () => {
         var that = this;
         that.setState({ locked: true });
@@ -101,17 +107,21 @@ class DiamondCopyChallenge extends React.Component {
                 this.resetGame();
             }, 1000);
         } else {
-            this.props.history.push("/mimic/2")
+            setTimeout(() => {
+                this.props.history.push("/mimic/2")
+            }, 1000);
+           
         }
     }
     gameOver = () => {
         this.setState({
             animateDiamondClass: "failure",
             currentClickOrder: []
+        },() => {
+            setTimeout(() => {
+                this.playAnimation();
+            }, 1000);
         });
-        setTimeout(() => {
-            this.playAnimation();
-        }, 1000);
     }
     redClicked = () => {
         if (!this.state.locked) {

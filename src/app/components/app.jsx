@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+
 import {library} from '@fortawesome/fontawesome/index'
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
 library.add(faSyncAlt);
 
-import BrowserRouter from 'react-router-dom/BrowserRouter';
-import Route  from 'react-router-dom/Route';
+const BrowserRouter = require('react-router-dom').BrowserRouter;
+const Route  = require('react-router-dom').Route;
 
-import '../content/css/main.css';
+import '../../content/css/main.css';
 
-import About  from './about/about.jsx';
-import Home  from './home/home.jsx';
-import Experiments  from './experiments/experiments.jsx';
-import NavBar  from './nav/nav-bar.jsx';
-import DiamondCopyChallenge  from './mimic/diamond-copy-challenge.jsx';
-import DiamondOppositeChallenge  from './mimic/diamond-opposite-challenge.jsx';
-import DiamondOddOneOutChallenge  from './mimic/diamond-odd-one-out-challenge.jsx';
-import SimpleSorter from './shape-sorter/simple-sorter-challenge.jsx';
-
-
-import Game  from './board-game/game.jsx';
+// const About = lazy(() => import('./about/about.jsx'));
+const Home   = lazy(() => import('./home/home.jsx'));
+const Experiments  = lazy(() => import('./experiments/experiments.jsx'));
+const NavBar   = lazy(() => import( './nav/nav-bar.jsx'));
+const DiamondCopyChallenge   = lazy(() => import( './mimic/diamond-copy-challenge.jsx'));
+const DiamondOppositeChallenge   = lazy(() => import( './mimic/diamond-opposite-challenge.jsx'));
+const DiamondOddOneOutChallenge   = lazy(() => import( './mimic/diamond-odd-one-out-challenge.jsx'));
+const SimpleSorter  = lazy(() => import( './shape-sorter/simple-sorter-challenge.jsx'));
+const Game  = lazy(() => import( './board-game/game.jsx'));
 // import Mark  from './mark/mark.jsx';
 // import VideoPhone  from './phone/video-phone.jsx';
 
@@ -31,6 +30,7 @@ class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
                 <div>
                 <NavBar />
                     {/* <Route exact path="/" component={Phone} /> */}
@@ -44,6 +44,7 @@ class App extends React.Component {
                     <Route path="/sorter/1" component={SimpleSorter} />
                     <Route path="/micro_garden" component={Game} />
                 </div>
+                </Suspense>
             </BrowserRouter>
             
         );

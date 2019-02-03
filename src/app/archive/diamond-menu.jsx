@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './content/css/diamond-menu.css';
+import '../../../content/css/diamond-menu.css';
 
 class DiamondMenu extends React.Component{
     render(){

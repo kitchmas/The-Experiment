@@ -3,9 +3,9 @@ import React from 'react';
 import Diamond from '../diamond/diamond.jsx';
 import BoardGameIcon from '../board-game/board-game-icon.jsx';
 
-import Link  from "react-router-dom/Link";
+const Link  =  require('react-router-dom').Link;
 
-import '../../content/css/experiment.css';
+import '../../../content/css/experiment.css';
 
 
 const Experiments = () => {

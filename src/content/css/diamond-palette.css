@@ -5,20 +5,19 @@
     display: flex;
     flex-wrap: wrap;
     transform: rotate(45deg);
-    background: transparent;
 }
 
 .diamond-holder-pallete .diamond {
     height: 57px;
     width: 57px;
-    margin: 4px
+    margin: 5px
 }
 
 .diamond-holder-pallete .red {
     background: #E74C3C;
 }
 
- .diamond-holder-pallete .blue {
+.diamond-holder-pallete .blue {
     background: #81CFE0;
 }
 
@@ -26,10 +25,10 @@
     background: #66CC99;
 }
 
- .diamond-holder-pallete .black {
+.diamond-holder-pallete .black {
     background: #4D4D4D;
 }
 
-.selected{
+.selected {
     opacity: 0.7;
 }

@@ -7,6 +7,9 @@
     list-style: none;
     height: 56px;
     align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 
 .nav-bar li {
@@ -55,7 +58,6 @@
 @media(max-width:767px) {
     .nav-bar {
         height: 40px;
-        align-items: center;
     }
     .nav-bar li:first-child {
         width: 80px;

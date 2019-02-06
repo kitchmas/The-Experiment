@@ -158,7 +158,7 @@ class SoilTile extends Tile {
     }
     tryGrowWeed = function() {
         if (!this.planted && !this.sowed) {
-            if ((Math.floor(Math.random() * 6) + 1) === 1) {
+            if ((Math.floor(Math.random() * 25) + 1) === 1) {
                 this.growWeed();
             }
         }
@@ -488,7 +488,12 @@ class WeedTile extends Tile {
         }
     }
     canAttack = function() {
-        return this.lifeStatus === WeedLifeStatus.FullyGrown;
+        debugger;
+        if ((Math.floor(Math.random() * 2) + 1) === 1) {
+            return this.lifeStatus === WeedLifeStatus.FullyGrown;
+        }
+        return false;
+
     }
     wiltPlant = function() {
 

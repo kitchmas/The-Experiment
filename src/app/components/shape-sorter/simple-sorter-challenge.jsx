@@ -9,6 +9,7 @@ import RotateButton from '../rotate-button/rotate-button.jsx'
 
 import '../../../content/css/diamond-sorter.css';
 import '../../../content/css/diamond-palette.css';
+import '../../../content/css/diamond-animation.css';
 
 class SimpleSorter extends React.Component {
     state = {
@@ -73,7 +74,7 @@ class SimpleSorter extends React.Component {
             diamondSorterContent[3].value === answerPatterns[3]
         ) {
             this.setState((prev) => ({
-                animateDiamondClass: prev.animateDiamondClass === "" || prev.animateDiamondClass === "success" ? "success-toggle" : "success"
+                animateDiamondClass: prev.animateDiamondClass === "" || prev.animateDiamondClass === "success" || prev.animateDiamondClass === "success-toggle" ? "success-toggle" : "success"
             }));
 
             if (gamePhase === 6) {

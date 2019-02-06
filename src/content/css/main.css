@@ -28,6 +28,10 @@ section p:first-of-type {
     margin-top: 0.25em;
 }
 
+.content {
+    padding-top: 48px;
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -65,7 +69,7 @@ section p:first-of-type {
 }
 
 .content-wrapper {
-    max-width: 980px;
+    max-width: 1130px;
     margin: 0 auto;
     padding: 32px 20px;
 }
@@ -118,6 +122,9 @@ section p:first-of-type {
 @media(max-width:767px) {
     body {
         font-size: 16px;
+    }
+    .content {
+        padding-top: 46px;
     }
     .content-wrapper {
         padding: 16px 20px;

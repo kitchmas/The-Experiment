@@ -7,6 +7,13 @@
     box-sizing: border-box;
 }
 
+:root{
+    --diamond-red:#E74C3C;
+    --diamond-blue: #81CFE0;
+    --diamond-green:#66CC99;
+    --diamond-black:#4D4D4D;
+}
+
 body {
     background: #e4e9ed;
     font-family: SpaceGrotesk, sans-serif;

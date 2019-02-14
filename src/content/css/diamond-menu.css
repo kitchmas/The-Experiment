@@ -34,7 +34,7 @@
 }
 
 .diamond-menu .item1 {
-    background: #E74C3C;
+    background:  var(--diamond-red);
     margin-bottom: 0;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .diamond-menu .item2 {
-    background: #81CFE0;
+    background:var(--diamond-blue);
     margin-left: 0;
     margin-bottom: 0;
 }
@@ -53,7 +53,7 @@
 }
 
 .diamond-menu .item3 {
-    background: #66CC99;
+    background:var(--diamond-green);
 }
 
 .diamond-menu .item3:hover {
@@ -61,7 +61,7 @@
 }
 
 .diamond-menu .item4 {
-    background: #4D4D4D;
+    background: var(--diamond-black);
     margin-left: 0;
 }
 

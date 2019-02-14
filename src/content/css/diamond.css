@@ -21,19 +21,19 @@
 }
 
 .diamond-red {
-    background: #E74C3C;
+    background: var(--diamond-red);
 }
 
 .diamond-blue {
-    background: #81CFE0;
+    background: var(--diamond-blue);
 }
 
 .diamond-green {
-    background: #66CC99;
+    background: var(--diamond-green);
 }
 
 .diamond-black {
-    background: #4D4D4D;
+    background: var(--diamond-black);
 }
 
 .diamond-holder .diamond:first-child {

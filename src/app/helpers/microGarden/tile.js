@@ -158,7 +158,8 @@ class SoilTile extends Tile {
     }
     tryGrowWeed = function() {
         if (!this.planted && !this.sowed) {
-            if ((Math.floor(Math.random() * 25) + 1) === 1) {
+            var x = Math.floor(Math.random() * 25) + 1;
+            if (x === 1) {
                 this.growWeed();
             }
         }
@@ -205,6 +206,7 @@ class SoilTile extends Tile {
             this.watered = false;
         } else if (this.wet) {
             this.wet = false;
+            this.name = "Soil"
             this.className = "soil-tile";
         } else if (!this.watered && !this.wet && this.planted) {
             this.plant.wiltPlant();
@@ -281,6 +283,14 @@ class SoilTile extends Tile {
         this.canRescore = false;
         return score;
     }
+    canReplaceTile = function(tile) {
+        switch (tile.type) {
+            case TileTypes.Rock:
+                return !this.hasNestedTile;
+            default:
+                return false;
+        }
+    }
 }
 
 class SeedTile extends Tile {
@@ -344,7 +354,7 @@ class PlantTile extends Tile {
     attack = function() {
         if (this.plantType === SeedTypes.Fire) {
             return {
-                attack: function() { return new EmptyTile() },
+                attack: function() { return new SoilTile() },
                 targetType: TileTypes.All,
                 nestedAttack: false,
                 nestedTileType: null
@@ -488,7 +498,6 @@ class WeedTile extends Tile {
         }
     }
     canAttack = function() {
-        debugger;
         if ((Math.floor(Math.random() * 2) + 1) === 1) {
             return this.lifeStatus === WeedLifeStatus.FullyGrown;
         }

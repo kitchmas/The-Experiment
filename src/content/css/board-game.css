@@ -1,3 +1,7 @@
+    .board-game * {
+        user-select: none;
+    }
+    
     .board-game {
         margin-top: 18px;
     }
@@ -43,10 +47,6 @@
         margin: 2px;
     }
     
-    .board .board-cell .selected-tile {
-        border: 2px solid #22a7f0;
-    }
-    
     .tile-icon {
         flex: 1;
         border-radius: 5px;
@@ -55,6 +55,7 @@
         align-items: center;
         text-align: center;
         cursor: pointer;
+        word-spacing: 9999999px;
     }
     
     .tile-icon .nested-tile {
@@ -162,16 +163,12 @@
         animation-duration: 2s;
     }
     
-    .tile-icon:hover {
-        border: 2px solid #22a7f0;
-        transition: 0;
-    }
-    
     .tile-bag {
         background-color: #2e3131;
         border-radius: 5px;
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-evenly;
     }
     
     .tile-bag .square {
@@ -213,6 +210,28 @@
     .board-game .help-icon:hover {
         background: #2e2e2e;
         transition: 0.5s;
+    }
+    
+    .tile-icon:hover {
+        border: 4px solid #22a7f0;
+        opacity: 2;
+        transition: 0.1s;
+    }
+    
+    .board .board-cell .selected-tile {
+        border: 4px solid #22a7f0;
+        transition: 0.1s;
+    }
+    
+    .restart {
+        font-weight: bold;
+        color: #24252a;
+    }
+    
+    .restart:hover {
+        transition: 1s;
+        cursor: pointer;
+        color: #bfbfbf;
     }
     
     @media (orientation: landscape) {

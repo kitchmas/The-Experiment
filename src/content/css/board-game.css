@@ -138,6 +138,23 @@
     .tile-icon.dead-plant-tile {
         background-color: #2e3131;
     }
+
+    #destroyed.tile-icon::before{
+        content:"🔥";
+        z-index: 100;
+        position: absolute;
+        font-size: 2em;
+        font-weight: bold;
+        color: white;
+    }
+
+    #destroyed.tile-icon{
+        background-color: #cf000f;
+    }
+
+    #changed.tile-icon{
+        border: 4px solid white;
+    }
     
     .board .soil-tile,
     .board .water-tile,
@@ -158,9 +175,9 @@
     .board .rock-tile,
     .board .wilted-plant-tile,
     .board .dead-plant-tile {
-        transition: 2s linear all;
+        transition: 0.5s linear all;
         animation: placed;
-        animation-duration: 2s;
+        animation-duration: 1s;
     }
     
     .tile-bag {
@@ -223,16 +240,10 @@
         transition: 0.1s;
     }
     
-    .restart {
-        font-weight: bold;
-        color: #24252a;
+    .retry {
+        font-size: 2em;
     }
-    
-    .restart:hover {
-        transition: 1s;
-        cursor: pointer;
-        color: #bfbfbf;
-    }
+  
     
     @media (orientation: landscape) {
         .board-game .tile-icon {

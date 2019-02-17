@@ -6,8 +6,9 @@ class Tile {
     type = TileTypes.None;
     className = "tile";
     score = 0;
-    canRescore = true;
+    canRescore = false;
     selected = false;
+    destroyed = false;
     clone = function() {
         var newTile = new Tile();
         for (var key in newTile) {
@@ -87,7 +88,8 @@ class RockTile extends Tile {
     description = "Just a rock. Can only be removed by the attack of a Fire plant.";
     type = TileTypes.Rock;
     className = "rock-tile";
-    score = 300;
+    score = 150;
+    canRescore = true;
     clone = function() {
         var newTile = new RockTile();
         for (var key in newTile) {
@@ -97,6 +99,13 @@ class RockTile extends Tile {
     }
     getInstance = function() {
         return new RockTile();
+    }
+    rescore = function() {
+        if (this.canRescore) {
+            return this.score;
+        }
+        return 0;
+     
     }
 }
 
@@ -136,7 +145,7 @@ class SoilTile extends Tile {
     hasNestedTile = false;
     nestedTileType = TileTypes.None;
     className = "soil-tile";
-    score = 10;
+    score = 0;
     clone = function() {
         var newTile = new SoilTile();
         for (var key in newTile) {
@@ -274,9 +283,6 @@ class SoilTile extends Tile {
     }
     rescore = function() {
         let score = 0;
-        if (this.canRescore) {
-            score += this.score;
-        }
         if (this.hasNestedTile) {
             score += this.getNestedTile().rescore();
         }
@@ -303,11 +309,11 @@ class SeedTile extends Tile {
         }
     }
     name = "Seed";
-    description = "The Seed Tile will grow into Sprout when watered. Keep watering and you will end up with a Plant.";
+    description = "The Seed Tile will grow into Sprout when watered. Keep watering and you will end up with a Plant and score the Max Score for the tile. Will keep rescoring when watered at -25 points per water";
     type = TileTypes.Seed;
     seedType = SeedTypes;
     className = "seed-tile";
-    score = 20;
+    score = 0;
     clone = function() {
         var newTile = new SeedTile();
         for (var key in newTile) {
@@ -317,6 +323,12 @@ class SeedTile extends Tile {
     }
     getInstance = function() {
         return new SeedTile();
+    }
+    getScore = function(){
+        if (this.seedType != SeedTypes.None) {
+            return 50;
+        }
+        return 100
     }
 }
 
@@ -329,6 +341,8 @@ class PlantTile extends Tile {
         if (seed.seedType != SeedTypes.None) {
             this.className += '-' + seed.seedType.toLowerCase();
             this.name = seed.seedType + " Sprout";
+            this.score = 50;
+            this.maxScore = 50;
         }
     }
     name = "Plant";
@@ -338,7 +352,7 @@ class PlantTile extends Tile {
     lifeStatus = PlantLifeStatus;
     statusBeforeWilt = null;
     className = "plant-tile-sprout";
-    score = 10;
+    score = 100;
     maxScore = 100;
     attacked = false;
     clone = function() {
@@ -371,27 +385,23 @@ class PlantTile extends Tile {
                 this.lifeStatus = PlantLifeStatus.Wilted;
                 this.className = "wilted-plant-tile";
                 this.name = "Wilted";
-                this.score = 0;
                 break;
             case PlantLifeStatus.Budding:
                 this.statusBeforeWilt = this.lifeStatus;
                 this.lifeStatus = PlantLifeStatus.Wilted;
                 this.className = "wilted-plant-tile";
                 this.name = "Wilted";
-                this.score = 0;
                 break;
             case PlantLifeStatus.FullyGrown:
                 this.statusBeforeWilt = this.lifeStatus;
                 this.lifeStatus = PlantLifeStatus.Wilted;
                 this.className = "wilted-plant-tile";
                 this.name = "Wilted";
-                this.score = 0;
                 break;
             case PlantLifeStatus.Wilted:
                 this.lifeStatus = PlantLifeStatus.Dead;
                 this.className = "dead-plant-tile";
                 this.name = "Dead";
-                this.score = 0;
                 break;
             default:
                 return false;
@@ -403,19 +413,15 @@ class PlantTile extends Tile {
                 this.lifeStatus = PlantLifeStatus.Budding;
                 if (this.plantType != SeedTypes.None) {
                     this.className = "plant-tile-budding-" + this.plantType.toLowerCase();
-                    this.name = this.plantType + " Budding";
+                    this.name = this.plantType + " Bud";
                 } else {
                     this.className = "plant-tile-budding";
-                    this.name = "Budding";
-                }
-
-                if (this.plantType === SeedTypes.None) {
-                    this.score = 20;
-                    this.canRescore = true;
+                    this.name = "Bud";
                 }
                 break;
             case PlantLifeStatus.Budding:
                 this.lifeStatus = PlantLifeStatus.FullyGrown;
+                this.canRescore = true;
                 if (this.plantType != SeedTypes.None) {
                     this.className = "plant-tile-" + this.plantType.toLowerCase();
                     this.name = this.plantType + " Plant";
@@ -423,15 +429,14 @@ class PlantTile extends Tile {
                     this.className = "plant-tile";
                     this.name = "Plant";
                 }
-                if (this.plantType === SeedTypes.None) {
-                    this.score = this.maxScore;
-                    this.canRescore = true;
-                }
                 break;
             case PlantLifeStatus.Wilted:
                 this.lifeStatus = this.statusBeforeWilt;
                 if (this.plantType != SeedTypes.None) {
                     if (this.lifeStatus === PlantLifeStatus.FullyGrown) {
+                        this.maxScore - 25;
+                        this.score = this.maxScore;
+                        this.canRescore = true;
                         this.className = "plant-tile" + "-" + this.plantType.toLowerCase();
                     } else {
                         this.className = "plant-tile" + '-' + this.lifeStatus.toLowerCase() + "-" + this.plantType.toLowerCase();
@@ -441,29 +446,31 @@ class PlantTile extends Tile {
                 } else {
                     if (this.lifeStatus === PlantLifeStatus.FullyGrown) {
                         this.className = "plant-tile";
+                        this.maxScore - 25;
+                        this.score = this.maxScore;
+                        this.canRescore = true;
                     } else {
                         this.className = "plant-tile" + '-' + this.lifeStatus;
                     }
 
                     this.name = this.lifeStatus;
                 }
-                if (this.plantType === SeedTypes.None && this.lifeStatus === PlantLifeStatus.FullyGrown) {
-                    this.maxScore - 25;
-                    this.score = this.maxScore;
-                    this.canRescore = true;
-                }
                 break;
+                case PlantLifeStatus.FullyGrown:
+                this.maxScore -= 25;
+                this.score = this.maxScore;
+                this.canRescore = true;
             default:
                 return false;
         }
     }
     rescore = function() {
-        if (this.canRescore) {
-            this.canRescore = false;
+        if (this.canRescore && this.score > 0) {
             return this.score;
         }
         return 0;
     }
+   
 }
 
 class WeedTile extends Tile {
@@ -478,7 +485,7 @@ class WeedTile extends Tile {
     plantType = SeedTypes.Weed;
     lifeStatus = WeedLifeStatus;
     className = "weed-tile-sprout";
-    score = -10;
+    score = 0;
     clone = function() {
         var newTile = new WeedTile();
         for (var key in newTile) {
@@ -499,11 +506,8 @@ class WeedTile extends Tile {
     }
     canAttack = function() {
         return this.lifeStatus === WeedLifeStatus.FullyGrown;
-        return false;
-
     }
     wiltPlant = function() {
-
         switch (this.lifeStatus) {
             case WeedLifeStatus.FullyGrown:
                 this.lifeStatus = WeedLifeStatus.Wilted;
@@ -531,7 +535,7 @@ class WeedTile extends Tile {
             case WeedLifeStatus.Seedling:
                 this.lifeStatus = WeedLifeStatus.Budding;
                 this.className = "weed-tile-budding";
-                this.name = "Weed budding";
+                this.name = "Weed Bud";
                 break;
             case WeedLifeStatus.Budding:
                 this.lifeStatus = WeedLifeStatus.FullyGrown;

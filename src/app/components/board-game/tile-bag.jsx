@@ -6,7 +6,7 @@ import '../../../content/css/board-game.css';
 class TileBag extends React.Component {
     render() {
         let tiles = this.props.tiles.map((tile, i) => {
-            return (<div  key={i} className="square"><Tile tile={tile}
+            return (<div  key={i} className="square"><Tile tile={tile} isTileBag={true}
                 onClick={(e) => this.props.newTileClicked(tile, e)} />
                 </div>
             )

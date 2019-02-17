@@ -19,7 +19,7 @@ class Game extends React.Component {
         [new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile()],
         [new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile()]],
         selectedCellIndex: null,
-        tileBagContent: [new WaterTile(), new SoilTile(), new SeedTile()],
+        tileBagContent: [new WaterTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)],
         score: 0,
         previousScore: 0,
         tilesChanged: false,
@@ -33,7 +33,7 @@ class Game extends React.Component {
             tiles: tiles,
         });
     }
-    restart = () =>{
+    restart = () => {
         this.setState({
             turnConfirmed: true,
             tiles: [[new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile()],
@@ -42,7 +42,7 @@ class Game extends React.Component {
             [new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile()],
             [new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile(), new SoilTile()]],
             selectedCellIndex: null,
-            tileBagContent: [new WaterTile(), new SoilTile(), new SeedTile()],
+            tileBagContent: [new WaterTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)],
             score: 0,
             previousScore: 0,
             tilesChanged: false,
@@ -51,20 +51,23 @@ class Game extends React.Component {
     }
     turnSetup = () => {
         let tiles = cloneDeep(this.state.tiles),
-            tileBagContent = [new WaterTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)];
+            tileBagContent = [new WaterTile(), new SeedTile(), new RockTile(), new SeedTile(SeedTypes.Fire)],
+            gameOver = true;
 
-        let gameOver = true;
-        
         for (let i = 0; i < tiles.length; i++) {
             for (let j = 0; j < tiles[i].length; j++) {
-                console.log(tiles[i][j]);
+                tiles[i][j].destroyed = false;
+                tiles[i][j].canRescore = false;
                 if (tiles[i][j].type === TileTypes.Rock || tiles[i][j].type === TileTypes.Soil && tiles[i][j].hasNestedTile) {
+                    if (tiles[i][j].hasNestedTile) {
+                        tiles[i][j].getNestedTile().canRescore = false;
+                    }
                     continue;
                 } else {
                     gameOver = false;
                 }
             }
-        }
+        } 
 
         if (gameOver) {
             this.setState({
@@ -99,6 +102,7 @@ class Game extends React.Component {
                 if (attack && attack.targetType === tileToChange.type || attack.targetType === TileTypes.All) {
                     if (!attack.nestedAttack) {
                         tilesCopy[indexArr[0]][indexArr[1]] = attack.attack();
+                        tilesCopy[indexArr[0]][indexArr[1]].destroyed = true;
                         if (tileChanged)
                             tileChanged.changed = true;
                     } else if (attack.nestedTileType === tileToChange.nestedTileType || attack.nestedTileType === TileTypes.All) {
@@ -196,7 +200,7 @@ class Game extends React.Component {
             row.forEach((tile, tileIndex) => {
                 if (tile.type === TileTypes.Soil && tile.canAttack()) {
                     this.transformAdjacentTiles(tiles, tile, [rowIndex, tileIndex], true);
-                    tile.finishedAttacking
+                    tile.finishedAttacking();
                 }
             });
         });
@@ -252,7 +256,8 @@ class Game extends React.Component {
                 tiles: prevState.previousTurn,
                 turnConfirmed: true,
                 score: prevState.previousScore,
-                tilesChanged: false
+                tilesChanged: false,
+                selectedCellIndex:null
             }));
     }
     showTileBag = () => {
@@ -264,19 +269,19 @@ class Game extends React.Component {
         if (this.state.gameOver) {
             content = <div className="board-game">
                 <div className="center space-between-wrapper score-row">
-                 <span></span>   <BoardGameHelp />
+                    <span></span>   <BoardGameHelp />
                 </div>
-                <div> 
-                    <h1 className="center-text">GAME OVER</h1>
+                <div className="center-text">
+                    <h1 className="center-text">OVER <b />GROWN</h1>
                     <h1 className="center-text">SCORE: {this.state.score}</h1>
-                    <h1 onClick={() => this.restart()} className="center-text restart">RETRY?</h1>
+                    <button className="retry experiment-button cancel-button margin-top-default" onClick={this.restart}>RETRY?</button>
                 </div>
             </div>
         }
         else {
-         content =   <div className="board-game">
+            content = <div className="board-game">
                 <div className="center space-between-wrapper score-row">
-                    <div className="score">Score : {this.state.score}</div>
+                    <div className="score ">Score : {this.state.score}</div>
                     <BoardGameHelp />
                 </div>
                 <div className="board-game-wrapper center" >
@@ -299,7 +304,7 @@ class Game extends React.Component {
         }
         return (
             <div>
-            { content }
+               {content}
             </div>
         )
     }

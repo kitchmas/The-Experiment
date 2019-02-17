@@ -12,7 +12,7 @@ class TileDetail extends React.Component {
                     {this.props.tile.name}
                 </div>
                 <div className="tile-description">
-                <div><b>Score:</b> {this.props.tile.score}</div>
+                <div><b>Max Score:</b> {this.props.tile.getScore()}</div>
                 <div>{this.props.tile.description}</div>
             </div>
             </div>

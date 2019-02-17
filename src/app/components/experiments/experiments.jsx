@@ -15,7 +15,6 @@ const Experiments = () => {
             <div className="experiments-wrapper">
                 <Link to="/mimic/1">
                     <div className="experiment">
-
                         {/* Position of children is important here so css works */}
                         <Diamond
                             topDiamondClass="diamond-red"

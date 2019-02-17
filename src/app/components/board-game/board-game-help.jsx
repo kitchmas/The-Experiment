@@ -40,14 +40,14 @@ class BoardGameHelp extends React.Component {
                 <div className={this.state.showHelp ? "help-page shown" : "help-page hide"}>
                     <div className="help-page-content">
                         <div className="space-between-wrapper heading">
-                            <h1>Rules</h1>
+                            <h1>Micro Garden</h1>
                             <div onClick={this.helpIconClicked} className="help-icon close">&#10006;</div>
                         </div>
                         <section>
                             <h2>About</h2>
                             <p>
-                                Blah blah is a game about managing a micro garden. Lay down some soil, soe and
-                                water seeds until they grow into plants. But be carefull, once all the space in the garden is gone the game will end.
+                                Micro Garden is a game about managing your very own micro garden. A game that all millennials can relate to.
+                                Lay down some soil, soe and water seeds until they grow into plants. But be carefull, once all the space in the garden is gone the game will end.
                                 Try and gain as many points as you can before filling up the garden.
                            </p>
                         </section>

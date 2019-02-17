@@ -82,3 +82,7 @@
     height: 200px;
     width: 200px;
 }
+
+.experiments-wrapper .board .tile-icon{
+    animation: unset;
+}

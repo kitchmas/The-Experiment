@@ -96,7 +96,7 @@ class Game extends React.Component {
             tileToChange = tileToChange.clone();
             if (attacking && tile.canAttack()) {
                 let attack = tile.attack();
-                if (attack.targetType === tileToChange.type || attack.targetType === TileTypes.All) {
+                if (attack && attack.targetType === tileToChange.type || attack.targetType === TileTypes.All) {
                     if (!attack.nestedAttack) {
                         tilesCopy[indexArr[0]][indexArr[1]] = attack.attack();
                         if (tileChanged)

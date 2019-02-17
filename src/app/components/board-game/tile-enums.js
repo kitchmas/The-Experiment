@@ -14,7 +14,7 @@ const TileTypes = {
 
 const PlantLifeStatus = {
     Sprout: "Sprout",
-    Budding: "Budding",
+    Budding: "Bud",
     FullyGrown: "Plant",
     WillWilt: "Will Wilt",
     Wilted: "Wilted",
@@ -24,7 +24,7 @@ const PlantLifeStatus = {
 const WeedLifeStatus = {
     Sprout: "Sprout",
     Seedling: "Seedling",
-    Budding: "Budding",
+    Budding: "Bud",
     FullyGrown: "FullyGrown",
     Wilted: "Wilted",
     Dead: "Dead"

@@ -1,4 +1,5 @@
 import React from 'react';
+const Link = require('react-router-dom').Link;
 
 import shuffle from '../../helpers/shuffle.js'
 
@@ -182,17 +183,22 @@ class DiamondOppositeChallenge extends React.Component {
     render() {
         return (
             <div className="center-page-wrapper">
-                <Diamond
-                    wrapperId="rotated-green"
-                    wrapperClass={this.state.animateDiamondClass}
-                    topDiamondClass="diamond-red"
-                    rightDiamondClass="diamond-blue"
-                    leftDiamondClass="diamond-green"
-                    bottomDiamondClass="diamond-black"
-                    topDiamondClicked={this.redClicked}
-                    rightDiamondClicked={this.blueClicked}
-                    leftDiamondClicked={this.greenClicked}
-                    bottomDiamondClicked={this.blackClicked} />
+                <div>
+                    <Diamond
+                        wrapperId="rotated-green"
+                        wrapperClass={this.state.animateDiamondClass}
+                        topDiamondClass="diamond-red"
+                        rightDiamondClass="diamond-blue"
+                        leftDiamondClass="diamond-green"
+                        bottomDiamondClass="diamond-black"
+                        topDiamondClicked={this.redClicked}
+                        rightDiamondClicked={this.blueClicked}
+                        leftDiamondClicked={this.greenClicked}
+                        bottomDiamondClicked={this.blackClicked} />
+                </div>
+                <Link className="next" to="/mimic/3">
+                    <h1>NEXT</h1>
+                </Link>
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+const Link = require('react-router-dom').Link;
 
 import shuffle from '../../helpers/shuffle.js'
 import patterns from '../../helpers/patterns.js'
@@ -225,6 +226,9 @@ class SimpleSorter extends React.Component {
                             <RotateButton rotate={this.rotateDown} />
                         </Diamond>
                     </div>
+                    <Link className="next" to="/micro-garden">
+                        <h1>NEXT</h1>
+                    </Link>
                 </div>
             </div>
         )

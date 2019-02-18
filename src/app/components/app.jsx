@@ -39,7 +39,6 @@ class App extends React.Component {
                         <Route path="/mimic/1" component={DiamondCopyChallenge} />
                         <Route path="/mimic/2" component={DiamondOppositeChallenge} />
                         <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
-                        <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
                         <Route path="/sorter/1" component={SimpleSorter} />
                         <Route path="/micro-garden" component={Game} />
                         <Route path="/day-and-night" component={WeatherGlobe} />

@@ -1,8 +1,9 @@
 import React from 'react';
+const Link = require('react-router-dom').Link;
 
 import shuffle from '../../helpers/shuffle.js'
 
-import  Diamond  from '../diamond/diamond.jsx';
+import Diamond from '../diamond/diamond.jsx';
 import '../../../content/css/diamond-animation.css';
 
 
@@ -21,15 +22,15 @@ class DiamondCopyChallenge extends React.Component {
     animateDiamondClassColors = ["play-red-inf", "play-blue-inf", "play-green-inf", "play-black-inf"];
     componentDidMount = () => {
         this._isMounted = true;
-        setTimeout( () => {
+        setTimeout(() => {
             if (this._isMounted) {
-            this.resetGame();
+                this.resetGame();
             }
-        },5000);
+        }, 5000);
     }
     componentWillUnmount() {
         this._isMounted = false;
-      }
+    }
     playAnimation = () => {
         var that = this;
         that.setState({ locked: true });
@@ -110,14 +111,14 @@ class DiamondCopyChallenge extends React.Component {
             setTimeout(() => {
                 this.props.history.push("/mimic/2")
             }, 1000);
-           
+
         }
     }
     gameOver = () => {
         this.setState({
             animateDiamondClass: "failure",
             currentClickOrder: []
-        },() => {
+        }, () => {
             setTimeout(() => {
                 this.playAnimation();
             }, 1000);
@@ -170,17 +171,22 @@ class DiamondCopyChallenge extends React.Component {
     render() {
         return (
             <div className="center-page-wrapper">
-                <Diamond
-                    wrapperId="grow"
-                    wrapperClass={this.state.animateDiamondClass}
-                    topDiamondClass="diamond-red"
-                    rightDiamondClass="diamond-blue"
-                    leftDiamondClass="diamond-green"
-                    bottomDiamondClass="diamond-black"
-                    topDiamondClicked={this.redClicked}
-                    rightDiamondClicked={this.blueClicked}
-                    leftDiamondClicked={this.greenClicked}
-                    bottomDiamondClicked={this.blackClicked} />
+                <div>
+                    <Diamond
+                        wrapperId="grow"
+                        wrapperClass={this.state.animateDiamondClass}
+                        topDiamondClass="diamond-red"
+                        rightDiamondClass="diamond-blue"
+                        leftDiamondClass="diamond-green"
+                        bottomDiamondClass="diamond-black"
+                        topDiamondClicked={this.redClicked}
+                        rightDiamondClicked={this.blueClicked}
+                        leftDiamondClicked={this.greenClicked}
+                        bottomDiamondClicked={this.blackClicked} />
+                    <Link className="next" to="/mimic/2">
+                        <h1>NEXT</h1>
+                    </Link>
+                </div>
             </div>
         );
     }

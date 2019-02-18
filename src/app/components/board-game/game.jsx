@@ -1,6 +1,7 @@
 import React from 'react';
 
 import cloneDeep from 'lodash/clonedeep';
+const Link = require('react-router-dom').Link;
 
 import Board from '../board-game/board.jsx';
 import TileBag from '../board-game/tile-bag.jsx';
@@ -67,7 +68,7 @@ class Game extends React.Component {
                     gameOver = false;
                 }
             }
-        } 
+        }
 
         if (gameOver) {
             this.setState({
@@ -257,7 +258,7 @@ class Game extends React.Component {
                 turnConfirmed: true,
                 score: prevState.previousScore,
                 tilesChanged: false,
-                selectedCellIndex:null
+                selectedCellIndex: null
             }));
     }
     showTileBag = () => {
@@ -304,7 +305,10 @@ class Game extends React.Component {
         }
         return (
             <div>
-               {content}
+                {content}
+                <Link className="next" to="/day-and-night">
+                    <h1>NEXT</h1>
+                </Link>
             </div>
         )
     }

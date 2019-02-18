@@ -1,0 +1,362 @@
+.globe{
+    height: 40vh;
+    width: 40vh;
+    border: 2px solid #000;
+    background-color: #F39C12;
+    position: relative;
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    animation:sky-color-change;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    animation-duration: 40s;
+}
+.tree{
+    height: 60%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
+}
+
+.tree .tree-top,.tree .tree-body{
+    background-color: #1e824c;
+    height: 20%;
+    animation: wind-blown;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+}
+
+.tree .tree-top{
+    width: 20%;
+}
+
+.tree .tree-body{
+    width: 60%;
+}
+
+.tree .tree-trunk{
+    background-color: #5E2C0B;
+    height:40%;
+    width: 20%;
+    position:relative
+}
+
+.cloud{
+    opacity: 0.8;
+    top:10%;
+    position: absolute;
+    height: 15%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: move-cloud;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    animation-duration: 20s;
+}
+
+.cloud-2{
+    height: 15%;
+    width: 45%;
+    top:35%;
+    left: -50%;
+    animation-delay: 12s;
+}
+.cloud .cloud-top{
+    background: white;
+    height: 30%;
+    width: 50%;
+}
+
+.cloud .cloud-bottom{
+    background: white;
+    height: 30%;
+    width: 50%;
+}
+
+.cloud .cloud-body{
+    background: white;
+    height: 70%;
+    width: 100%;
+}
+
+.cloud-2 .cloud-top{
+    background: white;
+    height: 20%;
+    width: 55%;
+}
+
+.cloud-2 .cloud-bottom{
+    background: white;
+    height: 20%;
+    width: 55%;
+}
+
+.cloud-2 .cloud-body{
+    background: white;
+    height: 20%;
+    width: 90%;
+}
+
+.sun{
+    background: #f0ff00;
+    height: 20%;
+    width:20%;
+    position: absolute;
+    bottom:-20%;
+    left:-20%;
+    animation: sun-rise;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    animation-duration: 40s;
+}
+
+.moon{
+    background: #E0E0E0;
+    height: 20%;
+    width:20%;
+    position: absolute;
+    bottom:-20%;
+    left:-20%;
+    animation: moon-rise;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    animation-duration: 40s;
+    animation-delay: 20s;
+}
+
+.ground{
+    height: 10%;
+    width: 100%;
+    background-color:#008C31;
+    position: relative;
+    z-index: 1;
+}
+
+.stars{
+    top:10%;
+    position: absolute;
+    height: 50%;
+    width: 100%;
+}
+
+.stars .star{
+    background-color: white;
+    height: 2%;
+    width: 1%;
+    position: absolute;
+    animation: twinkle;
+    animation-timing-function:ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 40s;
+    opacity: 0;
+}
+
+.stars .star:first-child{
+    top: 0;
+    right:50%;
+    background: white;
+    animation-delay: 1s;
+}
+
+.stars .star:nth-child(2){
+    top: 26%;
+    right:10%;
+    background: white;
+    animation-delay: 2s;
+}
+
+.stars .star:nth-child(3){
+    top: 55%;
+    right:20%;
+    background: white;
+    animation-delay: 3s;
+}
+
+.stars .star:nth-child(4){
+    top: 30%;
+    right:71%;
+    background: white;
+    animation-delay: 4s;
+}
+
+.stars .star:nth-child(5){
+    top: 80%;
+    right:12%;
+    background: white;
+    animation-delay: 5s;
+}
+
+.stars .star:nth-child(6){
+    top: 10%;
+    right:95%;
+    background: white;
+    animation-delay: 6s;
+}
+
+.stars .star:nth-child(7){
+    top: 60%;
+    right:90%;
+    background: white;
+    animation-delay: 7s;
+}
+
+.stars .star:nth-child(8){
+    top: 20%;
+    right:30%;
+    background: white;
+    animation-delay: 8s;
+}
+
+@keyframes sky-color-change{
+    0%{
+        background-color: #F39C12;
+    }
+    5%{
+        background-color: #F39C12;
+    }
+    25%{
+        background-color:  #1297E0;
+    }
+    35%{
+        background-color: #1297E0;
+    }
+    40%{
+        background-color: #F39C12;
+    }
+    55%{
+        background-color: #F39C12;
+    }
+    65%{
+        background-color: #000;
+    }
+    90%{
+        background-color: #000;
+    }
+    100%{
+        background-color: #F39C12;
+    }
+}
+
+@keyframes move-cloud{
+    0%{
+        left: -50%;
+    }
+    98%{
+        width: 50%;
+        left: 100%;
+    }
+    99%{
+        width: 0;
+        left: 100%;
+    }
+    100%{
+        width: 0;
+        left: 0;
+    }
+}
+
+@keyframes wind-blown{
+    33%{
+        left: 0.5%;
+        border:1% solid #1e824c;
+        position: relative;
+    }
+    66%{
+        left:0;
+        position: relative;
+    }
+    100%{
+        right: 0.5%;
+        border:1% solid #1e824c;
+        position: relative;
+    }
+}
+
+@keyframes sun-rise{
+    25%{
+        bottom:70%;
+        left: 40%;
+    }
+    50%{
+        bottom:-20%;
+        left: 100%;
+    }
+    100%{
+        bottom:-20%;
+        left: 0;
+    }
+}
+
+@keyframes show-hide{
+    from{
+  background: white;
+    }
+    to{
+        background: black;
+    }
+}
+
+@keyframes moon-rise{
+    25%{
+        bottom:70%;
+        left: 40%;
+    }
+    50%{
+        bottom:-20%;
+        left: 100%;
+    }
+    100%{
+        bottom:-20%;
+        left: 0;
+    }
+}
+
+@keyframes twinkle{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0;
+    }
+    55%{
+        opacity: 1;
+    }
+    60%{
+        opacity: 1;
+    }
+    65%{
+        opacity: 0;
+    }
+    70%{
+        opacity: 0;
+    }
+    75%{
+        opacity: 1;
+    }
+    80%{
+        opacity: 1;
+    }
+    85%{
+        opacity: 0;
+    }
+
+    90%{
+        opacity: 0;
+    }
+    95%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}

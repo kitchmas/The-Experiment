@@ -33,8 +33,7 @@ class App extends React.Component {
                     <div>
                         <NavBar />
                         <div className="content">
-                        {/* <Route exact path="/" component={Home} /> */}
-                        <Route exact path="/" component={WeatherGlobe} />
+                        <Route exact path="/" component={Home} />
                         <Route path="/experiments" component={Experiments} />
                         <Route exact path="/about" component={About} />
                         <Route path="/mimic/1" component={DiamondCopyChallenge} />
@@ -42,7 +41,8 @@ class App extends React.Component {
                         <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
                         <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
                         <Route path="/sorter/1" component={SimpleSorter} />
-                        <Route path="/micro_garden" component={Game} />
+                        <Route path="/micro-garden" component={Game} />
+                        <Route path="/day-and-night" component={WeatherGlobe} />
                         </div>
                     </div>
                 </Suspense>

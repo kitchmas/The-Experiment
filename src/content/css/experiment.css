@@ -86,3 +86,29 @@
 .experiments-wrapper .board .tile-icon{
     animation: unset;
 }
+
+
+.experiments-wrapper .globe:hover {
+    cursor: pointer;
+}
+
+.experiments-wrapper .globe:hover~.go,
+.number:hover~.go {
+    transition: 2s;
+    opacity: 10;
+}
+
+.experiments-wrapper .globe:hover~.number,
+.number:hover {
+    transition: 1s;
+    opacity: 0;
+}
+
+.experiments-wrapper .globe {
+    height: 200px;
+    width: 200px;
+}
+
+.experiments-wrapper .globe .tile-icon{
+    animation: unset;
+}

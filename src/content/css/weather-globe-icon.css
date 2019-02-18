@@ -1,0 +1,18 @@
+
+.globe.weather-globe-icon{
+    animation: unset;
+    background-color: #1297E0;
+    transition: 1s;
+} 
+
+.weather-globe-icon:hover {
+    background: #F39C12;
+}
+
+.weather-globe-icon .tree{
+    z-index: 0;
+}
+
+.weather-globe-icon .tree .tree-top, .weather-globe-icon .tree .tree-body{
+    animation: unset;
+}

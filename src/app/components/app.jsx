@@ -1,12 +1,9 @@
 import React, { Suspense, lazy } from 'react';
-
 import { library } from '@fortawesome/fontawesome/index'
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
 library.add(faSyncAlt);
-
-const BrowserRouter = require('react-router-dom').BrowserRouter;
-const Route = require('react-router-dom').Route;
-
+import history from '../helpers/history.js';
+import { Router, Route, Link } from 'react-router-dom';
 import '../../content/css/main.css';
 
 const About = lazy(() => import('./about/about.jsx'));
@@ -28,7 +25,7 @@ class App extends React.Component {
     }
     render() {
         return (
-            <BrowserRouter>
+            <Router history={history}>
                 <Suspense fallback={<div>Loading...</div>}>
                     <div>
                         <NavBar />
@@ -45,7 +42,7 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Suspense>
-            </BrowserRouter>
+            </Router >
 
         );
     }

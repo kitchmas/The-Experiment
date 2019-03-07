@@ -9,7 +9,7 @@ const About = () => {
             <p>
                 <b>Contact:</b> Thomaswkitch@gmail.com
             </p>
-            <p><b>How did you make this?</b> <a href="https://github.com/kitchmas/The-Experiment">Lookie here</a></p>
+            <p><b>How did I make this?</b> <a href="https://github.com/kitchmas/The-Experiment">Lookie here</a></p>
             
         </section>
     )

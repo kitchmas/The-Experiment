@@ -1,7 +1,5 @@
 import React from 'react';
-
 import '../../../content/css/board-game-help.css';
-
 import SelectCell from '../../../content/imgs/SelectCell.png';
 import SelectTile from '../../../content/imgs/SelectTile.png';
 import ConfirmTile from '../../../content/imgs/ConfirmTile.png';
@@ -17,7 +15,6 @@ import WeedFullyGrown from '../../../content/imgs/WeedFullyGrown.png';
 import WeedOvergrown from '../../../content/imgs/WeedOvergrown.png';
 import WeedSpreading from '../../../content/imgs/WeedSpreading.png';
 import WeedSprout from '../../../content/imgs/WeedSprout.png';
-
 import {  WaterTile, SoilTile, SeedTile, PlantTile, RockTile, WeedTile } from '../../helpers/microGarden/tile.js';
 import { TileTypes, TileStatus, TileEffects, SeedTypes, PlantLifeStatus } from '../board-game/tile-enums.js';
 import TileDetail from '../board-game/tile-detail.jsx';

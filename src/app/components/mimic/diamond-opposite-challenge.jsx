@@ -1,8 +1,5 @@
 import React from 'react';
-const Link = require('react-router-dom').Link;
-
 import shuffle from '../../helpers/shuffle.js'
-
 import Diamond from '../diamond/diamond.jsx';
 import '../../../content/css/diamond-animation.css';
 
@@ -196,9 +193,6 @@ class DiamondOppositeChallenge extends React.Component {
                         leftDiamondClicked={this.greenClicked}
                         bottomDiamondClicked={this.blackClicked} />
                 </div>
-                <Link className="next" to="/mimic/3">
-                    <h1>NEXT</h1>
-                </Link>
             </div>
         );
     }

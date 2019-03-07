@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../../../content/css/weather-globe.css';
 import '../../../content/css/weather-globe-icon.css';
 

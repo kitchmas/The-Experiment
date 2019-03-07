@@ -1,8 +1,6 @@
 import React from 'react';
-
 import Phone from './phone.jsx';
 import Mark from '../mark/mark.jsx';
-
 import MarkBot from '../mark/Mark.js'
 
 class VideoPhone extends React.Component {

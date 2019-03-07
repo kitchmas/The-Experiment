@@ -1,14 +1,9 @@
 import React from 'react';
-
 import cloneDeep from 'lodash/clonedeep';
-const Link = require('react-router-dom').Link;
-
 import Board from '../board-game/board.jsx';
 import TileBag from '../board-game/tile-bag.jsx';
 import BoardGameHelp from '../board-game/board-game-help.jsx';
-
 import { EmptyTile, WaterTile, SoilTile, SeedTile, PlantTile, Tile, RockTile, WeedTile } from '../../helpers/microGarden/tile.js';
-
 import { TileTypes, TileStatus, TileEffects, SeedTypes, PlantLifeStatus } from '../board-game/tile-enums.js';
 
 class Game extends React.Component {
@@ -306,9 +301,6 @@ class Game extends React.Component {
         return (
             <div>
                 {content}
-                <Link className="next" to="/day-and-night">
-                    <h1>NEXT</h1>
-                </Link>
             </div>
         )
     }

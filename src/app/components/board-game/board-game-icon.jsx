@@ -1,8 +1,4 @@
 import React from 'react';
-
-import Tile from '../board-game/tile.jsx';
-
-
 import '../../../content/css/board-game.css';
 
 class BoardGameIcon extends React.Component {
@@ -20,7 +16,6 @@ class BoardGameIcon extends React.Component {
                 </div>
                 <div className="board-row">
                     <div className="board-cell">
-
                     </div>
                     <div className="board-cell">
                         <div className="tile-icon soil-tile"><b>Soil</b></div>

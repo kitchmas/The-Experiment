@@ -1,11 +1,8 @@
 import React from 'react';
-
 import Diamond from '../diamond/diamond.jsx';
 import BoardGameIcon from '../board-game/board-game-icon.jsx';
 import WeatherGlobeIcon from '../globes/weather-globe-icon.jsx';
-
 const Link = require('react-router-dom').Link;
-
 import '../../../content/css/experiment.css';
 
 const Experiments = () => {

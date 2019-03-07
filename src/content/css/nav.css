@@ -16,7 +16,11 @@
     padding: 0 14px;
 }
 
-.nav-bar li:hover a {
+.nav-bar li:last-child{
+ margin-left: auto;   
+}
+
+.nav-bar li:hover,.nav-bar li:hover a  {
     color: #66CC99;
     cursor: pointer;
     transition: .5s;

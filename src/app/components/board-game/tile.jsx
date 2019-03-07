@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../../../content/css/board-game.css';
 import { TileTypes } from './tile-enums';
 

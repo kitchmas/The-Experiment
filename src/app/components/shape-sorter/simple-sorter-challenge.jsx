@@ -1,13 +1,9 @@
 import React from 'react';
-const Link = require('react-router-dom').Link;
-
 import shuffle from '../../helpers/shuffle.js'
 import patterns from '../../helpers/patterns.js'
-
 import Diamond from '../diamond/diamond.jsx'
 import Carousel from '../carousel/carousel.jsx'
 import RotateButton from '../rotate-button/rotate-button.jsx'
-
 import '../../../content/css/diamond-sorter.css';
 import '../../../content/css/diamond-palette.css';
 import '../../../content/css/diamond-animation.css';
@@ -226,9 +222,6 @@ class SimpleSorter extends React.Component {
                             <RotateButton rotate={this.rotateDown} />
                         </Diamond>
                     </div>
-                    <Link className="next" to="/micro-garden">
-                        <h1>NEXT</h1>
-                    </Link>
                 </div>
             </div>
         )

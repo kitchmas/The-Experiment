@@ -1,6 +1,4 @@
 import React from 'react';
-
-const Link = require('react-router-dom').Link;
 import '../../../content/css/weather-globe.css';
 
 const WeatherGlobe = () => {
@@ -37,9 +35,6 @@ const WeatherGlobe = () => {
                 </div>
                 <div className="ground"></div>
             </div>
-            <Link className="next" to="/">
-                <h1>NEXT</h1>
-            </Link>
             </div>
         </div>
     )

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../../../content/css/diamond.css';
 
 class Diamond extends React.Component {

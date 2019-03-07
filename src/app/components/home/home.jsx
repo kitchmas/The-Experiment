@@ -1,6 +1,5 @@
 import React from 'react';
 const NavLink = require('react-router-dom').NavLink;
-
 import '../../../content/css/home.css';
 
 class Home extends React.Component {

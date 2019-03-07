@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../../../content/css/rotate-button.css';
 
 const RotateButton = (props) => {

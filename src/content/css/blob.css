@@ -1,0 +1,17 @@
+.blob{
+    height: 300px;
+    width: 300px;
+    background: #e74c3c;
+    transition: 1s;
+}
+
+.round{
+    transition: 1s;
+    border-radius: 50%;
+}
+
+.moved{
+    transition: 11s;
+    position: relative;
+    right: 500px;
+}

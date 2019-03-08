@@ -16,6 +16,7 @@ const DiamondOddOneOutChallenge = lazy(() => import('./mimic/diamond-odd-one-out
 const SimpleSorter = lazy(() => import('./shape-sorter/simple-sorter-challenge.jsx'));
 const Game = lazy(() => import('./board-game/game.jsx'));
 const WeatherGlobe = lazy(() => import('./globes/weather-globe.jsx'));
+const Blob = lazy(() => import('./blob/blob.jsx'));
 // import Mark  from './mark/mark.jsx';
 // import VideoPhone  from './phone/video-phone.jsx';
 
@@ -30,7 +31,8 @@ class App extends React.Component {
                     <div>
                         <NavBar />
                         <div className="content">
-                        <Route exact path="/" component={Home} />
+                        {/* <Route exact path="/" component={Home} /> */}
+                        <Route exact path="/" component={Blob} />
                         <Route path="/experiments" component={Experiments} />
                         <Route exact path="/about" component={About} />
                         <Route path="/mimic/1" component={DiamondCopyChallenge} />

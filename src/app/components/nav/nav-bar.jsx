@@ -27,7 +27,7 @@ class NavBar extends React.Component {
             this.setNextRoute();
           });
     }
-    componentDidUnmount(){
+    componentWillUnmount(){
         this.state.unlisten();
     }
     setNextRoute = () =>{

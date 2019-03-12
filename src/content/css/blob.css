@@ -1,3 +1,13 @@
+.darkness{
+  transition: 4;
+  background: #2e3131;
+  animation:color-transistions-background;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: 4s;
+  animation-duration: 4s;
+}
+
 .blob-wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -11,7 +21,6 @@
 }
 
 .blob-wrapper.align-straight{
-  transition: 4s;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
@@ -25,7 +34,35 @@
     animation: spining;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-    animation-duration: 2s;
+    animation-duration: 4s;
+}
+
+.blob-wrapper.spin-speed-up-3{
+  animation: spining, color-transistions-border;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+}
+
+.blob-wrapper.spin-speed-up-2{
+  animation: spining, color-transistions-border;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+}
+
+.blob-wrapper.spin-speed-up-1{
+  animation: spining, color-transistions-border;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 0.5s;
+}
+
+.blob-wrapper.spin-speed-up-0{
+  animation: spining, color-transistions-border;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 0.1s;
 }
 
 .blob-wrapper.round .blob{
@@ -40,6 +77,34 @@
     animation-duration: 4s;
   }
 
+  .blob-wrapper.triangle-spin .triangle {
+    animation: spining;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+}
+
+.blob-wrapper.borders-on{
+  border: 0.5em solid red;
+  border-radius: 50%;
+}
+
+.blob-wrapper.borders-on  div:nth-child(5){
+  transition: 2s;
+  padding: 1em;
+  border: 0.5em solid red;
+  border-radius: 50%;
+  animation:color-transistions-border;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 4s;
+}
+
+.blob-wrapper.grow  .blob{
+height: 100em;
+width: 100em;
+transition: 20s;
+}
 
 .blob{
     height: 10em;
@@ -106,6 +171,31 @@
    transition: 1s;
 }
 
+.blob-icon:hover{
+  animation: spining;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+}
+
+.blob-icon .blob{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.blob-icon .blob-small{
+  height: 40px;
+  width:  40px;
+  border-radius: 50%;
+}
+
+.spin{
+  animation: spining;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+}
+
 
 @keyframes spining{
     0%  {-webkit-transform: rotate(0deg);}
@@ -120,10 +210,29 @@
     100%  {background: var(--diamond-red)}
 }
 
+@keyframes color-transistions-background{
+  20%  {background: #2e3131}
+  40% {background: #bf55ec}   
+  60% {background: #f0ff00}   
+  80% {background:#f1a9a0}   
+  100%  {background: #2e3131}
+}
+
+@keyframes color-transistions-border{
+  20%  {border-color: var(--diamond-red)}
+  40% {border-color: var(--diamond-blue)}   
+  60% {border-color: var(--diamond-black)}   
+  80% {border-color: var(--diamond-green)}   
+  100%  {border-color: var(--diamond-red)}
+}
+
 @media(max-width:767px) {
+
+
   .blob-wrapper{
     column-gap:  0.5rem;
     row-gap: 0.5rem;
     font-size:  0.5rem;
 }
+
 }

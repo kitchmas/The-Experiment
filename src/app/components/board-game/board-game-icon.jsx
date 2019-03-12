@@ -5,7 +5,7 @@ class BoardGameIcon extends React.Component {
 
     render() {
         return (
-            <div className="board">
+            <div className="board board-icon">
                 <div className="board-row">
                     <div className="board-cell">
                         <div className="tile-icon plant-tile"><b>Plant</b></div>

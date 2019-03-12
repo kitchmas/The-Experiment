@@ -43,9 +43,15 @@ class BoardGameHelp extends React.Component {
                         <section>
                             <h2>About</h2>
                             <p>
-                                Micro Garden is a game about managing your very own micro garden. A game that all millennials can relate to.
-                                Lay down some soil, soe and water seeds until they grow into plants. But be carefull, once all the space in the garden is gone the game will end.
+                                Micro Garden is a game about managing your very own garden. A game that all millennials can relate to.
+                                Lay down some soil, sow and water seeds until they grow into plants. But be careful, once all the space in the garden is gone the game will end.
                                 Try and gain as many points as you can before filling up the garden.
+
+                                *Developer comments: This game is the result of making something crap, remaking it into something crap and then remaking into something crap and then being to afraid to remake it into crap again.
+                                This game show that it takes so many hours to make something, and then so many more hours to make something okay, and so many more hours to make something good. 
+                                
+                                Enjoy!
+
                            </p>
                         </section>
                         <section>
@@ -60,21 +66,21 @@ class BoardGameHelp extends React.Component {
                             <section>
                                 <h3>Selecting a tile</h3>
                                 <p>
-                                    Next Select the tile you would like to place from the tile bag below. Only a Soild or Rock Tile can be placed on an empty tile.
+                                  Next select the tile you would like to place from the tile bag below. Only a Soil or Rock Tile can be placed on an empty tile.
                             </p>
                                 <img className="rules-img" src={SelectTile} />
                             </section>
                             <section>
                                 <h3>Placing a tile</h3>
                                 <p>
-                                    The selected tile will be placed in the higlighted cross section. If you are happy with your placement. Otherwise press undo to undo your turn.
+                                The selected tile will be placed in the highlighted cross section. If you are happy with your placement. Otherwise press undo to undo your turn.
                                 </p>
                                 <img className="rules-img" src={ConfirmTile} />
                             </section>
                             <section>
                                 <h3>Transforming a tile</h3>
                                 <p>
-                                    Certain tiles can be placed ontop of other tiles to "Transform" that tile. Placing the Water tile on the Soil tile will create a Wet Soil tile.
+                                Certain tiles can be placed on top of other tiles to "Transform" that tile. Placing the Water tile on the Soil tile will create a Wet Soil tile.
                                 </p>
                                 <img className="rules-img" src={WetSoil} />
                                 <p>
@@ -89,7 +95,7 @@ class BoardGameHelp extends React.Component {
                                 </p>
                                 <img className="rules-img" src={Sprout} />
                                 <p>
-                                    A Sprout tile can be watered By placing a Water Tile ontop. A sprout tile will grow into a Budding if watered.
+                                A Sprout tile can be watered by placing a Water Tile on top. A sprout tile will grow into a Budding if watered.
                                 </p>
                                 <img className="rules-img" src={Budding} />
                                 <p>
@@ -111,8 +117,8 @@ class BoardGameHelp extends React.Component {
                             <section>
                                 <h3>Clearing tiles with a fire plant</h3>
                                 <p>
-                                    The only way to clear un wanted tiles is by growing a Fire Plant from a Fire Seed.
-                                    Once fully grown a Fire Plant will completley remove any adjacent tiles. Including any touching Fire Plants.
+                                The only way to clear unwanted tiles is by growing a Fire Plant from a Fire Seed.
+                                    Once fully grown a Fire Plant will completely remove any adjacent tiles. Including any touching Fire Plants.
                                 </p>
                                 <img className="rules-img" src={FireAttack} />
                             </section>
@@ -123,11 +129,11 @@ class BoardGameHelp extends React.Component {
                                 </p>
                                 <img className="rules-img" src={WeedSprout} />
                                 <p>
-                                    Weed Sprout tiles will grow each turn until Fully Grown.
+                                    Weed Sprout tiles will grow each turn until fully grown.
                                 </p>
                                 <img className="rules-img" src={WeedFullyGrown} />
                                 <p>
-                                    Once Fully Grown a weed will Start Sprouting in ajacent tiles.
+                                    Once fully grown a weed will start sprouting in adjacent tiles.
                                 </p>
                                 <img className="rules-img" src={WeedSpreading} />
                                 <p>

@@ -5,6 +5,11 @@
     transition: 1s;
 } 
 
+.weather-globe-icon{
+    height: 200px;
+    width: 200px;
+}
+
 .weather-globe-icon:hover {
     background: #F39C12;
 }

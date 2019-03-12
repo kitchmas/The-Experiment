@@ -18,6 +18,7 @@ class NavBar extends React.Component {
         "/sorter/1",
         "/micro-garden",
         "/day-and-night",
+        "/blob",
         ],
         unlisten:null
     }
@@ -64,7 +65,7 @@ class NavBar extends React.Component {
                         <NavLink to="/about" >About</NavLink>
                     </li>
                     <li className={this.state.nextpath == undefined ? "hidden" : ""} onClick={this.onClicked}>
-                       NEXT
+                       <i className="fas fa-arrow-right"></i>
                     </li>
                 </ul>
             </nav>

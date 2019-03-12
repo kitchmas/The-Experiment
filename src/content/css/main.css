@@ -41,7 +41,7 @@ section p:first-of-type {
 }
 
 .content {
-    padding-top: 48px;
+    padding-top: 2.5em;
 }
 
 .hidden {
@@ -92,7 +92,7 @@ section p:first-of-type {
 .content-wrapper {
     max-width: 1130px;
     margin: 0 auto;
-    padding: 32px 20px;
+    padding: 1.8em 1em;
 }
 
 .space-between-wrapper {
@@ -106,7 +106,7 @@ section p:first-of-type {
 }
 
 .padding-gapper-2 {
-    padding: 80px;
+    padding: 4.4em;
 }
 
 .experiment-button {
@@ -115,8 +115,7 @@ section p:first-of-type {
     border-radius: 2px;
     border: 1px solid transparent;
     user-select: none;
-    font-size: 16px;
-    padding: 10px 12px;
+    padding: 0.5em 0.6em;
     transition: 0.5s;
     cursor: pointer;
 }
@@ -167,16 +166,10 @@ section p:first-of-type {
     body {
         font-size: 16px;
     }
-    .content {
-        padding-top: 46px;
-    }
-    .content-wrapper {
-        padding: 16px 20px;
-    }
     .center-page-wrapper {
         height: calc(100vh - 40px)
     }
-    .padding-gapper-2 {
-        padding: 60px;
+    .hidden-xs{
+        visibility: hidden;
     }
 }

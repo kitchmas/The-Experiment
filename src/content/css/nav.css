@@ -16,9 +16,13 @@
     padding: 0 14px;
 }
 
-.nav-bar li:last-child{
+.nav-bar li:last-child {
  margin-left: auto;   
 }
+
+.nav-bar li:last-child .next{
+    font-size: 32px; 
+ }
 
 .nav-bar li:hover,.nav-bar li:hover a  {
     color: #66CC99;
@@ -74,4 +78,8 @@
         width: 45px;
         margin-top: 39px;
     }
+
+    .nav-bar li:last-child .next{
+        font-size: 24px; 
+     }
 }

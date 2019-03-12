@@ -6,7 +6,7 @@
 }
 
 .fade-left {
-    width: 50px;
+    width: 10px;
     height: 100%;
     background: linear-gradient(to right, #e4e9ed, transparent 90%);
     position: absolute;
@@ -14,7 +14,7 @@
 }
 
 .fade-right {
-    width: 50px;
+    width: 10px;
     height: 100%;
     background: linear-gradient(to left, #e4e9ed, transparent 90%);
     position: absolute;

@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { library } from '@fortawesome/fontawesome/index'
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
-library.add(faSyncAlt);
+import faArrowRight from '@fortawesome/fontawesome-free-solid/faArrowRight'
+library.add(faSyncAlt,faArrowRight);
 import history from '../helpers/history.js';
 import { Router, Route, Link } from 'react-router-dom';
 import '../../content/css/main.css';
@@ -31,8 +32,7 @@ class App extends React.Component {
                     <div>
                         <NavBar />
                         <div className="content">
-                        {/* <Route exact path="/" component={Home} /> */}
-                        <Route exact path="/" component={Blob} />
+                        <Route exact path="/" component={Home} />
                         <Route path="/experiments" component={Experiments} />
                         <Route exact path="/about" component={About} />
                         <Route path="/mimic/1" component={DiamondCopyChallenge} />
@@ -41,6 +41,7 @@ class App extends React.Component {
                         <Route path="/sorter/1" component={SimpleSorter} />
                         <Route path="/micro-garden" component={Game} />
                         <Route path="/day-and-night" component={WeatherGlobe} />
+                        <Route exact path="/blob" component={Blob} />
                         </div>
                     </div>
                 </Suspense>

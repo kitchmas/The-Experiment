@@ -22,24 +22,14 @@
     transform: rotate(45deg);
 }
 
-.number,
-.go {
+.number {
     position: absolute;
     font-size: 112px;
     line-height: 0px;
     color: black;
-}
-
-.number {
     padding: 40px;
     transition: 2s;
     opacity: 10;
-    pointer-events: none
-}
-
-.go {
-    transition: 1s;
-    opacity: 0;
     pointer-events: none
 }
 
@@ -50,32 +40,8 @@
     cursor: pointer;
 }
 
-.experiments-wrapper .diamond-holder:hover~.go,
-.number:hover~.go {
-    transition: 2s;
-    opacity: 10;
-}
-
-.experiments-wrapper .diamond-holder:hover~.number,
-.number:hover {
-    transition: 1s;
-    opacity: 0;
-}
-
 .experiments-wrapper .board:hover {
     cursor: pointer;
-}
-
-.experiments-wrapper .board:hover~.go,
-.number:hover~.go {
-    transition: 2s;
-    opacity: 10;
-}
-
-.experiments-wrapper .board:hover~.number,
-.number:hover {
-    transition: 1s;
-    opacity: 0;
 }
 
 .experiments-wrapper .board {
@@ -83,32 +49,30 @@
     width: 200px;
 }
 
-.experiments-wrapper .board .tile-icon{
-    animation: unset;
-}
-
 
 .experiments-wrapper .globe:hover {
     cursor: pointer;
 }
 
-.experiments-wrapper .globe:hover~.go,
-.number:hover~.go {
-    transition: 2s;
-    opacity: 10;
-}
-
-.experiments-wrapper .globe:hover~.number,
-.number:hover {
-    transition: 1s;
-    opacity: 0;
-}
-
-.experiments-wrapper .globe {
+.experiments-wrapper .blob-wrapper {
     height: 200px;
     width: 200px;
 }
 
-.experiments-wrapper .globe .tile-icon{
+.experiments-wrapper .blob-wrapper .tile-icon{
+    animation: unset;
+}
+
+.experiments-wrapper .blob-wrapper:hover {
+    cursor: pointer;
+}
+
+
+.experiments-wrapper .blob-wrapper {
+    height: 200px;
+    width: 200px;
+}
+
+.experiments-wrapper .blob-wrapper .tile-icon{
     animation: unset;
 }

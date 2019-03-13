@@ -1,0 +1,37 @@
+
+.nes-content .game-box{
+    width: 600px;
+    margin: 0 auto;
+}
+
+.nes-content .game-box .nes-progress{
+    border-image-outset: 1.5;
+    height: 18px;
+    margin: 0px;
+ }
+
+.nes-content .game-box .game-screen{
+}
+
+.nes-content .game-screen .monster-box{
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nes-content .monster-box .monster{
+    zoom: 3;
+}
+
+.nes-content .hero-buttons{
+    width: 100%;
+display: flex;
+justify-content: space-evenly;
+}
+
+.nes-content .nes-progress{
+    border-image-outset: 1.5;
+    height: 18px;
+    margin: 0px;
+ }

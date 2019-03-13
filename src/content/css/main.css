@@ -14,10 +14,11 @@
     --diamond-green: #66CC99;
     --diamond-black: #4D4D4D;
 }
-
+html{
+    font-family: SpaceGrotesk, sans-serif !important;
+}
 body {
     background: var(--default-background);
-    font-family: SpaceGrotesk, sans-serif;
     margin: 0;
     font-size: 18px;
 }

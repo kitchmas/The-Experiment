@@ -6,6 +6,7 @@ library.add(faSyncAlt,faArrowRight);
 import history from '../helpers/history.js';
 import { Router, Route, Link } from 'react-router-dom';
 import '../../content/css/main.css';
+import '../../content/nes-css/css/nes.css';
 
 const About = lazy(() => import('./about/about.jsx'));
 const Home = lazy(() => import('./home/home.jsx'));
@@ -18,6 +19,7 @@ const SimpleSorter = lazy(() => import('./shape-sorter/simple-sorter-challenge.j
 const Game = lazy(() => import('./board-game/game.jsx'));
 const WeatherGlobe = lazy(() => import('./globes/weather-globe.jsx'));
 const Blob = lazy(() => import('./blob/blob.jsx'));
+const Nes = lazy(() => import('./nes/nes.jsx'));
 // import Mark  from './mark/mark.jsx';
 // import VideoPhone  from './phone/video-phone.jsx';
 
@@ -32,7 +34,9 @@ class App extends React.Component {
                     <div>
                         <NavBar />
                         <div className="content">
-                        <Route exact path="/" component={Home} />
+                       
+                        <Route exact path="/e" component={Nes} />
+                        {/* <Route exact path="/" component={Home} /> */}
                         <Route path="/experiments" component={Experiments} />
                         <Route exact path="/about" component={About} />
                         <Route path="/mimic/1" component={DiamondCopyChallenge} />

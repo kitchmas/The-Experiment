@@ -23,6 +23,9 @@ class Blob extends React.Component {
     componentDidMount() {
         this.timeHeld = 0;
     }
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
     blobOnDown = () => {
         if (this.timeHeld < 0.6) {
             this.setState({ animateClass: "round", animateMovedId: "" });

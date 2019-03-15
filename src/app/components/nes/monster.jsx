@@ -6,7 +6,7 @@ class Monster extends React.Component {
     }
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <div className="monster-bars">
                     <span>{this.props.name}</span>
                     <progress className="nes-progress is-error" value={this.props.health} max={this.props.maxHealth}></progress>
@@ -15,7 +15,7 @@ class Monster extends React.Component {
                 <div className="monster-box ">
                     {this.props.health <= 0 ? <div>Dead</div> : <i className={"monster " + this.props.className}></i>}
           </div>
-        </div>
+          </React.Fragment>
         );
     }
 }

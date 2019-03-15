@@ -1,65 +1,122 @@
-
-.nes-content .game-box{
+.nes-content .game-box {
     width: 600px;
     margin: 0 auto;
+    max-height: 90vh;
 }
 
-.nes-content .game-box .nes-progress{
-    border-image-outset: 1.5;
+.nes-content .nes-progress {
+    border-image-outset: 1.2;
     height: 18px;
     margin: 0px;
- }
-
-.nes-content .game-box .game-screen{
 }
 
-.nes-content .game-screen .monster-box{
-    height: 400px;
+.nes-content .game-box .game-screen {
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nes-content .game-screen .start-screen {
+    text-align: center;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.nes-content .monster-box .monster{
-    zoom:3;
+.nes-content .game-screen .monster-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nes-content .monster-box .monster {
+    zoom: 1.5;
     animation: move;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-duration: 4s;
+    position: relative;
 }
 
 .nes-content .monster-bars .nes-progress.is-warning.critical-hit::-webkit-progress-value {
-    background-color:red;
+    background-color: red;
 }
 
-.nes-content .hero-buttons{
+.nes-content .hero-buttons {
     width: 100%;
-display: flex;
-justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1.3em;
 }
 
-.nes-content .hero-buttons .nes-btn{
+.nes-content .hero-buttons .nes-btn {
     width: 20%;
     font-size: 0.8em;
 }
 
-.nes-content .nes-progress{
+.nes-content .nes-progress {
     border-image-outset: 1.5;
     height: 18px;
     margin: 0px;
- }
+}
 
- @keyframes move{
-    0%{
+@keyframes move {
+    0% {
         position: relative;
-        top:0;
+        right: 0;
     }
-    50%{
+    25% {
         position: relative;
-        top: 10%;
+        right: 2.5%;
     }
-    100%{
+    50% {
         position: relative;
-        top: 0;
+        right: 0;
     }
- }
+    75% {
+        position: relative;
+        right: -2.5%;
+    }
+    100% {
+        position: relative;
+        right: 0;
+    }
+}
+
+@media(max-width:767px) {
+    .content-wrapper>.nes-container {
+        margin-top: 28px;
+        padding-bottom: 0;
+    }
+    .nes-content .game-box {
+        width: 100%;
+        font-size: 0.8em;
+    }
+    .nes-content .nes-container {
+        padding: 0.8em;
+        padding-bottom: 0;
+    }
+    .nes-content .game-box .game-screen {
+        height: 264px;
+    }
+    .nes-content .hero-buttons {
+        width: 100%;
+        display: block;
+    }
+    .nes-content .hero-buttons .nes-btn {
+        width: 100%;
+        margin: 0.6em 0;
+    }
+    .nes-content .hero-buttons {
+        margin-top: 0em;
+    }
+    .nes-content .nes-progress {
+        height: 15px;
+    }
+    .nes-content .game-box .monster-box .monster {
+        zoom: 1;
+    }
+}

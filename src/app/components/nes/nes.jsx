@@ -240,7 +240,7 @@ class Nes extends React.Component {
               </div>
             </div>
           </div>
-          <div className="item hero-buttons">
+          <div className="item hero-buttons ">
             {this.state.heroHealth <= 0 ? <div>You lose</div> : ""}
             <button type="button" className="nes-btn is-primary"
               onMouseDown={this._charge}

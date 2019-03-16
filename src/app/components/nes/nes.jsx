@@ -1,6 +1,9 @@
 import React from 'react';
 import '../../../content/css/nes-test.css';
 import Monster from '../nes/monster.jsx';
+import HeroBars from '../nes/hero-bars.jsx';
+import HeroButtons from '../nes/hero-buttons.jsx';
+import StartScreen from '../nes/start-screen.jsx';
 
 class Nes extends React.Component {
   state = {
@@ -13,8 +16,11 @@ class Nes extends React.Component {
     monsterMaxStamina: 0,
     monsterStaminaRecoveryRate: 0,
     monsterClassName: "",
+    heroMaxHealth: 100,
     heroHealth: 100,
+    heroMaxStamina: 100,
     heroStamina: 100,
+    heroMaxAttack:30,
     heroAttack: 0,
     attacking: false,
     monsters: [{ name: "Mario", health: 100, attack: 20, staminaRecoveryRate: 60, className: "nes-mario" },
@@ -63,7 +69,6 @@ class Nes extends React.Component {
     });
   }
   activateMonster = () => {
-    if (!this.monsterTimer) {
       this.monsterTimer = setInterval(() => {
         if (this.state.monsterStamina === 100 && this.state.monsterHealth > 0) {
           this.setState((prev) => ({
@@ -77,7 +82,6 @@ class Nes extends React.Component {
         }
       },
         this.state.monsterStaminaRecoveryRate)
-    }
   }
   stopMonster = () => {
     if (this.monsterTimer) {
@@ -117,44 +121,35 @@ class Nes extends React.Component {
       this.startGame();
     } else {
       if (this.state.heroAttack > 0) {
-        if (this.state.heroAttack > 0 && this.state.monsterStamina > 94 ) {
-          this.setState((prev) => ({
-            heroAttack: prev.heroAttack/2,
-            monsterStamina: 0
-          }));
-        }
-        this.stopMonster();
-      } else {
-        return;
-      }
-      this.attackTimer = setInterval(
-        () => {
-          if (this.state.heroAttack === 0)
-              this._stopAttacking();
-
-            if (this.state.monsterHealth <= 0) {
+        this.setState({ attacking: true })
+        let attackDamage = this.state.heroAttack;
+        this.attackTimer = setInterval(
+          () => {
+            if(this.state.monsterHealth <= 0){
               clearInterval(this.attackTimer);
               this.monsterKilled();
-            } else if (this.state.heroAttack > 0 && this.state.monsterStamina > 0) {
+            }
+            if (attackDamage > 0) {
               this.setState((prev) => ({
-                heroAttack: prev.heroAttack - 1,
-                monsterStamina: prev.monsterStamina - 1
+                monsterHealth: prev.monsterHealth - 1,
+                heroAttack: prev.heroAttack - 1
+              }));
+
+            } else if (attackDamage > 0) {
+              this.setState((prev) => ({
+                monsterHealth: prev.monsterHealth - 1,
               }));
             }
-            else if (this.state.heroAttack > 0 && this.state.monsterStamina === 0) {
-              this.setState((prev) => ({
-                heroAttack: prev.heroAttack - 1,
-                monsterHealth: prev.monsterHealth - 1
-              }));
+            else {
+              clearInterval(this.attackTimer);
+              this.setState({ attacking: false });
             }
-        },
-        100
-      );
+            attackDamage--;
+          },
+          10
+        );
+      }
     }
-  }
-  _stopAttacking = () => {
-    clearInterval(this.attackTimer);
-    this.activateMonster();
   }
   _charge = () => {
     if (!this.state.started) {
@@ -201,14 +196,14 @@ class Nes extends React.Component {
     } else {
       this.chargeAttackTimer = setInterval(
         () => {
-          if (this.state.heroAttack < 100 && this.state.heroStamina > 0) {
+          if (this.state.heroAttack < 30 && this.state.heroStamina > 0) {
             this.setState((prev) => ({
               heroAttack: prev.heroAttack + 1,
-              heroStamina: prev.heroStamina - 1
+              heroStamina: prev.heroStamina - 3
             }));
           }
         },
-        100
+        300
       );
     }
   }
@@ -218,60 +213,42 @@ class Nes extends React.Component {
   render() {
     return (
       <div className="content-wrapper nes-content">
-        <section className="nes-container with-title game-box">
-          <h3 className="title">Title</h3>
-          <div className="item">
-            <div className="game-screen nes-container">
-              {!this.state.started ? <div className="start-screen">
-                PRESS ANY BUTTON TO START
-              </div>
+        <section className="nes-container is-rounded game-box with-title is-centered">
+        <p class="title">Battle Boy</p>
+          <div className="nes-container is-rounded screen-wrapper">
+          <div className="game-screen is-rounded">
+               
+              {!this.state.started ? 
+              <StartScreen />
                 :
+                <React.Fragment>
                 <Monster health={this.state.monsterHealth}
                   maxHealth={this.state.monsterMaxHealth}
                   stamina={this.state.monsterStamina}
                   maxStamina={this.state.monsterMaxStamina}
                   className={this.state.monsterClassName}
                   name={this.state.monsterName} />
+                  <HeroBars
+                  health={this.state.heroHealth}
+                  maxHealth={this.state.heroMaxHealth}
+                  stamina={this.state.heroStamina}
+                  maxStamina={this.state.heroMaxStamina}
+                  attack={this.state.heroAttack}
+                  maxAttack={this.state.heroMaxAttack} />
+                  </React.Fragment>
               }
-              <div className="hero-bars">
-                <progress className="nes-progress is-error" value={this.state.heroHealth} max="100"></progress>
-                <progress className="nes-progress is-warning" value={this.state.heroAttack} max="100"></progress>
-                <progress className="nes-progress is-primary" value={this.state.heroStamina} max="100"></progress>
-              </div>
             </div>
-          </div>
-          <div className="item hero-buttons ">
-            {this.state.heroHealth <= 0 ? <div>You lose</div> : ""}
-            <button type="button" className="nes-btn is-primary"
-              onMouseDown={this._charge}
-              onTouchStart={this._charge}
-              onMouseUp={this._stopCharging}
-              onMouseLeave={this._stopCharging}
-              onTouchEnd={this._stopCharging}>
-              Charge
-              Stamina</button>
-              <button type="button" className="nes-btn is-warning"
-              onMouseDown={this._chargeAttack}
-              onTouchStart={this._chargeAttack}
-              onMouseUp={this._stopChargingAttack}
-              onMouseLeave={this._stopChargingAttack}
-              onTouchEnd={this._stopChargingAttack}>
-              Charge Attack</button>
-            <button type="button" className="nes-btn is-success"
-              onMouseDown={this._attack}
-              onTouchStart={this._attack}
-              onMouseUp={this._stopAttacking}
-              onMouseLeave={this._stopAttacking}
-              onTouchEnd={this._stopAttacking}>
-              Attack</button>
-            <button type="button" className="nes-btn is-error"
-              onMouseDown={this._heal}
-              onTouchStart={this._heal}
-              onMouseUp={this._stopHealing}
-              onMouseLeave={this._stopHealing}
-              onTouchEnd={this._stopHealing}>
-              Heal</button>
-          </div>
+            </div>
+
+         <HeroButtons 
+         attack={this._attack}
+         chargeAttack={this._chargeAttack}
+         stopChargingAttack={this._stopChargingAttack}
+         heal={this._heal}
+         stopeHealing={this._stopHealing}
+         charge={this._charge}
+         stopCharging={this._stopCharging}
+         />
         </section>
       </div>
     )

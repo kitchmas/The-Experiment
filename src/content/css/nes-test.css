@@ -29,6 +29,7 @@
     justify-content: space-between;
     text-align: initial;
     background: #f9f2d7;
+    padding: 0.1em;
 }
 
 .nes-container .game-screen .start-wrapper {
@@ -115,7 +116,6 @@
     }
     .nes-content .game-box .game-screen {
         height: 264px;
-        padding: 0.1em;
     }
     .nes-content .hero-buttons {
         width: 100%;

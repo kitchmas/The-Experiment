@@ -4,6 +4,7 @@ import Monster from '../nes/monster.jsx';
 import HeroBars from '../nes/hero-bars.jsx';
 import HeroButtons from '../nes/hero-buttons.jsx';
 import StartScreen from '../nes/start-screen.jsx';
+import LevelUpScreen from '../nes/level-up-screen.jsx';
 
 class Nes extends React.Component {
   state = {
@@ -17,12 +18,15 @@ class Nes extends React.Component {
     monsterMaxStamina: 0,
     monsterStaminaRecoveryRate: 0,
     monsterClassName: "",
+    heroName: "Hero",
     heroMaxHealth: 100,
     heroHealth: 100,
     heroMaxStamina: 100,
     heroStamina: 100,
     heroMaxAttack: 30,
     heroAttack: 0,
+    heroLevel: 1,
+    levelUp: true,
     attacking: false,
     monsters: [{ name: "Mario", health: 100, attack: 20, staminaRecoveryRate: 500, className: "nes-mario" },
     { name: "Ash", health: 120, attack: 30, staminaRecoveryRate: 50, className: "nes-ash" },
@@ -87,10 +91,12 @@ class Nes extends React.Component {
   monsterKilled = () => {
     //TODO show results maybe add level up type thing
     setTimeout(() => {
-      this.setState((prev) =>({
+      this.setState((prev) => ({
         heroStamina: prev.heroMaxStamina,
         heroHealth: prev.heroMaxHealth,
-        attacking: false
+        attacking: false,
+        levelUp: true,
+
       }), this.loadMonster())
     }, 2000);
   }
@@ -98,7 +104,7 @@ class Nes extends React.Component {
     this.setState({ monsterAttacking: true });
     this.monsterAttackTimer = setInterval(
       () => {
-        if (this.state.monsterAttack > 0) {
+        if (this.state.monsterAttack > 0 && this.state.heroHealth > 0) {
           this.setState((prev) => ({
             heroHealth: prev.heroHealth - 1,
             monsterAttack: prev.monsterAttack - 1,
@@ -125,7 +131,7 @@ class Nes extends React.Component {
               clearInterval(this.attackTimer);
               this.monsterKilled();
             }
-            if (attackDamage > 0) {
+            if (attackDamage > 0 && this.state.monsterHealth > 0) {
               this.setState((prev) => ({
                 monsterHealth: prev.monsterHealth - 1,
                 heroAttack: prev.heroAttack - 1
@@ -197,7 +203,7 @@ class Nes extends React.Component {
           if (this.state.heroAttack < 30 && this.state.heroStamina > 0) {
             this.setState((prev) => ({
               heroAttack: prev.heroAttack + 1,
-              heroStamina: prev.heroStamina - 3  < 0 ? 0 : prev.heroStamina - 3
+              heroStamina: prev.heroStamina - 3 < 0 ? 0 : prev.heroStamina - 3
             }));
           }
         },
@@ -208,33 +214,52 @@ class Nes extends React.Component {
   _stopChargingAttack = () => {
     clearInterval(this.chargeAttackTimer);
   }
+  _levelUpHealth = () =>{
+
+  }
+  _levelUpAttack = () =>{
+    
+  }
+  _levelUpStamina = () =>{
+    
+  }
   render() {
+    let content = "";
+    if (this.state.levelUp) {
+      content = <LevelUpScreen />;
+    } else if (!this.state.started) {
+      content = <StartScreen levelUpHealth={this._levelUpHealth}
+      healthValue={10}
+      levelUpStamina={this._levelUpAttack}
+      StaminaValue={10}
+      levelUpAttack={this._levelUpStamina}
+      AttackValue={10}
+
+       />
+    } else {
+      content = <React.Fragment>
+        <Monster health={this.state.monsterHealth}
+          maxHealth={this.state.monsterMaxHealth}
+          attack={this.state.monsterAttack}
+          maxAttack={this.state.monsterMaxAttack}
+          className={this.state.monsterClassName}
+          name={this.state.monsterName} />
+        <HeroBars
+          health={this.state.heroHealth}
+          maxHealth={this.state.heroMaxHealth}
+          stamina={this.state.heroStamina}
+          maxStamina={this.state.heroMaxStamina}
+          attack={this.state.heroAttack}
+          maxAttack={this.state.heroMaxAttack} />
+      </React.Fragment>;
+    }
     return (
       <div className="content-wrapper nes-content">
         <section className="nes-container is-rounded game-box with-title is-centered">
           <p class="title">Battle Boy</p>
           <div className="nes-container is-rounded screen-wrapper">
             <div className="game-screen is-rounded">
-
-              {!this.state.started ?
-                <StartScreen />
-                :
-                <React.Fragment>
-                  <Monster health={this.state.monsterHealth}
-                    maxHealth={this.state.monsterMaxHealth}
-                    attack={this.state.monsterAttack}
-                    maxAttack={this.state.monsterMaxAttack}
-                    className={this.state.monsterClassName}
-                    name={this.state.monsterName} />
-                  <HeroBars
-                    health={this.state.heroHealth}
-                    maxHealth={this.state.heroMaxHealth}
-                    stamina={this.state.heroStamina}
-                    maxStamina={this.state.heroMaxStamina}
-                    attack={this.state.heroAttack}
-                    maxAttack={this.state.heroMaxAttack} />
-                </React.Fragment>
-              }
+                {content}
             </div>
           </div>
 

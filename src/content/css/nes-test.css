@@ -28,13 +28,12 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: initial;
-    background: #f9f2d7;
     padding: 0.1em;
+    background-color: #fff;
 }
 
 .nes-container .game-screen .start-wrapper {
     flex: 1;
-    background-color: #f9f2d7;
 }
 
 .nes-content .game-screen .start-screen {
@@ -43,6 +42,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    background-color: #f9f2d7;
 }
 
 .nes-content .game-screen .monster-box {
@@ -77,7 +77,24 @@
     font-size: 0.8em;
 }
 
-.nes-content .nes-progress {}
+.nes-content .level-up-screen h1,
+.nes-content .level-up-screen p{
+    text-align: center;
+}
+
+.nes-content .level-up-screen{
+     text-align: center
+}
+
+.nes-content .level-up-screen .level-up-options{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nes-content .level-up-screen .level-up-options span{
+    display: block;
+}
+
 
 @keyframes move {
     0% {

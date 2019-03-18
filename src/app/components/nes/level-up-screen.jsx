@@ -12,15 +12,15 @@ class LevelUpScreen extends React.Component {
                 <div className="level-up-options">
                     <div onClick={this.props.levelUpHealth}>
                         <i class="nes-icon is-large heart"></i>
-                        <span>Health + {this.props.healthValue}</span>
+                        <span>Health +{this.props.healthValue}</span>
                     </div>
                     <div onClick={this.props.levelUpAttack}>
                         <i class="nes-icon is-large star"></i>
-                        <span>Attack + 10 {this.props.AttackValue}</span>
+                        <span>Attack +{this.props.attackValue}</span>
                     </div>
                     <div onClick={this.props.levelUpStamina}>
                         <i class="nes-icon coin is-large"></i>
-                        <span>Stamina + {this.props.StaminaValue}</span>
+                        <span>Stamina +{this.props.staminaValue}</span>
                     </div>
                 </div>
             </div>

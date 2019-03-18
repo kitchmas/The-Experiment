@@ -26,6 +26,9 @@ class Nes extends React.Component {
     heroMaxAttack: 30,
     heroAttack: 0,
     heroLevel: 1,
+    levelUpHealth:20,
+    levelUpStamina:20,
+    levelUpAttack:10,
     levelUp: true,
     attacking: false,
     monsters: [{ name: "Mario", health: 100, attack: 20, staminaRecoveryRate: 500, className: "nes-mario" },
@@ -91,14 +94,13 @@ class Nes extends React.Component {
   monsterKilled = () => {
     //TODO show results maybe add level up type thing
     setTimeout(() => {
-      this.setState((prev) => ({
-        heroStamina: prev.heroMaxStamina,
-        heroHealth: prev.heroMaxHealth,
-        attacking: false,
-        levelUp: true,
-
-      }), this.loadMonster())
-    }, 2000);
+      this.setState({
+          levelUp:true
+    })}, 2000);
+  }
+  getReadyForNextRound = () =>{
+    //heal hero states
+    //load next monster
   }
   monsterAttack = () => {
     this.setState({ monsterAttacking: true });
@@ -215,27 +217,28 @@ class Nes extends React.Component {
     clearInterval(this.chargeAttackTimer);
   }
   _levelUpHealth = () =>{
-
+    this.setState((prev) => ({heroHealth:prev.heroMaxHealth + prev.levelUpHealth}));
+    this.getReadyForNextRound();
   }
   _levelUpAttack = () =>{
-    
+    this.setState((prev) => ({heroHealth:prev.heroMaxHealth + prev.levelUpAttack}));
+    this.getReadyForNextRound();
   }
   _levelUpStamina = () =>{
-    
+    this.setState((prev) => ({heroHealth:prev.heroMaxStamina + prev.levelUpStamina}));
+    this.getReadyForNextRound();
   }
   render() {
     let content = "";
     if (this.state.levelUp) {
-      content = <LevelUpScreen />;
-    } else if (!this.state.started) {
-      content = <StartScreen levelUpHealth={this._levelUpHealth}
-      healthValue={10}
+      content = <LevelUpScreen levelUpHealth={this._levelUpHealth}
+      healthValue={this.state.levelUpHealth}
       levelUpStamina={this._levelUpAttack}
-      StaminaValue={10}
+      staminaValue={this.state.levelUpStamina}
       levelUpAttack={this._levelUpStamina}
-      AttackValue={10}
-
-       />
+      attackValue={this.state.levelUpAttack}/>;
+    } else if (!this.state.started) {
+      content = <StartScreen />
     } else {
       content = <React.Fragment>
         <Monster health={this.state.monsterHealth}

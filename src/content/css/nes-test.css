@@ -91,6 +91,15 @@
     justify-content: space-evenly;
 }
 
+.nes-content .level-up-screen .level-up-options .nes-icon.coin:before{
+    color:#108de0;
+}
+
+
+.nes-content .level-up-screen .level-up-options div:hover{
+    cursor: url(/images/imagescursor-click.png) 14 0,pointer;
+}
+
 .nes-content .level-up-screen .level-up-options span{
     display: block;
 }

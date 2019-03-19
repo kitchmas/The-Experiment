@@ -26,9 +26,9 @@ class Nes extends React.Component {
     heroMaxAttack: 30,
     heroAttack: 0,
     heroLevel: 1,
-    levelUpHealth:20,
-    levelUpStamina:20,
-    levelUpAttack:10,
+    levelUpHealth: 20,
+    levelUpStamina: 20,
+    levelUpAttack: 10,
     levelUp: true,
     attacking: false,
     monsters: [{ name: "Mario", health: 100, attack: 20, staminaRecoveryRate: 500, className: "nes-mario" },
@@ -95,12 +95,21 @@ class Nes extends React.Component {
     //TODO show results maybe add level up type thing
     setTimeout(() => {
       this.setState({
-          levelUp:true
-    })}, 2000);
+        levelUp: true
+      })
+    }, 2000);
   }
-  getReadyForNextRound = () =>{
+  getReadyForNextRound = () => {
     //heal hero states
+    this.setState((prev) => ({
+      heroHealth: prev.heroMaxHealth,
+      heroStamina: prev.heroMaxStamina,
+      heroAttack: prev.heroMaxAttack,
+      heroLevel: prev.heroLevel + 1,
+      levelUp:false
+    }));
     //load next monster
+    this.loadMonster();
   }
   monsterAttack = () => {
     this.setState({ monsterAttacking: true });
@@ -216,31 +225,31 @@ class Nes extends React.Component {
   _stopChargingAttack = () => {
     clearInterval(this.chargeAttackTimer);
   }
-  _levelUpHealth = () =>{
-    this.setState((prev) => ({heroHealth:prev.heroMaxHealth + prev.levelUpHealth}));
+  _levelUpHealth = () => {
+    this.setState((prev) => ({ heroMaxHealth: prev.heroMaxHealth + prev.levelUpHealth }));
     this.getReadyForNextRound();
   }
-  _levelUpAttack = () =>{
-    this.setState((prev) => ({heroHealth:prev.heroMaxHealth + prev.levelUpAttack}));
+  _levelUpAttack = () => {
+    this.setState((prev) => ({ heroMaxAttack: prev.heroMaxAttack + prev.levelUpAttack }));
     this.getReadyForNextRound();
   }
-  _levelUpStamina = () =>{
-    this.setState((prev) => ({heroHealth:prev.heroMaxStamina + prev.levelUpStamina}));
+  _levelUpStamina = () => {
+    this.setState((prev) => ({ heroMaxStamina: prev.heroMaxStamina + prev.levelUpStamina }));
     this.getReadyForNextRound();
   }
   render() {
-    let content = "";
+    let screenContent = "";
     if (this.state.levelUp) {
-      content = <LevelUpScreen levelUpHealth={this._levelUpHealth}
-      healthValue={this.state.levelUpHealth}
-      levelUpStamina={this._levelUpAttack}
-      staminaValue={this.state.levelUpStamina}
-      levelUpAttack={this._levelUpStamina}
-      attackValue={this.state.levelUpAttack}/>;
+      screenContent = <LevelUpScreen levelUpHealth={this._levelUpHealth}
+        healthValue={this.state.levelUpHealth}
+        levelUpStamina={this._levelUpAttack}
+        staminaValue={this.state.levelUpStamina}
+        levelUpAttack={this._levelUpStamina}
+        attackValue={this.state.levelUpAttack} />;
     } else if (!this.state.started) {
-      content = <StartScreen />
+      screenContent = <StartScreen />
     } else {
-      content = <React.Fragment>
+      screenContent = <React.Fragment>
         <Monster health={this.state.monsterHealth}
           maxHealth={this.state.monsterMaxHealth}
           attack={this.state.monsterAttack}
@@ -262,10 +271,9 @@ class Nes extends React.Component {
           <p class="title">Battle Boy</p>
           <div className="nes-container is-rounded screen-wrapper">
             <div className="game-screen is-rounded">
-                {content}
+              {screenContent}
             </div>
           </div>
-
           <HeroButtons
             attack={this._attack}
             chargeAttack={this._chargeAttack}

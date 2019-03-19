@@ -75,35 +75,47 @@
 .nes-content .hero-buttons .nes-btn {
     width: 20%;
     font-size: 0.8em;
+    height: 58px;
 }
 
 .nes-content .level-up-screen h1,
-.nes-content .level-up-screen p{
+.nes-content .level-up-screen p {
     text-align: center;
 }
 
-.nes-content .level-up-screen{
-     text-align: center
+.nes-content .level-up-screen {
+    text-align: center
 }
 
-.nes-content .level-up-screen .level-up-options{
+.nes-content .level-up-screen .level-up-options {
     display: flex;
     justify-content: space-evenly;
 }
 
-.nes-content .level-up-screen .level-up-options .nes-icon.coin:before{
-    color:#108de0;
+.nes-content .level-up-screen .level-up-options .nes-icon.coin:before {
+    color: #108de0;
 }
 
-
-.nes-content .level-up-screen .level-up-options div:hover{
-    cursor: url(/images/imagescursor-click.png) 14 0,pointer;
+.nes-content .level-up-screen .level-up-options div:hover {
+    cursor: url(/images/imagescursor-click.png) 14 0, pointer;
 }
 
-.nes-content .level-up-screen .level-up-options span{
+.nes-content .level-up-screen .level-up-options span {
     display: block;
 }
 
+.nes-content .game-over-screen {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nes-content .game-over-screen .retry:hover {
+    cursor: url(/images/imagescursor-click.png) 14 0, pointer;
+}
 
 @keyframes move {
     0% {
@@ -141,7 +153,7 @@
         padding: 0.8em;
     }
     .nes-content .game-box .game-screen {
-        height: 264px;
+        height: 215px;
     }
     .nes-content .hero-buttons {
         width: 100%;
@@ -150,10 +162,9 @@
     .nes-content .hero-buttons .nes-btn {
         width: 100%;
         margin: 0.6em 0;
+        height: initial;
     }
-    .nes-content .hero-buttons {
-        margin-top: 0em;
-    }
+    .nes-content .hero-buttons {}
     .nes-content .nes-progress {
         height: 17px;
     }

@@ -5,6 +5,7 @@ import HeroBars from '../nes/hero-bars.jsx';
 import HeroButtons from '../nes/hero-buttons.jsx';
 import StartScreen from '../nes/start-screen.jsx';
 import LevelUpScreen from '../nes/level-up-screen.jsx';
+import GameOverScreen from './game-over.jsx';
 
 class Nes extends React.Component {
   state = {
@@ -18,6 +19,7 @@ class Nes extends React.Component {
     monsterMaxStamina: 0,
     monsterStaminaRecoveryRate: 0,
     monsterClassName: "",
+    monsterAttacking: false,
     heroName: "Hero",
     heroMaxHealth: 100,
     heroHealth: 100,
@@ -29,9 +31,10 @@ class Nes extends React.Component {
     levelUpHealth: 20,
     levelUpStamina: 20,
     levelUpAttack: 10,
-    levelUp: true,
+    levelUp: false,
+    gameOver: false,
     attacking: false,
-    monsters: [{ name: "Mario", health: 100, attack: 20, staminaRecoveryRate: 500, className: "nes-mario" },
+    monsters: [{ name: "Mario", health: 10, attack: 20, staminaRecoveryRate: 500, className: "nes-mario" },
     { name: "Ash", health: 120, attack: 30, staminaRecoveryRate: 50, className: "nes-ash" },
     { name: "Poké Ball", health: 140, attack: 10, staminaRecoveryRate: 25, className: "nes-pokeball" },
     { name: "Bulbasaur", health: 160, attack: 40, staminaRecoveryRate: 80, className: "nes-bulbasaur" },
@@ -47,9 +50,6 @@ class Nes extends React.Component {
     clearInterval(this.monsterTimer);
     clearInterval(this.healTimer);
     clearInterval(this.chargeAttackTimer);
-  }
-  startGame = () => {
-    this.loadMonster();
   }
   loadMonster = () => {
     let nextMonster;
@@ -89,7 +89,7 @@ class Nes extends React.Component {
         }
       }
     },
-      this.state.monsterStaminaRecoveryRate)
+      this.state.monsterStaminaRecoveryRate);
   }
   monsterKilled = () => {
     //TODO show results maybe add level up type thing
@@ -99,17 +99,24 @@ class Nes extends React.Component {
       })
     }, 2000);
   }
+  heroKilled = () => {
+    this.setState({
+      monsterAttacking: false,
+      gameOver: true
+    });
+    clearInterval(this.monsterAttackTimer);
+    clearInterval(this.heroAttack);
+  }
   getReadyForNextRound = () => {
     //heal hero states
     this.setState((prev) => ({
       heroHealth: prev.heroMaxHealth,
       heroStamina: prev.heroMaxStamina,
-      heroAttack: prev.heroMaxAttack,
+      heroAttack: 0,
       heroLevel: prev.heroLevel + 1,
-      levelUp:false
-    }));
-    //load next monster
-    this.loadMonster();
+      levelUp: false
+    }), this.loadMonster());
+
   }
   monsterAttack = () => {
     this.setState({ monsterAttacking: true });
@@ -121,7 +128,10 @@ class Nes extends React.Component {
             monsterAttack: prev.monsterAttack - 1,
           }));
         }
-        else {
+        else if (this.state.heroHealth < 1) {
+          this.heroKilled();
+        }
+        else if (this.state.monsterAttack === 0) {
           this.setState({ monsterAttacking: false });
           clearInterval(this.monsterAttackTimer);
         }
@@ -129,78 +139,79 @@ class Nes extends React.Component {
       10
     );
   }
+  _startGame = () => {
+    this.loadMonster();
+  }
+  _resetGame = () => {
+    this.setState({
+      heroHealth: 100,
+      heroStamina: 100,
+      heroAttack: 0,
+      heroLevel: 1,
+      gameOver: false,
+      monsterName: ""
+    }, this.loadMonster());
+  }
   _attack = () => {
-    if (!this.state.started) {
-      this.startGame();
-    } else {
-      if (this.state.heroAttack > 0) {
-        this.setState({ attacking: true })
-        let attackDamage = this.state.heroAttack;
-        this.attackTimer = setInterval(
-          () => {
-            if (this.state.monsterHealth <= 0) {
-              clearInterval(this.attackTimer);
-              this.monsterKilled();
-            }
-            if (attackDamage > 0 && this.state.monsterHealth > 0) {
-              this.setState((prev) => ({
-                monsterHealth: prev.monsterHealth - 1,
-                heroAttack: prev.heroAttack - 1
-              }));
+    if (this.state.heroAttack > 0) {
+      this.setState({ attacking: true })
+      let attackDamage = this.state.heroAttack;
+      this.attackTimer = setInterval(
+        () => {
+          if (this.state.monsterHealth <= 0) {
+            clearInterval(this.attackTimer);
+            this.monsterKilled();
+          }
+          if (attackDamage > 0 && this.state.monsterHealth > 0) {
+            this.setState((prev) => ({
+              monsterHealth: prev.monsterHealth - 1,
+              heroAttack: prev.heroAttack - 1
+            }));
 
-            } else if (attackDamage > 0) {
-              this.setState((prev) => ({
-                monsterHealth: prev.monsterHealth - 1,
-              }));
-            }
-            else {
-              clearInterval(this.attackTimer);
-              this.setState({ attacking: false });
-            }
-            attackDamage--;
-          },
-          10
-        );
-      }
+          } else if (attackDamage > 0) {
+            this.setState((prev) => ({
+              monsterHealth: prev.monsterHealth - 1,
+            }));
+          }
+          else {
+            clearInterval(this.attackTimer);
+            this.setState({ attacking: false });
+          }
+          attackDamage--;
+        },
+        10
+      );
     }
   }
   _charge = () => {
-    if (!this.state.started) {
-      this.startGame();
-    } else {
-      this.chargeTimer = setInterval(
-        () => {
-          if (this.state.heroStamina < 100) {
-            this.setState((prev) => ({
-              heroStamina: prev.heroStamina + 1
-            }));
-          }
-        },
-        100
-      );
-    }
+    this.chargeTimer = setInterval(
+      () => {
+        if (this.state.heroStamina < 100) {
+          this.setState((prev) => ({
+            heroStamina: prev.heroStamina + 1
+          }));
+        }
+      },
+      100
+    );
   }
   _stopCharging = () => {
     clearInterval(this.chargeTimer);
   }
   _heal = () => {
-    if (!this.state.started) {
-      this.startGame();
-    } else {
-      this.healTimer = setInterval(
-        () => {
-          if (this.state.heroHealth < this.state.heroMaxHealth && this.state.heroStamina > 0) {
-            this.setState((prev) => ({
-              heroHealth: prev.heroHealth + 1,
-              heroStamina: prev.heroStamina - 1
-            }));
-          } else {
-            clearInterval(this.healTimer);
-          }
-        },
-        100
-      );
-    }
+    this.healTimer = setInterval(
+      () => {
+        if (this.state.heroHealth < this.state.heroMaxHealth && this.state.heroStamina > 0) {
+          this.setState((prev) => ({
+            heroHealth: prev.heroHealth + 1,
+            heroStamina: prev.heroStamina - 1
+          }));
+        } else {
+          clearInterval(this.healTimer);
+        }
+      },
+      100
+    );
   }
   _stopHealing = () => {
     clearInterval(this.healTimer);
@@ -225,6 +236,9 @@ class Nes extends React.Component {
   _stopChargingAttack = () => {
     clearInterval(this.chargeAttackTimer);
   }
+  _levelUpNone = () => {
+    this.getReadyForNextRound();
+  }
   _levelUpHealth = () => {
     this.setState((prev) => ({ heroMaxHealth: prev.heroMaxHealth + prev.levelUpHealth }));
     this.getReadyForNextRound();
@@ -238,16 +252,58 @@ class Nes extends React.Component {
     this.getReadyForNextRound();
   }
   render() {
-    let screenContent = "";
-    if (this.state.levelUp) {
+    let screenContent = "",
+      heroButtons = "";
+    if (this.state.gameOver) {
+      screenContent = <GameOverScreen retry={this._resetGame} />;
+      heroButtons = <HeroButtons
+        attackButtonText="Retry"
+        staminaButtonText="Retry"
+        healButtonText="Retry"
+        chargeAttackButtonText="Retry"
+        attack={this._resetGame}
+        chargeAttack={this._resetGame}
+        stopChargingAttack={() => { }}
+        heal={this._resetGame}
+        stopHealing={() => { }}
+        charge={this._resetGame}
+        stopCharging={() => { }}
+      />
+    }
+    else if (this.state.levelUp) {
       screenContent = <LevelUpScreen levelUpHealth={this._levelUpHealth}
         healthValue={this.state.levelUpHealth}
         levelUpStamina={this._levelUpAttack}
         staminaValue={this.state.levelUpStamina}
         levelUpAttack={this._levelUpStamina}
         attackValue={this.state.levelUpAttack} />;
+
+      heroButtons = <HeroButtons
+        attackButtonText="Skip"
+        staminaButtonText="Stamina"
+        healButtonText="Health"
+        chargeAttackButtonText="Attack"
+        attack={this._levelUpNone}
+        chargeAttack={this._levelUpAttack}
+        stopChargingAttack={() => { }}
+        heal={this._levelUpHealth}
+        stopHealing={() => { }}
+        charge={this._levelUpStamina}
+        stopCharging={() => { }} />
     } else if (!this.state.started) {
       screenContent = <StartScreen />
+      heroButtons = <HeroButtons
+        attackButtonText=" "
+        staminaButtonText=" "
+        healButtonText=" "
+        chargeAttackButtonText=" "
+        attack={this._startGame}
+        chargeAttack={this._startGame}
+        stopChargingAttack={() => { }}
+        heal={this._startGame}
+        stopHealing={() => { }}
+        charge={this._startGame}
+        stopCharging={() => { }} />
     } else {
       screenContent = <React.Fragment>
         <Monster health={this.state.monsterHealth}
@@ -264,6 +320,19 @@ class Nes extends React.Component {
           attack={this.state.heroAttack}
           maxAttack={this.state.heroMaxAttack} />
       </React.Fragment>;
+      heroButtons = <HeroButtons
+        attackButtonText="Attack"
+        staminaButtonText="Charge SP"
+        healButtonText="Heal"
+        chargeAttackButtonText="Charge AP"
+        attack={this._attack}
+        chargeAttack={this._chargeAttack}
+        stopChargingAttack={this._stopChargingAttack}
+        heal={this._heal}
+        stopHealing={this._stopHealing}
+        charge={this._charge}
+        stopCharging={this._stopCharging}
+      />;
     }
     return (
       <div className="content-wrapper nes-content">
@@ -274,15 +343,7 @@ class Nes extends React.Component {
               {screenContent}
             </div>
           </div>
-          <HeroButtons
-            attack={this._attack}
-            chargeAttack={this._chargeAttack}
-            stopChargingAttack={this._stopChargingAttack}
-            heal={this._heal}
-            stopHealing={this._stopHealing}
-            charge={this._charge}
-            stopCharging={this._stopCharging}
-          />
+          {heroButtons}
         </section>
       </div>
     )

@@ -9,8 +9,8 @@ import GameOverScreen from './game-over.jsx';
 
 class Nes extends React.Component {
   state = {
-    started: true,
-    monsterName: "Mario",
+    started: false,
+    monsterName: "",
     monsterHealth: 0,
     monsterMaxHealth: 0,
     monsterAttack: 0,
@@ -22,9 +22,9 @@ class Nes extends React.Component {
     monsterClassName: "",
     monsterAttacking: false,
     heroName: "Hero",
-    heroMaxHealth: 40,
-    heroHealth: 40,
-    heroMaxStamina: 40,
+    heroMaxHealth: 50,
+    heroHealth: 50,
+    heroMaxStamina: 30,
     heroStamina: 30,
     heroMaxAttack: 10,
     heroAttack: 0,
@@ -38,13 +38,13 @@ class Nes extends React.Component {
     levelUpHealth: 10,
     levelUpStamina: 10,
     levelUpAttack: 10,
-    levelUp: true,
-    levelUpHealthTree: [{ type: 'speed', value: 20 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
-    levelUpAttackTree: [{ type: 'speed', value: 20 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
-    levelUpStaminaTree: [{ type: 'speed', value: 20 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUp: false,
+    levelUpHealthTree: [{ type: 'speed', value: 40 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUpAttackTree: [{ type: 'speed', value: 40 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUpStaminaTree: [{ type: 'speed', value: 40 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
     gameOver: false,
     attacking: false,
-    monsters: [{ name: "Mario", health: 40, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
+    monsters: [{ name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
     { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
     { name: "Poké Ball", health: 90, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
     { name: "Bulbasaur", health: 130, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
@@ -106,10 +106,23 @@ class Nes extends React.Component {
   }
   monsterKilled = () => {
     //TODO show results maybe add level up type thing
+    debugger;
+    let heroHealRatePercentageUp = ((10 / this.state.heroHealRate) * 100),
+    heroAttackChargeRatePercentageUp = ((10 / this.state.heroAttackChargeRate) * 100),
+    heroStaminaChargeRatePercentageUp = ((10 / this.state.heroStaminaChargeRate) * 100),
+    heroMaxHealthPercentageUp = ((10 / this.state.heroMaxHealth) * 100),
+    heroMaxAttackPercentageUp = ((10 / this.state.heroMaxAttack) * 100),
+    heroMaxStaminaPercentageUp = ((10 / this.state.heroMaxStamina) * 100);
     setTimeout(() => {
-      this.setState({
+      this.setState((prev) => ({
+        heroHealRate:prev.heroHealRate - heroHealRatePercentageUp,
+        heroAttackChargeRate:prev.heroAttackChargeRate - heroAttackChargeRatePercentageUp,
+        heroStaminaChargeRate:prev.heroStaminaChargeRate - heroStaminaChargeRatePercentageUp,
+        heroMaxHealth : heroMaxHealthPercentageUp,
+        heroMaxAttack : heroMaxAttackPercentageUp,
+        heroMaxStamina:heroMaxStaminaPercentageUp,
         levelUp: true
-      })
+      }))
     }, 2000);
   }
   heroKilled = () => {

@@ -7,10 +7,14 @@ class HeroBars extends React.Component {
     render() {
         return (
             <div className="hero-bars">
-            <progress className="nes-progress is-error" display={this.props.health + "/" + this.props.maxHealth} value={this.props.health} max={this.props.maxHealth}></progress>
-            <progress className="nes-progress is-warning" display={this.props.attack + "/" + this.props.maxAttack} value={this.props.attack} max={this.props.maxAttack}></progress>
-            <progress className="nes-progress is-primary" display={this.props.stamina + "/" + this.props.maxStamina}  value={this.props.stamina} max={this.props.maxStamina}></progress>
-          </div>
+                <div className="hero-stats">
+                    <div>{this.props.name}</div>
+                    <div>Lvl:{this.props.level}</div>
+                </div>
+                <progress className="nes-progress is-error" display={this.props.health + "/" + this.props.maxHealth} value={this.props.health} max={this.props.maxHealth}></progress>
+                <progress className="nes-progress is-warning" display={this.props.attack + "/" + this.props.maxAttack} value={this.props.attack} max={this.props.maxAttack}></progress>
+                <progress className="nes-progress is-primary" display={this.props.stamina + "/" + this.props.maxStamina} value={this.props.stamina} max={this.props.maxStamina}></progress>
+            </div>
         );
     }
 }

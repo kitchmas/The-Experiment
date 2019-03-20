@@ -7,13 +7,6 @@ class HeroButtons extends React.Component {
     render() {
         return (
             <div className="item hero-buttons ">
-                <button type="button" className="nes-btn is-primary"
-                    onMouseDown={this.props.charge}
-                    onTouchStart={this.props.charge}
-                    onMouseUp={this.props.stopCharging}
-                    onMouseLeave={this.props.stopCharging}
-                    onTouchEnd={this.props.stopCharging}>
-                    {this.props.staminaButtonText}</button>
                 <button type="button" className="nes-btn is-error"
                     onMouseDown={this.props.heal}
                     onTouchStart={this.props.heal}
@@ -21,6 +14,13 @@ class HeroButtons extends React.Component {
                     onMouseLeave={this.props.stopHealing}
                     onTouchEnd={this.props.stopHealing}>
                     {this.props.healButtonText}</button>
+                <button type="button" className="nes-btn is-primary"
+                    onMouseDown={this.props.charge}
+                    onTouchStart={this.props.charge}
+                    onMouseUp={this.props.stopCharging}
+                    onMouseLeave={this.props.stopCharging}
+                    onTouchEnd={this.props.stopCharging}>
+                    {this.props.staminaButtonText}</button>
                 <button type="button" className="nes-btn is-warning"
                     onMouseDown={this.props.chargeAttack}
                     onTouchStart={this.props.chargeAttack}

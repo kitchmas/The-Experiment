@@ -65,6 +65,11 @@
     background-color: red;
 }
 
+.nes-content .hero-bars .hero-stats{
+   display: flex;
+   justify-content: space-between;
+}
+
 .nes-content .hero-buttons {
     width: 100%;
     display: flex;
@@ -90,6 +95,13 @@
 .nes-content .level-up-screen .level-up-options {
     display: flex;
     justify-content: space-evenly;
+}
+
+.nes-content .level-up-options > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nes-content .level-up-screen .level-up-options .nes-icon.coin:before {

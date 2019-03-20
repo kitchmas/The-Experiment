@@ -10,17 +10,20 @@ class LevelUpScreen extends React.Component {
                 <h1>LEVEL UP</h1>
                 <p>Choose a bonus</p>
                 <div className="level-up-options">
+                    <div onClick={this.props.levelUpStamina}>
+                        <h4>Stamina</h4>
+                        <i class="nes-icon coin is-large"></i>
+                        <span>{this.props.staminaValue.type === "speed" ? "Speed +" + this.props.staminaValue.value + "%" : "Points +" + this.props.staminaValue.value}</span>
+                    </div>
                     <div onClick={this.props.levelUpHealth}>
+                        <h4>Health</h4>
                         <i class="nes-icon is-large heart"></i>
-                        <span>Health +{this.props.healthValue}</span>
+                        <span>{this.props.healthValue.type === "speed" ? "Speed +" + this.props.healthValue.value + "%" : "Points +" + this.props.healthValue.value}</span>
                     </div>
                     <div onClick={this.props.levelUpAttack}>
+                        <h4>Attack</h4>
                         <i class="nes-icon is-large star"></i>
-                        <span>Attack +{this.props.attackValue}</span>
-                    </div>
-                    <div onClick={this.props.levelUpStamina}>
-                        <i class="nes-icon coin is-large"></i>
-                        <span>Stamina +{this.props.staminaValue}</span>
+                        <span>{this.props.attackValue.type === "speed" ? "Speed +" + this.props.attackValue.value + "%" : "Points +" + this.props.attackValue.value}</span>
                     </div>
                 </div>
             </div>

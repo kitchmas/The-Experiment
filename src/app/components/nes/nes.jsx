@@ -39,18 +39,25 @@ class Nes extends React.Component {
     levelUpStamina: 10,
     levelUpAttack: 10,
     levelUp: false,
-    levelUpHealthTree: [{ type: 'speed', value: 40 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
-    levelUpAttackTree: [{ type: 'speed', value: 40 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
-    levelUpStaminaTree: [{ type: 'speed', value: 40 }, { type: 'points', value: 10 }, { type: 'speed', value: 20 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUpHealthTree: [{ type: 'speed', value: 25 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 25 }, { type: 'speed', value: 35 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUpAttackTree: [{ type: 'speed', value: 25 }, { type: 'points', value: 50 }, { type: 'speed', value: 30 }, { type: 'points', value: 55 }, { type: 'speed', value: 35 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUpStaminaTree: [{ type: 'speed', value: 25 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 25 }, { type: 'speed', value: 35 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
     gameOver: false,
     attacking: false,
-    monsters: [{ name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-    { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-    { name: "Poké Ball", health: 90, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
-    { name: "Bulbasaur", health: 130, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-    { name: "Charmander", health: 180, attack: 60, attackPattern: [20, 40, 20, 40], staminaRecoveryRate: 500, className: "nes-charmander" },
-    { name: "Squirtle", health: 240, attack: 70, attackPattern: [10, 10, 10, 10, 5, 35, 70], staminaRecoveryRate: 400, className: "nes-squirtle" },
-    { name: "Kirby", health: 300, attack: 90, ttackPattern: [90, 45, 10, 5, 10, 45, 90], staminaRecoveryRate: 300, className: "nes-kirby" }]
+    monsters: [
+      // { name: "Mario", health: 50, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
+      { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
+      // { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
+    { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
+    // { name: "Poké Ball", health: 90, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
+    { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
+    // { name: "Bulbasaur", health: 130, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
+    { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
+    // { name: "Charmander", health: 180, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
+    { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
+    // { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
+    { name: "Squirtle", health: 1, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
+    { name: "Kirby", health: 300, attack: 90, ttackPattern: [90, 45, 10, 5, 10, 45, 90], staminaRecoveryRate: 200, className: "nes-kirby" }]
   }
   componentDidMount() {
   }
@@ -107,20 +114,20 @@ class Nes extends React.Component {
   monsterKilled = () => {
     //TODO show results maybe add level up type thing
     debugger;
-    let heroHealRatePercentageUp = ((10 / this.state.heroHealRate) * 100),
-    heroAttackChargeRatePercentageUp = ((10 / this.state.heroAttackChargeRate) * 100),
-    heroStaminaChargeRatePercentageUp = ((10 / this.state.heroStaminaChargeRate) * 100),
-    heroMaxHealthPercentageUp = ((10 / this.state.heroMaxHealth) * 100),
-    heroMaxAttackPercentageUp = ((10 / this.state.heroMaxAttack) * 100),
-    heroMaxStaminaPercentageUp = ((10 / this.state.heroMaxStamina) * 100);
+    let heroHealRatePercentageUp = Math.round(((10 / 100) * this.state.heroHealRate)),
+    heroAttackChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroAttackChargeRate)),
+    heroStaminaChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroStaminaChargeRate)),
+    heroMaxHealthPercentageUp = Math.round(((10 / 100) * this.state.heroMaxHealth)),
+    heroMaxAttackPercentageUp = Math.round(((20 / 100) * this.state.heroMaxAttack)),
+    heroMaxStaminaPercentageUp = Math.round(((15 / 100) * this.state.heroMaxStamina));
     setTimeout(() => {
       this.setState((prev) => ({
         heroHealRate:prev.heroHealRate - heroHealRatePercentageUp,
         heroAttackChargeRate:prev.heroAttackChargeRate - heroAttackChargeRatePercentageUp,
         heroStaminaChargeRate:prev.heroStaminaChargeRate - heroStaminaChargeRatePercentageUp,
-        heroMaxHealth : heroMaxHealthPercentageUp,
-        heroMaxAttack : heroMaxAttackPercentageUp,
-        heroMaxStamina:heroMaxStaminaPercentageUp,
+        heroMaxHealth :prev.heroMaxHealth + heroMaxHealthPercentageUp,
+        heroMaxAttack :prev.heroMaxAttack + heroMaxAttackPercentageUp,
+        heroMaxStamina:prev.heroMaxStamina + heroMaxStaminaPercentageUp,
         levelUp: true
       }))
     }, 2000);
@@ -138,8 +145,10 @@ class Nes extends React.Component {
     this.setState((prev) => ({
       heroHealth: prev.heroMaxHealth,
       heroStamina: prev.heroMaxStamina,
+      heroMaxAttack: prev.heroMaxAttack,
       heroAttack: 0,
-      levelUp: false
+      levelUp: false,
+      level:1,
     }), this.loadMonster());
 
   }
@@ -169,9 +178,15 @@ class Nes extends React.Component {
   }
   _resetGame = () => {
     this.setState((prev) => ({
-      heroHealth: prev.heroMaxHealth,
-      heroStamina: prev.heroMaxStamina,
-      heroAttack: prev.heroMaxAttack,
+      heroHealth: 50,
+      heroStamina: 30,
+      heroAttack:0,
+      heroMaxAttack:10,
+      heroMaxStamina:30,
+      heroMaxHealth:50,
+      heroAttackChargeRate: 400,
+      heroStaminaChargeRate: 400,
+      heroHealRate: 400,
       heroLevel: 1,
       gameOver: false,
       monsterName: ""
@@ -271,29 +286,32 @@ class Nes extends React.Component {
     this.getReadyForNextRound();
   }
   _levelUpHealth = () => {
+    debugger;
     if(this.state.levelUpHealthTree[this.state.heroLevel -1].type === "speed"){
-      this.setState((prev) => ({heroHealRate:prev.heroHealRate - ((this.state.levelUpHealthTree[this.state.heroLevel -1].value / prev.heroHealRate) * 100),
+      this.setState((prev) => ({heroHealRate:prev.heroHealRate - Math.round(((this.state.levelUpHealthTree[this.state.heroLevel -1].value / 100) * prev.heroHealRate)),
       heroLevel:prev.heroLevel +1}),this.getReadyForNextRound)
     } else{
-      this.setState((prev) => ({heroMaxHealth:prev.heroMaxHealth + this.state.levelUpHealthTree[this.state.heroLevel -1].value,
+      this.setState((prev) => ({heroMaxHealth:prev.heroMaxHealth + Math.round(((this.state.levelUpHealthTree[this.state.heroLevel -1].value / 100) * prev.heroMaxHealth)),
         heroLevel:prev.heroLevel +1, heroStaminaLevel:prev.heroStaminaLevel +1}),this.getReadyForNextRound)
     }
   }
   _levelUpAttack = () => {
+    debugger;
     if(this.state.levelUpAttackTree[this.state.heroLevel -1].type === "speed"){
-      this.setState((prev) => ({heroAttackChargeRate:prev.heroAttackChargeRate - ((this.state.levelUpAttackTree[this.state.heroLevel -1].value / prev.heroAttackChargeRate) * 100),
+      this.setState((prev) => ({heroAttackChargeRate:prev.heroAttackChargeRate - Math.round(((this.state.levelUpAttackTree[this.state.heroLevel -1].value / 100) *  prev.heroAttackChargeRate)),
       heroLevel:prev.heroLevel +1, heroAttackLevel:prev.heroAttackLevel +1}),this.getReadyForNextRound)
     } else{
-      this.setState((prev) => ({heroMaxAttack:prev.heroMaxAttack + this.state.levelUpAttackTree[this.state.heroLevel -1].value,
+      this.setState((prev) => ({heroMaxAttack:prev.heroMaxAttack + Math.round(((this.state.levelUpAttackTree[this.state.heroLevel -1].value / 100) * prev.heroMaxAttack)),
         heroLevel:prev.heroLevel +1, heroAttackLevel:prev.heroAttackLevel +1}),this.getReadyForNextRound)
     }
   }
   _levelUpStamina = () => {
+    debugger;
     if(this.state.levelUpStaminaTree[this.state.heroLevel -1].type === "speed"){
-      this.setState((prev) => ({heroStaminaChargeRate:prev.heroStaminaChargeRate - ((this.state.levelUpStaminaTree[this.state.heroLevel -1].value / prev.heroStaminaChargeRate) * 100),
+      this.setState((prev) => ({heroStaminaChargeRate:prev.heroStaminaChargeRate - Math.round(((this.state.levelUpStaminaTree[this.state.heroLevel -1].value / 100) * prev.heroStaminaChargeRate)),
       heroLevel:prev.heroLevel +1, heroStaminaLevel:prev.heroStaminaLevel +1}),this.getReadyForNextRound)
     } else{
-      this.setState((prev) => ({heroMaxStamina:prev.heroMaxStamina + this.state.levelUpStaminaTree[this.state.heroLevel -1].value,
+      this.setState((prev) => ({heroMaxStamina:prev.heroMaxStamina + Math.round(((this.state.levelUpStaminaTree[this.state.heroLevel -1].value / 100) * prev.heroMaxStamina)),
         heroLevel:prev.heroLevel +1, heroStaminaLevel:prev.heroStaminaLevel +1}),this.getReadyForNextRound)
     }
   }
@@ -318,11 +336,11 @@ class Nes extends React.Component {
     }
     else if (this.state.levelUp) {
       screenContent = <LevelUpScreen levelUpHealth={this._levelUpHealth}
-        healthValue={this.state.levelUpHealthTree[this.state.heroHealthLevel - 1]}
+        healthValue={this.state.levelUpHealthTree[this.state.heroLevel - 1]}
         levelUpStamina={this._levelUpStamina}
-        staminaValue={this.state.levelUpStaminaTree[this.state.heroStaminaLevel - 1]}
+        staminaValue={this.state.levelUpStaminaTree[this.state.heroLevel - 1]}
         levelUpAttack={this._levelUpAttack}
-        attackValue={this.state.levelUpAttackTree[this.state.heroAttackLevel - 1]} />;
+        attackValue={this.state.levelUpAttackTree[this.state.heroLevel - 1]} />;
       heroButtons = <HeroButtons
         attackButtonText="Skip"
         staminaButtonText="Stamina"

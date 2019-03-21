@@ -13,17 +13,17 @@ class LevelUpScreen extends React.Component {
                     <div onClick={this.props.levelUpStamina}>
                         <h4>Stamina</h4>
                         <i class="nes-icon coin is-large"></i>
-                        <span>{this.props.staminaValue.type === "speed" ? "Speed +" + this.props.staminaValue.value + "%" : "Points +" + this.props.staminaValue.value}</span>
+                        <span>{this.props.staminaValue.type === "speed" ? "Charge +" + this.props.staminaValue.value + "%" : "Points +" + this.props.staminaValue.value + "%"}</span>
                     </div>
                     <div onClick={this.props.levelUpHealth}>
                         <h4>Health</h4>
                         <i class="nes-icon is-large heart"></i>
-                        <span>{this.props.healthValue.type === "speed" ? "Speed +" + this.props.healthValue.value + "%" : "Points +" + this.props.healthValue.value}</span>
+                        <span>{this.props.healthValue.type === "speed" ? "Charge +" + this.props.healthValue.value + "%" : "Points +" + this.props.healthValue.value + "%"}</span>
                     </div>
                     <div onClick={this.props.levelUpAttack}>
                         <h4>Attack</h4>
                         <i class="nes-icon is-large star"></i>
-                        <span>{this.props.attackValue.type === "speed" ? "Speed +" + this.props.attackValue.value + "%" : "Points +" + this.props.attackValue.value}</span>
+                        <span>{this.props.attackValue.type === "speed" ? "Charge +" + this.props.attackValue.value + "%" : "Points +" + this.props.attackValue.value + "%"}</span>
                     </div>
                 </div>
             </div>

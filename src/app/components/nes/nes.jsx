@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../content/css/nes-test.css';
+import '../../../content/css/nes-custom.css';
 import Monster from '../nes/monster.jsx';
 import HeroBars from '../nes/hero-bars.jsx';
 import HeroButtons from '../nes/hero-buttons.jsx';
@@ -10,6 +10,7 @@ import GameOverScreen from './game-over.jsx';
 class Nes extends React.Component {
   state = {
     started: false,
+    score:0,
     monsterName: "",
     monsterHealth: 0,
     monsterMaxHealth: 0,
@@ -45,19 +46,19 @@ class Nes extends React.Component {
     gameOver: false,
     attacking: false,
     monsters: [
-      // { name: "Mario", health: 50, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-      { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-      // { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-    { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-    // { name: "Poké Ball", health: 90, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
-    { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
-    // { name: "Bulbasaur", health: 130, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-    { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-    // { name: "Charmander", health: 180, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
-    { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
+      { name: "Mario", health: 50, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
+      // { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
+      { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
+    // { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
+    { name: "Poké Ball", health: 90, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
+    // { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
+    { name: "Bulbasaur", health: 130, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
+    // { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
+    { name: "Charmander", health: 180, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
+    // { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
+    { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
     // { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
-    { name: "Squirtle", health: 1, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
-    { name: "Kirby", health: 300, attack: 90, ttackPattern: [90, 45, 10, 5, 10, 45, 90], staminaRecoveryRate: 200, className: "nes-kirby" }]
+    { name: "Kirby", health: 300, attack: 90, attackPattern: [90, 45, 10, 5, 10, 45, 90], staminaRecoveryRate: 200, className: "nes-kirby" }]
   }
   componentDidMount() {
   }
@@ -67,8 +68,10 @@ class Nes extends React.Component {
     clearInterval(this.monsterTimer);
     clearInterval(this.healTimer);
     clearInterval(this.chargeAttackTimer);
+    clearInterval(this.scoreTimer);
   }
   loadMonster = () => {
+    this.startScoreTimer();
     let nextMonster;
     if (this.state.started && this.state.monsterName != "") {
       const index = this.state.monsters.findIndex(item => item.name === this.state.monsterName);
@@ -113,7 +116,7 @@ class Nes extends React.Component {
   }
   monsterKilled = () => {
     //TODO show results maybe add level up type thing
-    debugger;
+    this.stopScoreTimer();
     let heroHealRatePercentageUp = Math.round(((10 / 100) * this.state.heroHealRate)),
     heroAttackChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroAttackChargeRate)),
     heroStaminaChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroStaminaChargeRate)),
@@ -135,6 +138,7 @@ class Nes extends React.Component {
   heroKilled = () => {
     clearInterval(this.monsterAttackTimer);
     clearInterval(this.heroAttack);
+    this.stopScoreTimer();
     this.setState({
       monsterAttacking: false,
       gameOver: true
@@ -173,11 +177,25 @@ class Nes extends React.Component {
       10
     );
   }
+  startScoreTimer = () => {
+    this.scoreTimer = setInterval(
+      () => {
+       this.setState((prev) => {
+         score:prev.score +1
+       })
+      },
+      100
+    );
+  }
+  stopScoreTimer = () => {
+   clearInterval(this.scoreTimer);
+  }
   _startGame = () => {
     this.loadMonster();
   }
   _resetGame = () => {
     this.setState((prev) => ({
+      score:0,
       heroHealth: 50,
       heroStamina: 30,
       heroAttack:0,
@@ -319,7 +337,7 @@ class Nes extends React.Component {
     let screenContent = "",
       heroButtons = "";
     if (this.state.gameOver) {
-      screenContent = <GameOverScreen retry={this._resetGame} />;
+      screenContent = <GameOverScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
       heroButtons = <HeroButtons
         attackButtonText="Retry"
         staminaButtonText="Retry"
@@ -357,8 +375,8 @@ class Nes extends React.Component {
       screenContent = <StartScreen />
       heroButtons = <HeroButtons
         attackButtonText="D"
-        staminaButtonText="A"
-        healButtonText="B"
+        staminaButtonText="B"
+        healButtonText="A"
         chargeAttackButtonText="C"
         attack={this._startGame}
         chargeAttack={this._startGame}

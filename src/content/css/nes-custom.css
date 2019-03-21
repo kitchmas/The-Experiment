@@ -2,6 +2,7 @@
     width: 600px;
     margin: 0 auto;
     max-height: 90vh;
+    background-color: #d3d3d3;
 }
 
 .nes-content .nes-progress {
@@ -53,7 +54,7 @@
 }
 
 .nes-content .monster-box .monster {
-    zoom: 0.1;
+    zoom: 1.5;
     animation: move;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
@@ -65,9 +66,9 @@
     background-color: red;
 }
 
-.nes-content .hero-bars .hero-stats{
-   display: flex;
-   justify-content: space-between;
+.nes-content .hero-bars .hero-stats {
+    display: flex;
+    justify-content: space-between;
 }
 
 .nes-content .hero-buttons {
@@ -97,7 +98,7 @@
     justify-content: space-evenly;
 }
 
-.nes-content .level-up-options > div{
+.nes-content .level-up-options>div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -181,6 +182,6 @@
         height: 17px;
     }
     .nes-content .game-box .monster-box .monster {
-        zoom: 0.1;
+        zoom: 0.6;
     }
 }

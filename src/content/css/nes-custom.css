@@ -62,6 +62,20 @@
     position: relative;
 }
 
+.nes-content .monster-box .monster.attacked {
+    zoom: 1.5;
+    animation: attacked-rotate, attacked-flash;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
+.nes-content .monster-box .monster.attacking {
+    zoom: 1.5;
+    animation: attacking;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+}
+
 .nes-content .monster-bars .nes-progress.is-warning.critical-hit::-webkit-progress-value {
     background-color: red;
 }
@@ -69,6 +83,22 @@
 .nes-content .hero-bars .hero-stats {
     display: flex;
     justify-content: space-between;
+}
+
+.nes-content .monster-bars.nes-container{
+    padding: 0.1em;
+}
+.nes-content .monster-bars.nes-container.with-title>.title{
+    font-size: 1em;
+    margin: 0rem 0 -0.8rem;
+}
+.nes-content .hero-bars.nes-container{
+    padding: 0.1em;
+    padding-top: 0.2em;
+}
+.nes-content .hero-bars.nes-container.with-title>.title{
+    font-size: 1em;
+    margin: -0.8rem 0 0;
 }
 
 .nes-content .hero-buttons {
@@ -83,6 +113,26 @@
     font-size: 0.8em;
     height: 58px;
 }
+
+
+.nes-content .hero-bars .nes-progress.alert{
+    animation: alert;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
+.nes-content .hero-buttons .nes-btn.alert{
+    animation: alert-button;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
+.nes-content .hero-buttons .nes-btn.alert::after{
+    animation: alert-button-border;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
 
 .nes-content .level-up-screen h1,
 .nes-content .level-up-screen p {
@@ -130,6 +180,85 @@
     cursor: url(/images/imagescursor-click.png) 14 0, pointer;
 }
 
+
+
+
+@keyframes alert {
+    to{
+        color:#e76e55;
+        border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="rgb(231, 110, 85)" /></svg>');
+    }
+}
+
+@keyframes alert-button {
+    to{
+        background-color:#e76e55;
+    }
+}
+
+@keyframes alert-button-border {
+    to{
+        box-shadow: inset -4px -4px #e76e55;
+    }
+}
+
+@keyframes attacked-rotate {
+    to{
+        transform: rotate(0deg);
+    } from{
+        transform: rotate(350deg);
+    }
+}
+
+@keyframes attacked-flash {
+    0%{
+        opacity: 0;
+    } 
+    20%{
+        opacity: 1;
+    }
+    40%{
+        opacity: 0;
+    } 
+    60%{
+        opacity: 1;
+    }
+    80%{
+        opacity: 0;
+    } 
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes attacking {
+    0% {
+        position: relative;
+        bottom: 0;
+        right:2.5%;
+    }
+    25% {
+        position: relative;
+        bottom: 10%;
+        right:5%;
+    }
+    50% {
+        position: relative;
+        bottom: 20%;
+        right:5%;
+    }
+    75% {
+        position: relative;
+        bottom: 0;
+        right:-2.5%;
+    }
+    100% {
+        position: relative;
+        bottom: 0;
+        right:0;
+    }
+}
+
 @keyframes move {
     0% {
         position: relative;
@@ -155,7 +284,6 @@
 
 @media(max-width:767px) {
     .content-wrapper>.nes-container {
-        margin-top: 16px;
         padding-bottom: 0;
     }
     .nes-content .game-box {
@@ -166,18 +294,18 @@
         padding: 0.8em;
     }
     .nes-content .game-box .game-screen {
-        height: 215px;
+        height: 249px;
     }
     .nes-content .hero-buttons {
         width: 100%;
-        display: block;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
     }
     .nes-content .hero-buttons .nes-btn {
-        width: 100%;
-        margin: 0.6em 0;
-        height: initial;
+        height: 70px;
+        margin: 4%;
+        flex: 1 0 42%;
     }
-    .nes-content .hero-buttons {}
     .nes-content .nes-progress {
         height: 17px;
     }

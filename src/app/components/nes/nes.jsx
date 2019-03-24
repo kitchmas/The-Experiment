@@ -54,7 +54,7 @@ class Nes extends React.Component {
     gameWin: false,
     attacking: false,
     monsters: [
-      { name: "Mario", health: 50, attack: 10, attackPattern: [10], staminaRecoveryRate: 100, className: "nes-mario" },
+      { name: "Mario", health: 50, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
       // { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
       { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
       // { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },

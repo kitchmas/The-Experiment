@@ -1,7 +1,7 @@
 .nes-content .game-box {
     width: 600px;
     margin: 0 auto;
-    background-color: #d3d3d3;
+    background: #d3d3d3;
 }
 
 .nes-content .nes-progress {
@@ -122,6 +122,7 @@
     width: 20%;
     font-size: 0.6em;
     height: 58px;
+    user-select: none;
 }
 
 .nes-content .hero-bars .nes-progress.alert {

@@ -6,8 +6,7 @@ class StartScreen extends React.Component {
     }
     render() {
         return (
-           
-                <div className="start-screen">
+            <div className="start-screen">
                 PRESS ANY BUTTON TO START
             </div>
         );

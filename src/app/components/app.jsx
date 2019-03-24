@@ -6,7 +6,6 @@ library.add(faSyncAlt,faArrowRight);
 import history from '../helpers/history.js';
 import { Router, Route, Link } from 'react-router-dom';
 import '../../content/css/main.css';
-import '../../content/nes-css/css/nes.css';
 
 const About = lazy(() => import('./about/about.jsx'));
 const Home = lazy(() => import('./home/home.jsx'));
@@ -34,7 +33,7 @@ class App extends React.Component {
                     <div>
                         <NavBar />
                         <div className="content">
-                        <Route exact path="/nes" component={Nes} />
+                        <Route exact path="/battle-boy" component={Nes} />
                         <Route exact path="/" component={Home} />
                         <Route path="/experiments" component={Experiments} />
                         <Route exact path="/about" component={About} />

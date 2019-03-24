@@ -1,7 +1,6 @@
 .nes-content .game-box {
     width: 600px;
     margin: 0 auto;
-    max-height: 90vh;
     background-color: #d3d3d3;
 }
 
@@ -10,6 +9,7 @@
     height: 20px;
     margin: 0px;
     position: relative;
+    background-color: #f9f2d7;
 }
 
 .nes-content .nes-progress::after {
@@ -30,7 +30,7 @@
     justify-content: space-between;
     text-align: initial;
     padding: 0.1em;
-    background-color: #fff;
+    background-color: #f9f2d7;
 }
 
 .nes-container .game-screen .start-wrapper {
@@ -85,20 +85,30 @@
     justify-content: space-between;
 }
 
-.nes-content .monster-bars.nes-container{
-    padding: 0.1em;
+.nes-content .monster-bars.nes-container {
+    padding: 0.4em;
+    padding-bottom: 0;
 }
-.nes-content .monster-bars.nes-container.with-title>.title{
+
+.nes-content .monster-bars.nes-container.with-title>.title {
     font-size: 1em;
     margin: 0rem 0 -0.8rem;
+    background-color: #f9f2d7;
 }
-.nes-content .hero-bars.nes-container{
-    padding: 0.1em;
-    padding-top: 0.2em;
+
+.nes-content .hero-bars.nes-container {
+    padding: 0.4em;
+    padding-bottom: 0;
 }
-.nes-content .hero-bars.nes-container.with-title>.title{
+
+.nes-content .hero-bars.nes-container .nes-progress.is-error {
+    margin-top: 0.3em;
+}
+
+.nes-content .hero-bars.nes-container.with-title>.title {
     font-size: 1em;
-    margin: -0.8rem 0 0;
+    margin: -1rem 0 0;
+    background-color: #f9f2d7;
 }
 
 .nes-content .hero-buttons {
@@ -110,29 +120,27 @@
 
 .nes-content .hero-buttons .nes-btn {
     width: 20%;
-    font-size: 0.8em;
+    font-size: 0.6em;
     height: 58px;
 }
 
-
-.nes-content .hero-bars .nes-progress.alert{
+.nes-content .hero-bars .nes-progress.alert {
     animation: alert;
     animation-timing-function: linear;
     animation-duration: 1s;
 }
 
-.nes-content .hero-buttons .nes-btn.alert{
+.nes-content .hero-buttons .nes-btn.alert {
     animation: alert-button;
     animation-timing-function: linear;
     animation-duration: 1s;
 }
 
-.nes-content .hero-buttons .nes-btn.alert::after{
+.nes-content .hero-buttons .nes-btn.alert::after {
     animation: alert-button-border;
     animation-timing-function: linear;
     animation-duration: 1s;
 }
-
 
 .nes-content .level-up-screen h1,
 .nes-content .level-up-screen p {
@@ -167,11 +175,12 @@
     display: block;
 }
 
-.nes-content .game-over-screen {
+.nes-content .game-over-screen,
+.nes-content .game-win-screen {
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     height: 100%;
 }
@@ -180,53 +189,55 @@
     cursor: url(/images/imagescursor-click.png) 14 0, pointer;
 }
 
-
-
+.nes-content .game-win-screen .h4 {
+    margin-top: .5rem;
+}
 
 @keyframes alert {
-    to{
-        color:#e76e55;
+    to {
+        color: #e76e55;
         border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="rgb(231, 110, 85)" /></svg>');
     }
 }
 
 @keyframes alert-button {
-    to{
-        background-color:#e76e55;
+    to {
+        background-color: #e76e55;
     }
 }
 
 @keyframes alert-button-border {
-    to{
+    to {
         box-shadow: inset -4px -4px #e76e55;
     }
 }
 
 @keyframes attacked-rotate {
-    to{
+    to {
         transform: rotate(0deg);
-    } from{
+    }
+    from {
         transform: rotate(350deg);
     }
 }
 
 @keyframes attacked-flash {
-    0%{
+    0% {
         opacity: 0;
-    } 
-    20%{
+    }
+    20% {
         opacity: 1;
     }
-    40%{
+    40% {
         opacity: 0;
-    } 
-    60%{
+    }
+    60% {
         opacity: 1;
     }
-    80%{
+    80% {
         opacity: 0;
-    } 
-    100%{
+    }
+    100% {
         opacity: 1;
     }
 }
@@ -235,27 +246,27 @@
     0% {
         position: relative;
         bottom: 0;
-        right:2.5%;
+        right: 2.5%;
     }
     25% {
         position: relative;
         bottom: 10%;
-        right:5%;
+        right: 5%;
     }
     50% {
         position: relative;
         bottom: 20%;
-        right:5%;
+        right: 5%;
     }
     75% {
         position: relative;
         bottom: 0;
-        right:-2.5%;
+        right: -2.5%;
     }
     100% {
         position: relative;
         bottom: 0;
-        right:0;
+        right: 0;
     }
 }
 
@@ -312,4 +323,10 @@
     .nes-content .game-box .monster-box .monster {
         zoom: 0.6;
     }
+}
+
+.nes-icon .game-box {
+    font-size: 1rem;
+    height: 200px;
+    width: 100px;
 }

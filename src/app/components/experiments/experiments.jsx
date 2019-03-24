@@ -3,6 +3,7 @@ import Diamond from '../diamond/diamond.jsx';
 import BoardGameIcon from '../board-game/board-game-icon.jsx';
 import WeatherGlobeIcon from '../globes/weather-globe-icon.jsx';
 import BlobIcon from '../blob/blob-icon.jsx';
+import NesIcon from '../nes/nes-icon.jsx';
 const Link = require('react-router-dom').Link;
 import '../../../content/css/experiment.css';
 
@@ -68,6 +69,12 @@ const Experiments = () => {
                     <div className="experiment">
                         <BlobIcon />
                         <span className="number">7</span>
+                    </div>
+                </Link>
+                <Link to="/battle-boy" >
+                    <div className="experiment">
+                        <NesIcon />
+                        <span className="number">8</span>
                     </div>
                 </Link>
             </div>

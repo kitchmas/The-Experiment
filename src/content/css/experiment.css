@@ -49,7 +49,6 @@
     width: 200px;
 }
 
-
 .experiments-wrapper .globe:hover {
     cursor: pointer;
 }
@@ -59,7 +58,7 @@
     width: 200px;
 }
 
-.experiments-wrapper .blob-wrapper .tile-icon{
+.experiments-wrapper .blob-wrapper .tile-icon {
     animation: unset;
 }
 
@@ -67,12 +66,20 @@
     cursor: pointer;
 }
 
-
 .experiments-wrapper .blob-wrapper {
     height: 200px;
     width: 200px;
 }
 
-.experiments-wrapper .blob-wrapper .tile-icon{
+.experiments-wrapper .blob-wrapper .tile-icon {
     animation: unset;
+}
+
+.experiments-wrapper .nes-mario {
+    transition: 3s;
+    position: relative;
+}
+
+.experiments-wrapper .experiment:hover .nes-mario {
+    bottom: 20%;
 }

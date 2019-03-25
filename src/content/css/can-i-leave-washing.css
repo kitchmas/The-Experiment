@@ -1,0 +1,15 @@
+.icon-wrapper.rotate{
+    animation: none;
+}
+
+.icon-wrapper.rotate .fa-sync-alt{
+    animation: rotate;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.fa-sync-alt{
+    font-size: 3em;
+    margin-top:0.67em;
+    cursor: pointer;
+}

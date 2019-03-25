@@ -162,6 +162,12 @@ section p:first-of-type {
 .next h1{
     margin-top: 4em;
 }
+
+.rotate{
+    animation: rotate;
+    animation-duration: 2s;
+}
+
 @media(max-width:767px) {
     body {
         font-size: 16px;
@@ -171,5 +177,14 @@ section p:first-of-type {
     }
     .hidden-xs{
         visibility: hidden;
+    }
+}
+
+@keyframes rotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
     }
 }

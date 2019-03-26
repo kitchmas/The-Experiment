@@ -29,11 +29,9 @@ class CanIleaveMyWashingOut extends React.Component {
                     .then((forecastResult) => {
 
                         let sunset = weatherResult.sys.sunset;
+                        if(this.hasSunAlreadySet)
+                          sunset = this.getTommorowsSunset(sunset);
 
-                        if(sunset < new Date().getTime()){
-                            let tommorowsSunsetDate = new Date(sunset +1);
-                            sunset = tommorowsSunsetDate.getTime();
-                        }
                         let wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
                         if (wetForecastsBeforeSunset.length) {
                             let bringItIn = "NO! Bring it in at " + Moment(wetForecastsBeforeSunset[0].dt * 1000).local().format("LT");
@@ -44,6 +42,14 @@ class CanIleaveMyWashingOut extends React.Component {
                     });
             });
 
+    }
+    hasSunAlreadySet = () =>{
+        return (sunset * 1000) < new Date().getTime();
+    }
+    getTommorowsSunset =(sunset) =>{
+        let todaysSunsetDate = new Date(sunset * 1000);
+        let tommorowsSunsetDate = todaysSunsetDate.setDate(todaysSunsetDate.getDate() +1)
+        return new Date(tommorowsSunsetDate / 1000).getTime();
     }
     error = (e) => {
         console.log("Sorry something went wrong. Do not not not not not not not not not not hang it out. Not.")

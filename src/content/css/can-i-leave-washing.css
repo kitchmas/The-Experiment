@@ -1,15 +1,266 @@
-.icon-wrapper.rotate{
-    animation: none;
+.can-i-leave-washing{
+    font-size:1rem;
 }
 
-.icon-wrapper.rotate .fa-sync-alt{
-    animation: rotate;
-    animation-duration: 0.5s;
-    animation-iteration-count: infinite;
+.can-i-leave-washing p{
+    font-size: 1.2em;
 }
 
-.fa-sync-alt{
-    font-size: 3em;
-    margin-top:0.67em;
-    cursor: pointer;
+.can-i-leave-washing button{
+    font-size:1.2em;
 }
+
+.cloud-wrapper{
+    width:200px;
+    margin:0 auto;
+    margin-top: 1.34em;
+  }
+  
+  .cloud{
+    width:100%;
+    height:100px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    position:relative;
+  }
+  
+  .cloud  > div{
+    background:#d2d7d3;
+  }
+  
+  .cloud .blob-one{
+    position:absolute;
+    left:5%;
+    border-radius:50% 50% 0 50%;
+    height:60%;
+    width:30%;
+  }
+  
+  .cloud .blob-two{
+    position:absolute;
+    border-radius:50% 50% 0 0;
+    height:100%;
+    width:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  
+  .cloud  .blob-three{
+    position:absolute;
+    right:0%;
+    border-radius:50% 50% 50% 0;
+    height:80%;
+    width:40%;
+  }
+  
+  .cloud .face{
+    width:60%;
+    height:60%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+      z-index:1;
+  
+  }
+  
+  .cloud .eyebrow-row{
+    height:10%;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+  }
+  
+  .cloud .eyebrow{
+    width:40%;
+    height:100%;
+    background:#2e3131;
+  }
+  
+  .cloud .eye-row{
+    height:25%;
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+  }
+  
+  .cloud .eye{
+    height:100%;
+    width:25%;
+    background:white;
+     position:relative;
+  }
+  
+  .cloud .pupil{
+    position: absolute;
+    top:25%;
+    right:25%;
+    height:50%;
+    width:50%;
+    background:#2e3131;
+  }
+  
+  .cloud .mouth{
+    width:75%;
+    height: 10%;
+    background:#2e3131;
+    margin:0 auto;
+  }
+  
+  
+  .searching .pupil{
+      animation-name: searching;
+    animation-direction: alternate;
+    animation-duration:2s;
+     animation-iteration-count:infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
+  .searching .mouth{
+     width:10%;
+  }
+  
+  .raining .eyebrow-row .eyebrow:first-child{
+     transform: rotate(30deg);
+     width:60%;
+  }
+  
+  .raining .eyebrow-row .eyebrow:last-child{
+     transform: rotate(-30deg);
+     width:60%;
+  }
+  
+  .raining .eyebrow-row .eyebrow:last-child{
+     transform: rotate(-30deg);
+     width:60%;
+  }
+  
+  .raining .cloud > div{
+     background:#6c7a89;
+  }
+  
+  .raining .eye{
+    background:#cf000f;
+  }
+  
+  .raining .mouth{
+    width:40%;
+    height:40%;
+    border-radius:100%;
+  }
+  
+  .raining  .pupil{
+    position: absolute;
+    top:50%;
+  }
+  
+  .raining .rain-wrapper{
+    width:70%;
+    height:100px;
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    margin:0 auto;
+  }
+  
+  .raining .rain-drop{
+    height:20%;
+    width:1%;
+    background:#1f3a93;
+    z-index:-2;
+    animation-name: raining;
+    animation-duration:0.5s;
+    animation-iteration-count:infinite;
+    animation-timing-function: ease-in-out;
+    position:relative;
+  }
+  
+  .raining .rain-wrapper .rain-drop:first-child{
+   animation-delay: 0.5s;
+  }
+  
+  .raining .rain-wrapper .rain-drop:nth-child(2){
+    animation-delay: 0.1s;
+  }
+  
+  .raining .rain-wrapper .rain-drop:nth-child(3){
+    
+  }
+  
+  .raining .rain-wrapper .rain-drop:nth-child(4){
+    animation-delay: 0.2s;
+  }
+  
+  .raining .rain-wrapper .rain-drop:nth-child(5){
+    animation-delay: 0.3s;
+  }
+  
+  .raining .rain-wrapper .rain-drop:nth-child(6){
+     animation-delay: 0.1s;
+  }
+  .raining .rain-wrapper .rain-drop:nth-child(7){
+     animation-delay: 0.4s;
+  }
+  
+  .raining .rain-wrapper .rain-drop:nth-child(8){
+     animation-delay: 0.5s;
+  }
+  
+  .sunny .blob-one, .sunny .blob-three{
+    display:none;
+  }
+  
+  .sunny .blob-two{
+    border-radius:50%; 
+    background:#ffff7e;
+  }
+  
+  .sunny .face{
+     justify-content:space-between;
+  }
+  
+  .sunny .eyebrow-row{
+    height:10%
+  }
+  
+  .sunny .eyebrow{
+  }
+  
+  .sunny .mouth{
+    width:60%;
+    height:30%;
+    border-radius:0 0 50% 50%;
+  }
+  
+  
+  
+  @keyframes searching{
+    from{
+      top:0;
+      left:0;
+    }
+    to{
+      top:0;
+      left:50%;
+    }
+  }
+  
+  @keyframes flash-red{
+    from{
+    background:white;
+    }
+    to{
+      background:red;
+    }
+  }
+  
+  @keyframes raining{
+    from{
+      top:-20%;
+    }
+    to{
+        top:100%;
+    }
+  }
+  

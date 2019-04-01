@@ -3,20 +3,28 @@ import Moment from 'moment';
 
 import '../../../content/css/can-i-leave-washing.css';
 
+import WeatherIcon from './weather-icon.jsx';
+
 class CanIleaveMyWashingOut extends React.Component {
     state = {
         result: "",
-        reloadClass: ""
+        reloadClass: "",
+        weather: "none",
+        checkTommorowsForecast: false
     }
     componentWillMount() {
-        this.canIleavMyWashingOut();
+        this._canILeaveMyWashingOutToday();
     }
     canIleavMyWashingOut = () => {
+        navigator.geolocation.getCurrentPosition(this.success, this.error);
+    }
+    isGelocationEnabled = () => {
         if (!navigator.geolocation) {
             this.setState({ result: 'Geolocation is not supported by your browser' });
+            return false;
         } else {
             this.setState({ result: 'Looking out window...' });
-            navigator.geolocation.getCurrentPosition(this.success, this.error);
+            return true;
         }
     }
     success = (position) => {
@@ -27,46 +35,77 @@ class CanIleaveMyWashingOut extends React.Component {
             .then((weatherResult) => {
                 fetch("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=8fa281e3ce280ecf6b2d54bf3bb479d1&units=metric").then(forecastResult => forecastResult.json())
                     .then((forecastResult) => {
-
                         let sunset = weatherResult.sys.sunset;
-                        if(this.hasSunAlreadySet)
-                          sunset = this.getTommorowsSunset(sunset);
+                        let wetForecastsBeforeSunset
 
-                        let wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                        if (this.state.checkTommorowsForecast) {
+                            let tommorowsSunset = this.getSameTimeTommorow(sunset);
+                            let sixAmForcastForTommorow = forecastResult.list.filter(x => x.dt_txt.split(" ")[1] === "06:00:00" && x.dt > sunset && x.dt < tommorowsSunset);
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt === sixAmForcastForTommorow && x.dt < tommorowsSunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                        }
+                        else {
+                            if (this.hasSunAlreadySet)
+                                sunset = this.getSameTimeTommorow(sunset);
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                        }
+
                         if (wetForecastsBeforeSunset.length) {
                             let bringItIn = "NO! Bring it in at " + Moment(wetForecastsBeforeSunset[0].dt * 1000).local().format("LT");
-                            this.setState({ result: bringItIn });
+                            this.setState({ result: bringItIn, weather: "raining", reloadClass: "" });
                         }
                         else
-                            this.setState({ result: "Yes", reloadClass: "" });
+                            this.setState({ result: "Yes", reloadClass: "", weather: "sunny" });
                     });
             });
 
     }
-    hasSunAlreadySet = () =>{
-        return (sunset * 1000) < new Date().getTime();
-    }
-    getTommorowsSunset =(sunset) =>{
-        let todaysSunsetDate = new Date(sunset * 1000);
-        let tommorowsSunsetDate = todaysSunsetDate.setDate(todaysSunsetDate.getDate() +1)
-        return new Date(tommorowsSunsetDate / 1000).getTime();
-    }
     error = (e) => {
         console.log("Sorry something went wrong. Do not not not not not not not not not not hang it out. Not.")
     }
-    _reload = () => {
-        this.setState({ reloadClass: "rotate" });
-        this.canIleavMyWashingOut();
+    hasSunAlreadySet = () => {
+        return (sunset * 1000) < new Date().getTime();
+    }
+    getSameTimeTommorow = (time) => {
+        let todaysSunsetDate = new Date(time * 1000);
+        let tommorowsSunsetDate = todaysSunsetDate.setDate(todaysSunsetDate.getDate() + 1)
+        return new Date(tommorowsSunsetDate / 1000).getTime();
+    }
+    _canILeaveMyWashingOutTommorow = () => {
+        if (this.isGelocationEnabled()) {
+            this.setState({ reloadClass: "rotate", weather: "searching", checkTommorowsForecast: true },
+                this.canIleavMyWashingOut())
+        }
+    }
+    _canILeaveMyWashingOutToday = () => {
+        if (this.isGelocationEnabled()) {
+            this.setState({ reloadClass: "rotate", weather: "searching", checkTommorowsForecast: false },
+                this.canIleavMyWashingOut())
+        }
+    }
+    _changeDay = () =>{
+        if(!this.state.checkTommorowsForecast){
+            this._canILeaveMyWashingOutTommorow();
+        }
+        else{
+            this._canILeaveMyWashingOutToday();
+        }
+    }
+    _refresh = () =>{
+        if(this.state.checkTommorowsForecast){
+            this._canILeaveMyWashingOutTommorow();
+        }
+        else{
+            this._canILeaveMyWashingOutToday();
+        }
     }
     render() {
         return (
             <div className="center-page-wrapper can-i-leave-washing">
-                <div className="center-text">
-                    <h1>Can I leave my washing out?</h1>
-                    <h1>{this.state.result}</h1>
-                    <div className={"icon-wrapper " + this.state.reloadClass} onClick={this._reload}>
-                        <i className="fas fa-sync-alt"></i>
-                    </div>
+                <div className="center-text ">
+                    <h1>Can I leave my washing out {this.state.checkTommorowsForecast? "tommorow" : ""}?</h1>
+                    <WeatherIcon refresh={this._refresh} weather={this.state.weather} />
+                    <p>{this.state.result}</p>
+                    <button class="experiment-button margin-top-default" onClick={this._changeDay}>{this.state.checkTommorowsForecast ? "What about today?" : "What about tommorow?"}</button>
                 </div>
             </div>
         );

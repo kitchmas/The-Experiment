@@ -16,11 +16,11 @@
 }
 html{
     font-family: SpaceGrotesk, sans-serif !important;
+    font-size: 18px;
 }
 body {
     background: var(--default-background);
     margin: 0;
-    font-size: 18px;
 }
 
 h1,

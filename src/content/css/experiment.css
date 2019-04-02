@@ -4,6 +4,10 @@
     justify-content: center;
 }
 
+.experiments-wrapper{
+    text-align: center;
+}
+
 .experiments-wrapper .experiment {
     width: 283px;
     height: 286px;
@@ -83,3 +87,26 @@
 .experiments-wrapper .experiment:hover .nes-mario {
     bottom: 20%;
 }
+
+.experiments-wrapper .experiment:hover .cloud  .pupil{
+    animation-name: searching;
+  animation-direction: alternate;
+  animation-duration:2s;
+   animation-iteration-count:infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.experiments-wrapper .experiment:hover .cloud .mouth{
+   width:10%;
+}
+
+@keyframes searching{
+    from{
+      top:0;
+      left:0;
+    }
+    to{
+      top:0;
+      left:50%;
+    }
+  }

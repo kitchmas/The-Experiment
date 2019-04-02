@@ -37,18 +37,17 @@ class CanIleaveMyWashingOut extends React.Component {
                     .then((forecastResult) => {
                         let sunset = weatherResult.sys.sunset;
                         let wetForecastsBeforeSunset
-
+                        
                         if (this.state.checkTommorowsForecast) {
                             let tommorowsSunset = this.getSameTimeTommorow(sunset);
-                            let sixAmForcastForTommorow = forecastResult.list.filter(x => x.dt_txt.split(" ")[1] === "06:00:00" && x.dt > sunset && x.dt < tommorowsSunset);
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt === sixAmForcastForTommorow && x.dt < tommorowsSunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                            let sevenAmTommorow = forecastResult.list.filter(x => x.dt < tommorowsSunset && new Date(x.dt * 1000).getHours() === 7 && x.dt > sunset);
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || x.dt < tommorowsSunset) && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
                         }
                         else {
-                            if (this.hasSunAlreadySet)
+                            if (this.hasSunAlreadySet(sunset))
                                 sunset = this.getSameTimeTommorow(sunset);
                             wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
                         }
-
                         if (wetForecastsBeforeSunset.length) {
                             let bringItIn = "NO! Bring it in at " + Moment(wetForecastsBeforeSunset[0].dt * 1000).local().format("LT");
                             this.setState({ result: bringItIn, weather: "raining", reloadClass: "" });
@@ -62,7 +61,7 @@ class CanIleaveMyWashingOut extends React.Component {
     error = (e) => {
         console.log("Sorry something went wrong. Do not not not not not not not not not not hang it out. Not.")
     }
-    hasSunAlreadySet = () => {
+    hasSunAlreadySet = (sunset) => {
         return (sunset * 1000) < new Date().getTime();
     }
     getSameTimeTommorow = (time) => {
@@ -100,12 +99,12 @@ class CanIleaveMyWashingOut extends React.Component {
     }
     render() {
         return (
-            <div className="center-page-wrapper can-i-leave-washing">
+            <div className="can-i-leave-washing content-wrapper">
                 <div className="center-text ">
                     <h1>Can I leave my washing out {this.state.checkTommorowsForecast? "tommorow" : ""}?</h1>
                     <WeatherIcon refresh={this._refresh} weather={this.state.weather} />
-                    <p>{this.state.result}</p>
-                    <button class="experiment-button margin-top-default" onClick={this._changeDay}>{this.state.checkTommorowsForecast ? "What about today?" : "What about tommorow?"}</button>
+                    <p className="margin-top-lg">{this.state.result}</p>
+                    <button class="experiment-button margin-top-lg" onClick={this._changeDay}>{this.state.checkTommorowsForecast ? "What about today?" : "What about tommorow?"}</button>
                 </div>
             </div>
         );

@@ -41,6 +41,11 @@ section p:first-of-type {
     margin-top: 0.67em;
 }
 
+.margin-top-lg{
+    margin-top: 1.34em;
+}
+
+
 .content {
     padding-top: 2.5em;
 }

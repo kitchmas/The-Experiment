@@ -13,9 +13,33 @@ const Experiments = () => {
         <div className="content-wrapper">
             <h1>Experiments</h1>
             <div className="experiments-wrapper">
-                <Link to="/mimic/1" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Diamond 1</h2>
+                <Link to="/can-i-leave-my-washing-out" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Leave Washing Out</h2>
+                    <div className="experiment can-i-leave-washing">
+                        <WeatherIcon refresh={null} weather={null} />
+                    </div>
+                </Link>
+                <Link to="/battle-boy" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Battle Boy</h2>
                     <div className="experiment">
+                        <NesIcon />
+                    </div>
+                </Link>
+                <Link to="/blob" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Blob</h2>
+                    <div className="experiment">
+                        <BlobIcon />
+                    </div>
+                </Link>
+                <Link to="/day-and-night" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Day and Night</h2>
+                    <div className="experiment">
+                        <WeatherGlobeIcon />
+                    </div>
+                </Link>
+                <Link to="/mimic/1" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Diamond 1</h2>
+                    <div className="experiment diamond-experiment">
                         {/* Position of children is important here so css works */}
                         <Diamond
                             topDiamondClass="diamond-red"
@@ -24,8 +48,8 @@ const Experiments = () => {
                     </div>
                 </Link>
                 <Link to="/mimic/2" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Diamond 2</h2>
-                    <div className="experiment">
+                    <h2>Diamond 2</h2>
+                    <div className="experiment diamond-experiment">
                         <Diamond
                             topDiamondClass="diamond-red"
                             rightDiamondClass="diamond-green"
@@ -33,8 +57,8 @@ const Experiments = () => {
                     </div>
                 </Link>
                 <Link to="/mimic/3" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Diamond 3</h2>
-                    <div className="experiment">
+                    <h2>Diamond 3</h2>
+                    <div className="experiment diamond-experiment">
                         <Diamond
                             topDiamondClass="diamond-red"
                             rightDiamondClass="diamond-green"
@@ -43,8 +67,8 @@ const Experiments = () => {
                     </div>
                 </Link>
                 <Link to="/sorter/1" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Diamond 4</h2>
-                    <div className="experiment">
+                    <h2>Diamond 4</h2>
+                    <div className="experiment diamond-experiment">
                         <Diamond
                             topDiamondClass="diamond-red"
                             rightDiamondClass="diamond-green"
@@ -54,33 +78,9 @@ const Experiments = () => {
                     </div>
                 </Link>
                 <Link to="/micro-garden" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Micro Garden</h2>
+                    <h2>Micro Garden</h2>
                     <div className="experiment">
                         <BoardGameIcon />
-                    </div>
-                </Link>
-                <Link to="/day-and-night" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Day and Night</h2>
-                    <div className="experiment">
-                        <WeatherGlobeIcon />
-                    </div>
-                </Link>
-                <Link to="/blob" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Blob</h2>
-                    <div className="experiment">
-                        <BlobIcon />
-                    </div>
-                </Link>
-                <Link to="/battle-boy" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Battle Boy</h2>
-                    <div className="experiment">
-                        <NesIcon />
-                    </div>
-                </Link>
-                <Link to="/can-i-leave-my-washing-out" style={{ textDecoration: 'none', color: 'black' }}>
-                <h2>Leave Washing Out</h2>
-                    <div className="experiment can-i-leave-washing">
-                        <WeatherIcon refresh={null} weather={null} />
                     </div>
                 </Link>
             </div>

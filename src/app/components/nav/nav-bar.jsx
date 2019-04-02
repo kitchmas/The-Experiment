@@ -9,41 +9,43 @@ class NavBar extends React.Component {
     constructor(props) {
         super(props);
     }
-    state ={
-        nextpath:undefined,
-        paths:[
-        "/mimic/1",
-        "/mimic/2",
-        "/mimic/3",
-        "/sorter/1",
-        "/micro-garden",
-        "/day-and-night",
-        "/blob",
+    state = {
+        nextpath: undefined,
+        paths: [
+            "/can-i-leave-my-washing-out",
+            "/battle-boy",
+            "/blob",
+            "/day-and-night",
+            "/mimic/1",
+            "/mimic/2",
+            "/mimic/3",
+            "/sorter/1",
+            "/micro-garden",
         ],
-        unlisten:null
+        unlisten: null
     }
     componentDidMount() {
         this.setNextRoute();
         this.state.unlisten = history.listen((location, action) => {
             this.setNextRoute();
-          });
+        });
     }
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.state.unlisten();
     }
-    setNextRoute = () =>{
+    setNextRoute = () => {
         let path = window.location.pathname;
         let pathIndex = this.state.paths.indexOf(path);
-        if(pathIndex != -1){
+        if (pathIndex != -1) {
             pathIndex++;
             let nextPath = this.state.paths[pathIndex];
-            this.setState({nextpath:nextPath})
+            this.setState({ nextpath: nextPath })
         }
     }
-    onClicked = () =>{
-            if(this.state.nextpath){
-                history.push(this.state.nextpath);
-            }
+    onClicked = () => {
+        if (this.state.nextpath) {
+            history.push(this.state.nextpath);
+        }
     }
     render() {
         return (
@@ -59,13 +61,13 @@ class NavBar extends React.Component {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/experiments" >Experiments</NavLink>
+                        <NavLink exact to="/" >Experiments</NavLink>
                     </li>
                     <li>
                         <NavLink to="/about" >About</NavLink>
                     </li>
                     <li className={this.state.nextpath == undefined ? "hidden" : ""} onClick={this.onClicked}>
-                       <i className="fas fa-arrow-right"></i>
+                        <i className="fas fa-arrow-right"></i>
                     </li>
                 </ul>
             </nav>

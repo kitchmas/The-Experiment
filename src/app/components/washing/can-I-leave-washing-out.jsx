@@ -41,7 +41,7 @@ class CanIleaveMyWashingOut extends React.Component {
                         if (this.state.checkTommorowsForecast) {
                             let tommorowsSunset = this.getSameTimeTommorow(sunset);
                             let sevenAmTommorow = forecastResult.list.filter(x => x.dt < tommorowsSunset && new Date(x.dt * 1000).getHours() === 7 && x.dt > sunset);
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || x.dt < tommorowsSunset) && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || (x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt)) && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
                         }
                         else {
                             if (this.hasSunAlreadySet(sunset))

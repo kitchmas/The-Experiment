@@ -31,9 +31,9 @@ class CanIleaveMyWashingOut extends React.Component {
         const lat = position.coords.latitude,
             long = position.coords.longitude;
 
-        fetch("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=8fa281e3ce280ecf6b2d54bf3bb479d1&units=metric").then(weatherResult => weatherResult.json())
+        fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&APPID=8fa281e3ce280ecf6b2d54bf3bb479d1&units=metric").then(weatherResult => weatherResult.json())
             .then((weatherResult) => {
-                fetch("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=8fa281e3ce280ecf6b2d54bf3bb479d1&units=metric").then(forecastResult => forecastResult.json())
+                fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=8fa281e3ce280ecf6b2d54bf3bb479d1&units=metric").then(forecastResult => forecastResult.json())
                     .then((forecastResult) => {
                         let sunset = weatherResult.sys.sunset;
                         let wetForecastsBeforeSunset
@@ -59,7 +59,7 @@ class CanIleaveMyWashingOut extends React.Component {
 
     }
     error = (e) => {
-        console.log("Sorry something went wrong. Do not not not not not not not not not not hang it out. Not.")
+        this.setState({result:"Sorry something went wrong. Do not not not not not not not not not not hang it out. Not."});
     }
     hasSunAlreadySet = (sunset) => {
         return (sunset * 1000) < new Date().getTime();

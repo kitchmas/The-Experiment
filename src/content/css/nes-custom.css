@@ -12,13 +12,6 @@
     background-color: #f9f2d7;
 }
 
-.nes-content .nes-progress::after {
-    content: attr(display);
-    position: absolute;
-    top: -3px;
-    font-size: 0.8em;
-}
-
 .nes-content .game-box .screen-wrapper {
     background: black;
 }
@@ -44,6 +37,20 @@
     align-items: center;
     height: 100%;
     background-color: #f9f2d7;
+}
+.nes-content .bar-wrapper{
+    position: relative;
+}
+
+.nes-content .bar-wrapper label{
+    margin: 0;
+    display: inline;
+    padding: 0;
+    position: absolute;
+    left:1%;
+    top: 2%;
+    z-index: 2;
+    font-size: 0.8em;
 }
 
 .nes-content .game-screen .monster-box {
@@ -94,6 +101,10 @@
     font-size: 1em;
     margin: 0rem 0 -0.8rem;
     background-color: #f9f2d7;
+}
+
+.nes-content .hero-bars .hero-health-bar-label{
+        top: 16%;
 }
 
 .nes-content .hero-bars.nes-container {

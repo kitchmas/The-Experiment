@@ -7,14 +7,20 @@ class Monster extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="monster-bars nes-container with-title">
-                    <progress className="nes-progress is-error"
-                        display={this.props.health + "/" + this.props.maxHealth}
-                        value={this.props.health} max={this.props.maxHealth}></progress>
-                    <progress className={this.props.stamina > 94 ? "nes-progress is-warning critical-hit" : "nes-progress is-warning"}
-                        display={this.props.attack + "/" + this.props.maxAttack}
-                        value={this.props.attack} max={this.props.maxAttack}></progress>
-                     <span className="title">{this.props.name}</span>
+                <div className="monster-bars bars-wrapper nes-container with-title">
+                    <div className="bar-wrapper">
+                        <label>{this.props.health + "/" + this.props.maxHealth}</label>
+                        <progress className="nes-progress is-error"
+                            display={this.props.health + "/" + this.props.maxHealth}
+                            value={this.props.health} max={this.props.maxHealth}></progress>
+                    </div>
+                    <div className="bar-wrapper">
+                        <label>{this.props.attack + "/" + this.props.maxAttack}</label>
+                        <progress className={this.props.stamina > 94 ? "nes-progress is-warning critical-hit" : "nes-progress is-warning"}
+                            display={this.props.attack + "/" + this.props.maxAttack}
+                            value={this.props.attack} max={this.props.maxAttack}></progress>
+                    </div>
+                    <span className="title">{this.props.name}</span>
                 </div>
                 <div className="monster-box ">
                     {this.props.health <= 0 ? <div>Dead</div> : <i className={"monster " + this.props.className + this.props.monsterStatusClass}></i>}

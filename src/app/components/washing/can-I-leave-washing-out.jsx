@@ -37,17 +37,22 @@ class CanIleaveMyWashingOut extends React.Component {
                     .then((forecastResult) => {
                         let sunset = weatherResult.sys.sunset;
                         let wetForecastsBeforeSunset
-                        
+                      
+
                         if (this.state.checkTommorowsForecast) {
                             let tommorowsSunset = this.getSameTimeTommorow(sunset);
                             let sevenAmTommorow = forecastResult.list.filter(x => x.dt < tommorowsSunset && new Date(x.dt * 1000).getHours() === 7 && x.dt > sunset);
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || (x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt)) && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                            // checks the id for moderate rain or greater based on https://openweathermap.org/weather-conditions
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || (x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt))
+                                && x.weather.filter(y => y.id > 500 && y.id < 800).length > 0);
                         }
                         else {
                             if (this.hasSunAlreadySet(sunset))
                                 sunset = this.getSameTimeTommorow(sunset);
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset && (x.rain && !(Object.keys(x.rain).length === 0 && x.rain.constructor === Object)) || (x.snow && !(Object.snow.keys(x.snow).length === 0 && x.snow.constructor === Object)));
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset &&
+                                x.weather.filter(y => y.id > 500 && y.id < 800).length > 0);
                         }
+
                         if (wetForecastsBeforeSunset.length) {
                             let bringItIn = "NO! Bring it in at " + Moment(wetForecastsBeforeSunset[0].dt * 1000).local().format("LT");
                             this.setState({ result: bringItIn, weather: "raining", reloadClass: "" });
@@ -59,7 +64,7 @@ class CanIleaveMyWashingOut extends React.Component {
 
     }
     error = (e) => {
-        this.setState({result:"Sorry something went wrong. Do not not not not not not not not not not hang it out. Not."});
+        this.setState({ result: "Sorry something went wrong. Do not not not not not not not not not not hang it out. Not." });
     }
     hasSunAlreadySet = (sunset) => {
         return (sunset * 1000) < new Date().getTime();
@@ -81,19 +86,19 @@ class CanIleaveMyWashingOut extends React.Component {
                 this.canIleavMyWashingOut())
         }
     }
-    _changeDay = () =>{
-        if(!this.state.checkTommorowsForecast){
+    _changeDay = () => {
+        if (!this.state.checkTommorowsForecast) {
             this._canILeaveMyWashingOutTommorow();
         }
-        else{
+        else {
             this._canILeaveMyWashingOutToday();
         }
     }
-    _refresh = () =>{
-        if(this.state.checkTommorowsForecast){
+    _refresh = () => {
+        if (this.state.checkTommorowsForecast) {
             this._canILeaveMyWashingOutTommorow();
         }
-        else{
+        else {
             this._canILeaveMyWashingOutToday();
         }
     }
@@ -101,7 +106,7 @@ class CanIleaveMyWashingOut extends React.Component {
         return (
             <div className="can-i-leave-washing content-wrapper">
                 <div className="center-text ">
-                    <h1>Can I leave my washing out {this.state.checkTommorowsForecast? "tommorow" : ""}?</h1>
+                    <h1>Can I leave my washing out {this.state.checkTommorowsForecast ? "tommorow" : ""}?</h1>
                     <WeatherIcon refresh={this._refresh} weather={this.state.weather} />
                     <p className="margin-top-lg">{this.state.result}</p>
                     <button class="experiment-button margin-top-lg" onClick={this._changeDay}>{this.state.checkTommorowsForecast ? "What about today?" : "What about tommorow?"}</button>

@@ -1,0 +1,47 @@
+.bacon-wrapper{
+    height: 80vh;
+    width: 90vw;
+    position: relative;
+    font-size: 1rem;
+    margin:1em auto 0 auto;
+}
+.bacon-wrapper .bacon{
+background: red;
+}
+
+.bacon-wrapper .egg{
+    background: yellow;
+}
+.bacon-wrapper .bacon, .egg{
+    position: absolute;
+    display: none;
+    height: 10vh;
+    width: 10vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.bacon-wrapper .bacon.show, .egg.show{
+    display: block;
+}
+
+.bacon-wrapper .yellow{
+    background: yellow;
+}
+
+.bacon-wrapper .red{
+    background: red;
+}
+
+
+.bacon-wrapper h1,
+.bacon-wrapper h2,
+.bacon-wrapper .experiment-button{
+    margin-top: 1.5rem;
+}
+
+.bacon-wrapper .experiment-button{
+    font-size: 1.2em;
+    
+}

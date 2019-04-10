@@ -90,9 +90,7 @@ class Nes extends React.Component {
     this.scoreTimer = setInterval(
       () => {
         console.log(this.state.score);
-        this.setState((prev) => {
-          score: prev.score += 1
-        })
+        this.setState((prev) => ({ score: prev.score += 1 }));
       },
       1000
     );

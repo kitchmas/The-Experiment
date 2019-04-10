@@ -79,6 +79,13 @@ section p:first-of-type {
     justify-content: center;
 }
 
+.center-wrapper-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .center-wrapper-horizontal {
     display: flex;
     justify-content: center;

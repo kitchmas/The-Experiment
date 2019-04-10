@@ -111,6 +111,7 @@ transition: 20s;
     width: 10em;
     background:var(--diamond-red);;
     transition: 1s;
+    user-select: none;
 }
 
 .blob-small{

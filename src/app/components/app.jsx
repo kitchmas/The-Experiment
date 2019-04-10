@@ -20,6 +20,7 @@ const WeatherGlobe = lazy(() => import('./globes/weather-globe.jsx'));
 const Blob = lazy(() => import('./blob/blob.jsx'));
 const Nes = lazy(() => import('./nes/nes.jsx'));
 const CanIleaveMyWashingOut = lazy(() => import('./washing/can-i-leave-washing-out.jsx'));
+const BaconEgg = lazy(() => import('./bacon egg/bacon-egg.jsx'));
 // import Mark  from './mark/mark.jsx';
 // import VideoPhone  from './phone/video-phone.jsx';
 
@@ -36,6 +37,7 @@ class App extends React.Component {
                         <div className="content">
                         <Route exact path="/can-i-leave-my-washing-out" component={CanIleaveMyWashingOut} />
                         <Route exact path="/battle-boy" component={Nes} />
+                        <Route exact path="/bacon-egg" component={BaconEgg} />
                         {/* <Route  path="/" component={Home} /> */}
                         <Route exact path="/" component={Experiments} />
                         <Route exact path="/about" component={About} />

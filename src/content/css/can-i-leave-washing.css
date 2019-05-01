@@ -4,15 +4,17 @@
 
 .can-i-leave-washing p{
     font-size: 1.8em;
+    margin-top: 2rem;
 }
 
-.can-i-leave-washing button{
+.can-i-leave-washing .experiment-button{
+  margin-top: 2rem;
 }
 
 .can-i-leave-washing .cloud-wrapper{
     width:200px;
     margin:0 auto;
-    margin-top: 1.34em;
+    margin-top: 2rem;
     cursor: pointer;
   }
   

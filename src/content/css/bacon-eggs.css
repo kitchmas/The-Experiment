@@ -5,33 +5,83 @@
     font-size: 1rem;
     margin:1em auto 0 auto;
 }
-.bacon-wrapper .bacon{
-background: red;
+
+.bacon-text{
+    color:#cf000f;
 }
 
-.bacon-wrapper .egg{
-    background: yellow;
+.and-text{
+    color:#2e3131;
 }
-.bacon-wrapper .bacon, .egg{
+
+.egg-text{
+    color: #eeee00;
+}
+
+.ingredient{
+    font-weight: bold;
+    font-size: 2em;
+    color: white;
+    padding:0.25em 0.5em;
+}
+
+ .bacon{
+    z-index: 3;
+    background:#cf000f;
+}
+
+.egg{
+    z-index: 1;
+    background: #eeee00;
+}
+
+.and{
+    background:#2e3131;
+    z-index: 2;
+}
+
+
+.bacon-wrapper .bacon,.bacon-wrapper .egg, .bacon-wrapper .and{
     position: absolute;
     display: none;
-    height: 10vh;
-    width: 10vh;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
+   
 }
 
-.bacon-wrapper .bacon.show, .egg.show{
+.bacon-wrapper .bacon.show,.bacon-wrapper .egg.show, .bacon-wrapper .and.show{
     display: block;
 }
 
 .bacon-wrapper .yellow{
-    background: yellow;
+    background: #eeee00;
 }
 
 .bacon-wrapper .red{
-    background: red;
+    background: #cf000f;
+}
+
+.bacon-wrapper .black{
+    background: #2e3131;
+}
+
+.bacon-wrapper .vertical{
+    transform: rotate(90deg);
+}
+
+.bacon-wrapper .vertical{
+    transform: rotate(180deg);
+}
+
+.bacon-wrapper .large{
+  font-size: 5em;
+}
+
+.bacon-wrapper .medium{
+    font-size: 3em;
+}
+
+.bacon-wrapper .small{
+    font-size: 0.5em;
 }
 
 

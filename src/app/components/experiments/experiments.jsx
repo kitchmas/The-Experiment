@@ -5,6 +5,7 @@ import WeatherGlobeIcon from '../globes/weather-globe-icon.jsx';
 import BlobIcon from '../blob/blob-icon.jsx';
 import NesIcon from '../nes/nes-icon.jsx';
 import WeatherIcon from '../washing/weather-icon.jsx';
+import BaconEggsIcon from '../bacon egg/bacon-egg.icon.jsx';
 const Link = require('react-router-dom').Link;
 import '../../../content/css/experiment.css';
 
@@ -13,6 +14,12 @@ const Experiments = () => {
         <div className="content-wrapper">
             <h1>Experiments</h1>
             <div className="experiments-wrapper">
+                <Link to="/bacon-and-eggs" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Bacon and Eggs</h2>
+                    <div className="experiment">
+                        <BaconEggsIcon />
+                    </div>
+                </Link>
                 <Link to="/can-i-leave-my-washing-out" style={{ textDecoration: 'none', color: 'black' }}>
                     <h2>Leave Washing Out</h2>
                     <div className="experiment can-i-leave-washing">

@@ -37,7 +37,7 @@ class App extends React.Component {
                         <div className="content">
                         <Route exact path="/can-i-leave-my-washing-out" component={CanIleaveMyWashingOut} />
                         <Route exact path="/battle-boy" component={Nes} />
-                        <Route exact path="/bacon-egg" component={BaconEgg} />
+                        <Route exact path="/bacon-and-eggs" component={BaconEgg} />
                         {/* <Route  path="/" component={Home} /> */}
                         <Route exact path="/" component={Experiments} />
                         <Route exact path="/about" component={About} />

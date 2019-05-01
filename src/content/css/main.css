@@ -33,21 +33,13 @@ p {
     margin-bottom: 0;
 }
 
-section p:first-of-type {
-    margin-top: 0.25em;
-}
-
 .margin-top-default{
-    margin-top: 0.67em;
-}
-
-.margin-top-lg{
-    margin-top: 1.34em;
+    margin-top: 1rem;
 }
 
 
 .content {
-    padding-top: 2.5em;
+    padding-top: 2.5rem;
 }
 
 .hidden {

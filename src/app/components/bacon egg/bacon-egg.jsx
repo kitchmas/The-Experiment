@@ -113,20 +113,19 @@ class BaconEgg extends React.Component {
         this.setState({ baconClicked: true, baconClass: "" });
     }
     _andClicked = () => {
-        if (this.state.baconClicked) {
-            this.setState({ andClicked: true, andClass: "" });
-
-        } else {
-            this.gameOver();
-        }
+            this.setState({ andClicked: true, andClass: "" },()=>{
+                if (!this.state.baconClicked)
+                this.gameOver();
+            });
     }
     _eggClicked = () => {
-        if (this.state.baconClicked && this.state.andClicked) {
-            this.setState({ eggClicked: true, eggClass: "" });
-            this.roundWon();
-        } else {
-            this.gameOver();
-        }
+            this.setState({ eggClicked: true, eggClass: "" }, () =>{
+                if (this.state.baconClicked && this.state.andClicked) {
+                    this.roundWon();
+                } else{
+                    this.gameOver();
+                }
+            });
     }
     render() {
         let content = ""

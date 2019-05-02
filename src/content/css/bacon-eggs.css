@@ -23,6 +23,7 @@
     font-size: 2em;
     color: white;
     padding:0.25em 0.5em;
+    user-select: none;
 }
 
  .bacon{

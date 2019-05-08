@@ -73,6 +73,22 @@
     transform: rotate(180deg);
 }
 
+.bacon-wrapper .angle-1{
+    transform: rotate(45deg);
+}
+
+.bacon-wrapper .angle-2{
+    transform: rotate(150deg);
+}
+
+.bacon-wrapper .angle-3{
+    transform: rotate(200deg);
+}
+
+.bacon-wrapper .angle-4{
+    transform: rotate(315deg);
+}
+
 .bacon-wrapper .large{
   font-size: 5em;
 }
@@ -85,6 +101,20 @@
     font-size: 0.5em;
 }
 
+.bacon-wrapper .left-to-right{
+    animation-name: left-to-right;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.bacon-wrapper .top-to-bottom{
+    animation-name: top-to-bottom;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
 
 .bacon-wrapper h1,
 .bacon-wrapper h2,
@@ -95,4 +125,29 @@
 .bacon-wrapper .experiment-button{
     font-size: 1.2em;
     
+}
+
+
+@keyframes left-to-right {
+    0% {
+        left:0%;
+    }
+    50% {
+        left:100%;
+    }
+    100% {
+        left:0%;
+    }
+}
+
+@keyframes top-to-bottom {
+    0% {
+        top:0%;
+    }
+    50% {
+        top:100%;
+    }
+    100% {
+        top:0%;
+    }
 }

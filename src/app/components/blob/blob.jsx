@@ -32,7 +32,7 @@ class Blob extends React.Component {
         }
         this.timer = setInterval(
             () => {
-                if (this.timeHeld === 2) {
+                if (this.timeHeld === 1) {
                     this.setState({ showBlob1: "show" });
                 }
                 if (this.timeHeld === 4) {
@@ -119,7 +119,7 @@ class Blob extends React.Component {
     }
     render() {
         return (
-            <div className={"center-page-wrapper " + this.state.backgroundClass}>
+            <div className={"center-page-wrapper blob-page " + this.state.backgroundClass}>
                 <Draggable
                     onStart={this.blobMoved}
                     position={{ x: 0, y: 0 }}>

@@ -12,6 +12,7 @@ class NavBar extends React.Component {
     state = {
         nextpath: undefined,
         paths: [
+            "/bacon-and-eggs",
             "/can-i-leave-my-washing-out",
             "/battle-boy",
             "/blob",

@@ -89,7 +89,6 @@ class Nes extends React.Component {
   startScoreTimer = () => {
     this.scoreTimer = setInterval(
       () => {
-        console.log(this.state.score);
         this.setState((prev) => ({ score: prev.score += 1 }));
       },
       1000
@@ -582,10 +581,10 @@ class Nes extends React.Component {
         />
       </React.Fragment>;
       heroButtons = <HeroButtons
-        attackButtonText="Attack"
-        staminaButtonText="Charge SP"
-        healButtonText="Heal"
-        chargeAttackButtonText="Charge AP"
+        attackButtonText="Tap to Attack"
+        staminaButtonText="Hold to Charge Stamina"
+        healButtonText="Hold to Heal"
+        chargeAttackButtonText="Hold to Charge Attack"
         attack={this._attack}
         chargeAttack={this._chargeAttack}
         stopChargingAttack={this._stopChargingAttack}

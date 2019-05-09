@@ -9,13 +9,13 @@ class Monster extends React.Component {
             <React.Fragment>
                 <div className="monster-bars bars-wrapper nes-container with-title">
                     <div className="bar-wrapper">
-                        <label>{this.props.health + "/" + this.props.maxHealth}</label>
+                        <label>Health: {this.props.health + "/" + this.props.maxHealth}</label>
                         <progress className="nes-progress is-error"
                             display={this.props.health + "/" + this.props.maxHealth}
                             value={this.props.health} max={this.props.maxHealth}></progress>
                     </div>
                     <div className="bar-wrapper">
-                        <label>{this.props.attack + "/" + this.props.maxAttack}</label>
+                        <label>Attack: {this.props.attack + "/" + this.props.maxAttack}</label>
                         <progress className={this.props.stamina > 94 ? "nes-progress is-warning critical-hit" : "nes-progress is-warning"}
                             display={this.props.attack + "/" + this.props.maxAttack}
                             value={this.props.attack} max={this.props.maxAttack}></progress>

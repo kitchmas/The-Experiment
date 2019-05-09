@@ -1,3 +1,7 @@
+.blob-page{
+  overflow: hidden;
+}
+
 .darkness{
   transition: 4;
   background: #2e3131;
@@ -66,7 +70,7 @@
 }
 
 .blob-wrapper.round .blob{
-    transition: 1s;
+    transition: 0.2s;
     border-radius: 50%;
 }
 

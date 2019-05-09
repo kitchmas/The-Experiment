@@ -109,7 +109,7 @@ class CanIleaveMyWashingOut extends React.Component {
                     <h1>Can I leave my washing out {this.state.checkTommorowsForecast ? "tommorow" : ""}?</h1>
                     <WeatherIcon refresh={this._refresh} weather={this.state.weather} />
                     <p>{this.state.result}</p>
-                    <button class="experiment-button" onClick={this._changeDay}>{this.state.checkTommorowsForecast ? "What about today?" : "What about tommorow?"}</button>
+                    <button className="experiment-button" onClick={this._changeDay}>{this.state.checkTommorowsForecast ? "What about today?" : "What about tommorow?"}</button>
                 </div>
             </div>
         );

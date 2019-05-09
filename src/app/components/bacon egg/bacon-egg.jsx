@@ -31,7 +31,12 @@ class BaconEgg extends React.Component {
             "medium", "small",
             "angle-1", "angle-2",
             "angle-3", "angle-4",
-            "top-to-bottom", "left-to-right"]
+            "top-to-bottom", "left-to-right",
+            "fact fact-1", "fact fact-2",
+            "fact fact-3", "fact fact-4",
+            "fact fact-5", "fact fact-6"
+        ],
+        clickPaused: false
     }
     componentWillUnmount() {
         clearInterval(this.timerInterval);
@@ -67,17 +72,17 @@ class BaconEgg extends React.Component {
     }
     loadRound = () => {
         let width = window.innerWidth
-        || document.documentElement.clientWidth
-        || document.body.clientWidth,
-        leftMaxValue = 80,
-        leftMediumOrLargeMaxValue = 50;
-        
-        if(width < 760){
+            || document.documentElement.clientWidth
+            || document.body.clientWidth,
+            leftMaxValue = 80,
+            leftMediumOrLargeMaxValue = 50;
+
+        if (width < 760) {
             leftMaxValue = 56;
             leftMediumOrLargeMaxValue = 25;
         }
-        
-        if(width < 400){
+
+        if (width < 400) {
             leftMaxValue = 56;
             leftMediumOrLargeMaxValue = 10;
         }
@@ -98,10 +103,24 @@ class BaconEgg extends React.Component {
             andClass = "";
 
         if (this.state.round > 2) {
-            baconClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 1) + 1],
+
+            if(this.state.round > 4){
+                baconClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 1) + 1],
                 eggClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 1) + 1],
                 andClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 1) + 1];
-        }
+            }
+            else{
+            baconClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 7) + 1],
+                eggClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 7) + 1],
+                andClass = this.state.patterns[Math.floor(Math.random() * this.state.patterns.length - 7) + 1];
+            }
+
+            if (this.state.round > 2 && !(this.state.round % 2 === 0)) {
+                baconClass += " " + this.state.patterns[Math.floor(Math.random() * 3 - 1) + 1],
+                    eggClass += " " + this.state.patterns[Math.floor(Math.random() * 3 - 1) + 1],
+                    andClass += " " + this.state.patterns[Math.floor(Math.random() * 3 - 1) + 1];
+            }
+        } 
 
         if (baconClass === "large" || baconClass === "medium") {
             baconLeft = (Math.floor(Math.random() * leftMediumOrLargeMaxValue) + 1).toString() + "%";
@@ -140,27 +159,44 @@ class BaconEgg extends React.Component {
         this.stopTimer();
         this.setState({ gameOver: true });
     }
+    pauseClick() {
+        this.setState({ clickPaused: true });
+        setTimeout(() => {
+            this.setState({ clickPaused: false });
+        }, 300);
+    }
     _start = () => {
         this.setState({ started: true, round: 1, timer: 60, gameOver: false, eggClass: "", baconClass: "" });
         this.loadRound();
     }
     _baconClicked = () => {
-        this.setState({ baconClicked: true, baconClass: "" });
+        debugger;
+        if (!this.state.clickPaused) {
+            this.pauseClick();
+            this.setState({ baconClicked: true, baconClass: "" });
+        }
+
     }
     _andClicked = () => {
-        this.setState({ andClicked: true, andClass: "" }, () => {
-            if (!this.state.baconClicked)
-                this.gameOver();
-        });
+        if (!this.state.clickPaused) {
+            this.pauseClick();
+            this.setState({ andClicked: true, andClass: "" }, () => {
+                if (!this.state.baconClicked)
+                    this.gameOver();
+            });
+        }
     }
     _eggClicked = () => {
-        this.setState({ eggClicked: true, eggClass: "" }, () => {
-            if (this.state.baconClicked && this.state.andClicked) {
-                this.roundWon();
-            } else {
-                this.gameOver();
-            }
-        });
+        if (!this.state.clickPaused) {
+            this.pauseClick();
+            this.setState({ eggClicked: true, eggClass: "" }, () => {
+                if (this.state.baconClicked && this.state.andClicked) {
+                    this.roundWon();
+                } else {
+                    this.gameOver();
+                }
+            });
+        }
     }
     render() {
         let content = ""
@@ -185,19 +221,19 @@ class BaconEgg extends React.Component {
             </div>
         }
         else {
-            content = <div>
+            content = <div className="bacon-wrapper">
                 <div className="space-between-wrapper">
                     <h3>Timer: {this.state.timer}</h3>
                     <h3>Round: {this.state.round}</h3>
                 </div>
                 <h1 className="center-text"> <span className="bacon-text">{this.state.baconClicked ? "Bacon" : ""}</span> <span className="and-text">{this.state.andClicked ? "and" : ""}</span> <span className="egg-text">{this.state.eggClicked ? "Eggs" : ""}</span></h1>
-                <div onMouseDown={this._baconClicked} onTouchStart={this._baconClicked} style={{ top: this.state.baconTop, left: this.state.baconLeft }} className={"ingredient bacon " + this.state.baconClass}>Bacon</div>
-                <div onMouseDown={this._eggClicked} onTouchStart={this._eggClicked} style={{ top: this.state.eggTop, left: this.state.eggLeft }} className={"ingredient egg " + this.state.eggClass}>Eggs</div>
-                <div onMouseDown={this._andClicked} onTouchStart={this._andClicked} style={{ top: this.state.andTop, left: this.state.andLeft }} className={"ingredient and " + this.state.andClass}>and</div>
+                <div onMouseDown={this._baconClicked} onTouchStart={this._baconClicked} style={{ top: this.state.baconTop, left: this.state.baconLeft }} className={"ingredient bacon " + this.state.baconClass}><span>Bacon</span></div>
+                <div onMouseDown={this._eggClicked} onTouchStart={this._eggClicked} style={{ top: this.state.eggTop, left: this.state.eggLeft }} className={"ingredient egg " + this.state.eggClass}><span>Eggs</span></div>
+                <div onMouseDown={this._andClicked} onTouchStart={this._andClicked} style={{ top: this.state.andTop, left: this.state.andLeft }} className={"ingredient and " + this.state.andClass}><span>and</span></div>
             </div>
         }
         return (
-            <div className="bacon-wrapper">
+            <div>
                 {content}
             </div>
 

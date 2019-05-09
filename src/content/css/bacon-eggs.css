@@ -124,9 +124,91 @@
 
 .bacon-wrapper .experiment-button{
     font-size: 1.2em;
-    
 }
 
+.egg.fact span,
+.and.fact span,
+.bacon.fact span{
+    display: none;
+  }  
+  
+  .egg.fact,
+  .and.fact,
+  .bacon.fact{
+    background: #2e3131;
+  }
+
+.bacon.fact-1:before{
+ content:"I come from a pig"
+}
+
+.bacon.fact-2:before{
+    content:"I am meat"
+}
+
+.bacon.fact-3:before{
+    content:"I am alive but have no wings"
+}
+
+.bacon.fact-4:before{
+    content:"I'm not and and i'm not Egg"
+}
+
+.bacon.fact-5:before{
+    content:"Bring me home"
+}
+
+.bacon.fact-6:before{
+    content:"I rhyme with jamaican"
+}
+
+.egg.fact-1:before{
+ content:"I come from a chicken"
+}
+
+.egg.fact-2:before{
+    content:"I came first"
+}
+
+.egg.fact-3:before{
+    content:"I like to lay down"
+}
+
+.egg.fact-4:before{
+ content:"You would put me in a cake"
+}
+
+.egg.fact-5:before{
+ content:"I'm vegeterian"
+}
+
+.egg.fact-6:before{
+    content:"I'm not bacon and i'm not and"
+}
+
+.and.fact-1:before{
+ content:"I come from the english language"
+}
+
+.and.fact-2:before{
+    content:"I'm used in logic to form a conjunction"
+}
+
+.and.fact-3:before{
+    content:"I'm used as a function word"
+}
+
+.and.fact-4:before{
+ content:"My first letter is the first letter of the Alphabet"
+}
+
+.and.fact-5:before{
+   content:"I'm vegan"
+}
+
+.and.fact-6:before{
+    content:"I'm not Bacon and i'm not Eggs"
+}
 
 @keyframes left-to-right {
     0% {

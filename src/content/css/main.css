@@ -39,7 +39,7 @@ p {
 
 
 .content {
-    padding-top: 2.5rem;
+    padding-top:56px; 
 }
 
 .hidden {
@@ -87,7 +87,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 56px)
+    height: calc(100vh);
 }
 
 .center-text {
@@ -97,7 +97,7 @@ p {
 .content-wrapper {
     max-width: 1130px;
     margin: 0 auto;
-    padding: 1.8em 1em;
+    padding: 0 1em;
 }
 
 .space-between-wrapper {
@@ -176,8 +176,11 @@ p {
     body {
         font-size: 16px;
     }
+    .content{
+        padding-top: 40px;
+    }
     .center-page-wrapper {
-        height: calc(100vh - 40px)
+        height: calc(100vh -40px);
     }
     .hidden-xs{
         visibility: hidden;

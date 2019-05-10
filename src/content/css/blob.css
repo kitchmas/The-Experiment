@@ -113,7 +113,7 @@ transition: 20s;
 .blob{
     height: 10em;
     width: 10em;
-    background:var(--diamond-red);;
+    background:var(--diamond-red);
     transition: 1s;
     user-select: none;
 }

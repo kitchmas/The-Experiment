@@ -1,0 +1,16 @@
+.sound-bite-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.sound-bite-wrapper .sound-bite{
+    flex:1 0 4em;
+    margin: 1em;
+    font-weight: bold;
+    background:var(--diamond-black);
+}
+
+.sound-bite-wrapper .sound-bite:hover {
+    opacity: 0.7;
+}

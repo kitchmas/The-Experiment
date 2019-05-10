@@ -21,8 +21,7 @@ const Blob = lazy(() => import('./blob/blob.jsx'));
 const Nes = lazy(() => import('./nes/nes.jsx'));
 const CanIleaveMyWashingOut = lazy(() => import('./washing/can-i-leave-washing-out.jsx'));
 const BaconEgg = lazy(() => import('./bacon egg/bacon-egg.jsx'));
-// import Mark  from './mark/mark.jsx';
-// import VideoPhone  from './phone/video-phone.jsx';
+const SoundBoard = lazy(() => import('./sound board/sound-board.jsx'));
 
 class App extends React.Component {
     constructor(props) {
@@ -35,9 +34,12 @@ class App extends React.Component {
                     <div>
                         <NavBar />
                         <div className="content">
+                        <Route exact path="/sound-board" component={SoundBoard} />
+                        <Route exact path="/bacon-and-eggs" component={BaconEgg} />
                         <Route exact path="/can-i-leave-my-washing-out" component={CanIleaveMyWashingOut} />
                         <Route exact path="/battle-boy" component={Nes} />
-                        <Route exact path="/bacon-and-eggs" component={BaconEgg} />
+                        <Route exact path="/blob" component={Blob} />
+                        <Route path="/day-and-night" component={WeatherGlobe} />
                         <Route exact path="/" component={Experiments} />
                         <Route exact path="/about" component={About} />
                         <Route path="/mimic/1" component={DiamondCopyChallenge} />
@@ -45,12 +47,10 @@ class App extends React.Component {
                         <Route path="/mimic/3" component={DiamondOddOneOutChallenge} />
                         <Route path="/sorter/1" component={SimpleSorter} />
                         <Route path="/micro-garden" component={Game} />
-                        <Route path="/day-and-night" component={WeatherGlobe} />
-                        <Route exact path="/blob" component={Blob} />
                         </div>
                     </div>
                 </Suspense>
-            </Router >
+            </Router>
 
         );
     }

@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
+        filename: 'bundle.js',
         publicPath: '/'
     },
     plugins: [
@@ -47,6 +47,16 @@ module.exports = {
                     options: {
                         name: 'images[name].[ext]',
                         outputPath: 'images',
+                    },
+                }, ],
+            },
+            {
+                test: /\.(ogg)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: 'audio[name].[ext]',
+                        outputPath: 'audio',
                     },
                 }, ],
             },

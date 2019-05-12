@@ -1,6 +1,6 @@
 import React from 'react';
 
-import url from '../../../content/audio/horse.ogg';
+import url from '../../../content/audio/Doubtfire/this-idiot.mp3';
 import '../../../content/css/sound-board.css';
 
 class SoundBoard extends React.Component {

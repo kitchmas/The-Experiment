@@ -30,9 +30,9 @@ class SoundBoard extends React.Component {
     }
     state = {
         categorys: [
-            { id: 1, name: "Mrs Doubtfire" },
-            { id: 2, name: "Home Alone" },
-            { id: 3, name: "Home Alone 2" }
+            { id: 1, name: "AAA" },
+            { id: 2, name: "BBB" },
+            { id: 3, name: "CCCS" }
         ],
         soundBites: [
             { id: 1, categoryId: 1, name: "Crazy to make a deal", path: CrazyToMakeADeal },
@@ -44,6 +44,12 @@ class SoundBoard extends React.Component {
             { id: 7, categoryId: 1, name: "I want you in the worst way", path: IWantYouInTheWorstWay },
             { id: 8, categoryId: 1, name: "This idiot", path: ThisIdiot },
             { id: 9, categoryId: 1, name: "I'm sitting on a gold mine", path: ImSittingOnAGoldMine },
+            { id: 10, categoryId: 1, name: "Look at me money penny", path: LookAtMeMoneyPenny },
+            { id: 11, categoryId: 1, name: "Looking for signs of inteligent life", path: LookingForSignsOfInteligentLife },
+            { id: 12, categoryId: 1, name: "Piss of Lou", path: PissOfLou },
+            { id: 13, categoryId: 1, name: "Yessss", path: Yessss },
+            { id: 14, categoryId: 1, name: "Do you consider yourself", path: DoYouConsiderYourself },
+            { id: 15, categoryId: 1, name: "Do you consider yourself 2", path: DoYouConsiderYourself2 },
             { id: 10, categoryId: 1, name: "Look at me money penny", path: LookAtMeMoneyPenny },
             { id: 11, categoryId: 1, name: "Looking for signs of inteligent life", path: LookingForSignsOfInteligentLife },
             { id: 12, categoryId: 1, name: "Piss of Lou", path: PissOfLou },
@@ -83,15 +89,11 @@ class SoundBoard extends React.Component {
         return (
             <div className="page content-wrapper">
                 <div className="sound-bite-container">
-                    <div className="catergory-selector-wrapper">
                         <CategorySelector categorys={this.state.categorys}
                             onChange={this._categoryChanged}
                             selectedCategory={this.state.selectedCategory} />
-                    </div>
-                    <div className="sound-bites-box-wrapper">
                         <SoundBitesBox soundBites={this.getSelectedSoundBites()}
                             play={this._play} />
-                    </div>
                 </div>
             </div>
         );

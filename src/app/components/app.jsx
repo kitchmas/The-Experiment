@@ -2,7 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { library } from '@fortawesome/fontawesome/index'
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
 import faArrowRight from '@fortawesome/fontawesome-free-solid/faArrowRight'
-library.add(faSyncAlt,faArrowRight);
+import faVolumeUp from '@fortawesome/fontawesome-free-solid/faVolumeUp'
+library.add(faSyncAlt,faArrowRight,faVolumeUp);
 import history from '../helpers/history.js';
 import { Router, Route, Link } from 'react-router-dom';
 import '../../content/css/main.css';

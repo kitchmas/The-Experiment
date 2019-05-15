@@ -597,7 +597,7 @@ class Nes extends React.Component {
       />;
     }
     return (
-      <div className="content-wrapper nes-content">
+      <div className="content-wrapper nes-content page">
         <section className="nes-container game-box with-title is-centered">
           <h3>Battle Boy</h3>
           <div className="nes-container screen-wrapper">

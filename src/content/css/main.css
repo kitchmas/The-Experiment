@@ -127,6 +127,8 @@ p {
     padding: 0.5em 0.6em;
     transition: 0.5s;
     cursor: pointer;
+    font-family: SpaceGrotesk;
+    src: url("../fonts/SpaceGrotesk-Regular.woff2") format("woff2");
 }
 
 .experiment-button:hover {

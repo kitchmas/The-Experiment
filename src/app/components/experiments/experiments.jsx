@@ -6,14 +6,21 @@ import BlobIcon from '../blob/blob-icon.jsx';
 import NesIcon from '../nes/nes-icon.jsx';
 import WeatherIcon from '../washing/weather-icon.jsx';
 import BaconEggsIcon from '../bacon egg/bacon-egg.icon.jsx';
+import SoundBoardIcon from '../sound board/sound-board-icon.jsx';
 const Link = require('react-router-dom').Link;
 import '../../../content/css/experiment.css';
 
 const Experiments = () => {
     return (
-        <div className="content-wrapper">
+        <div className="content-wrapper page">
             <h1>Experiments</h1>
             <div className="experiments-wrapper">
+                <Link to="/sound-board" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Sound Board</h2>
+                    <div className="experiment">
+                        <SoundBoardIcon />
+                    </div>
+                </Link>
                 <Link to="/bacon-and-eggs" style={{ textDecoration: 'none', color: 'black' }}>
                     <h2>Bacon and Eggs</h2>
                     <div className="experiment">

@@ -29,10 +29,11 @@ class SoundBoard extends React.Component {
         this.audio = new Audio(url);
     }
     state = {
+        playingAudioId:null,
         categorys: [
-            { id: 1, name: "AAA" },
-            { id: 2, name: "BBB" },
-            { id: 3, name: "CCCS" }
+            { id: 1, name: "Mrs. Doubtfire" },
+            { id: 2, name: "Empty Placeholder 1" },
+            { id: 3, name: "Empty Placeholder 2" }
         ],
         soundBites: [
             { id: 1, categoryId: 1, name: "Crazy to make a deal", path: CrazyToMakeADeal },
@@ -50,12 +51,6 @@ class SoundBoard extends React.Component {
             { id: 13, categoryId: 1, name: "Yessss", path: Yessss },
             { id: 14, categoryId: 1, name: "Do you consider yourself", path: DoYouConsiderYourself },
             { id: 15, categoryId: 1, name: "Do you consider yourself 2", path: DoYouConsiderYourself2 },
-            { id: 10, categoryId: 1, name: "Look at me money penny", path: LookAtMeMoneyPenny },
-            { id: 11, categoryId: 1, name: "Looking for signs of inteligent life", path: LookingForSignsOfInteligentLife },
-            { id: 12, categoryId: 1, name: "Piss of Lou", path: PissOfLou },
-            { id: 13, categoryId: 1, name: "Yessss", path: Yessss },
-            { id: 14, categoryId: 1, name: "Do you consider yourself", path: DoYouConsiderYourself },
-            { id: 15, categoryId: 1, name: "Do you consider yourself 2", path: DoYouConsiderYourself2 },
         ],
         selectedCategory: { id: 0, name: "" }
     }
@@ -63,12 +58,25 @@ class SoundBoard extends React.Component {
         this.setState({ selectedCategory: this.state.categorys[0] })
     }
     _play = (id) => {
-        var soundBiteToPlay = this.state.soundBites.find(soundBite => {
+        this.setState({ playingAudioId: id })
+        let soundBiteToPlay = this.state.soundBites.find(soundBite => {
             return soundBite.id === id
-        });
-        this.audio.src = soundBiteToPlay.path;
-        this.audio.currentTime = 0;
-        this.audio.play();
+        }),
+        audio = this.audio;
+    
+        audio.src = soundBiteToPlay.path;
+        audio.currentTime = 0;
+        audio.play();
+
+        this.playTimer = setInterval(
+            () => {
+                if (audio.paused) {
+                    clearInterval(this.playTimer);
+                    this.setState({ playingAudioId: null });
+                } 
+            },
+            100
+          );
     }
     pause = () => {
         this.audio.pause();
@@ -92,7 +100,9 @@ class SoundBoard extends React.Component {
                         <CategorySelector categorys={this.state.categorys}
                             onChange={this._categoryChanged}
                             selectedCategory={this.state.selectedCategory} />
-                        <SoundBitesBox soundBites={this.getSelectedSoundBites()}
+                        <SoundBitesBox
+                        playingAudioId={this.state.playingAudioId}
+                        soundBites={this.getSelectedSoundBites()}
                             play={this._play} />
                 </div>
             </div>

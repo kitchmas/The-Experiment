@@ -3,7 +3,7 @@ import React from 'react';
 import url from '../../../content/audio/Doubtfire/crazy-to-make-a-deal.mp3';
 
 import CrazyToMakeADeal from '../../../content/audio/Doubtfire/crazy-to-make-a-deal.mp3';
-import DontMakeMeSmackYou from '../../../content/audio/Doubtfire/crazy-to-make-a-deal.mp3';
+import DontMakeMeSmackYou from '../../../content/audio/Doubtfire/dont-make-me-smack.mp3';
 import Figaro from '../../../content/audio/Doubtfire/figaro.mp3';
 import ThatsTheformaldehyde from '../../../content/audio/Doubtfire/formaldehyde.mp3';
 import ThenIveGotTodo from '../../../content/audio/Doubtfire/got-to-do.mp3';

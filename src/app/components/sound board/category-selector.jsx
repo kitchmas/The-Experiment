@@ -21,6 +21,7 @@ class CategorySelector extends React.Component {
                 onClick={() => { this.props.onChange(category.id) }}>{category.name}</li>);
         return (
             <div className="category-selector">
+            <h1>Movies</h1>
                 <div onClick={this._toggleCategorySelect} className="selected-category">
                     {this.props.selectedCategory.name}
                     <i className={this.state.opened ? "arrow up" : "arrow down"}></i>

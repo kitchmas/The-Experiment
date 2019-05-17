@@ -58,13 +58,16 @@ class SoundBoard extends React.Component {
         this.setState({ selectedCategory: this.state.categorys[0] })
     }
     _play = (id) => {
-        this.setState({ playingAudioId: id })
-        let soundBiteToPlay = this.state.soundBites.find(soundBite => {
-            return soundBite.id === id
-        }),
+        let soundBiteToPlay,
         audio = this.audio;
+        if(id !== this.state.playingAudioId){
+            this.setState({ playingAudioId: id })
+             soundBiteToPlay = this.state.soundBites.find(soundBite => {
+                return soundBite.id === id
+            }),
+            audio.src = soundBiteToPlay.path;
+        }
     
-        audio.src = soundBiteToPlay.path;
         audio.currentTime = 0;
         audio.play();
 

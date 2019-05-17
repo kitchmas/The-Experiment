@@ -11,16 +11,19 @@ class SoundBitesBox extends React.Component {
             <button key={soundBite.id} className="experiment-button sound-bite" onClick={() => { this.props.play(soundBite.id) }}>
                 <span>{soundBite.name}</span>
                 <div className="play-wrapper">
-                    <div className={this.props.playingAudioId === soundBite.id? " " : "hidden"}>
+                    <div className={this.props.playingAudioId === soundBite.id ? " " : "hidden"}>
                         <i className="fas fa-volume-up"></i>
                     </div>
-                    <div className={this.props.playingAudioId === soundBite.id? "hidden" : "play-triangle"}></div>
+                    <div className={this.props.playingAudioId === soundBite.id ? "hidden" : "play-triangle"}></div>
 
                 </div>
             </button>);
         return (
-            <div className="sound-bites-box">
-                {soundBites}
+            <div className="sound-bites-box-wrapper">
+              <h1>Sound Bites</h1>
+                <div className="sound-bites-box">
+                    {soundBites}
+                </div>
             </div>
         );
     }

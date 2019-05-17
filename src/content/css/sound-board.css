@@ -2,7 +2,9 @@
     font-size: 1rem;
     margin: 0 auto;
 }
-
+.sound-bite-container h1{
+  display: none;
+}
 .sound-bite-container .category-selector {
     position: relative;
     background: #2e3131;
@@ -103,6 +105,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 1em;
+    flex: 1;
 
 }
 
@@ -177,6 +180,13 @@
 }
 
 @media(min-width:767px) {
+    .sound-bite-container h1{
+        margin: 0;
+        color: white;
+        font-size: 1em;
+        padding: 0.4em 0 0 0.4em;
+        display: block;
+    }
     .sound-bite-container {
         display: flex;
     }
@@ -187,6 +197,10 @@
         width: 420px;
         font-size: 1em;
         background: #262626;
+    }
+
+    .sound-bite-container .category-selector h1{
+   padding-bottom: 0.4em;
     }
 
     .sound-bite-container .selected-category {
@@ -218,16 +232,33 @@
         display: block;
     }
 
+    .sound-bite-container .sound-bites-box-wrapper{
+        height: 80vh;
+        max-height: 80vh;
+        background: #2e3131;
+        position: relative;
+        flex: 1;
+    }
+
+    .sound-bite-container .sound-bites-box-wrapper h1{
+        background: #262626;
+        position: absolute;
+        width:100%;
+        z-index: 1;
+        padding: 0.4em;
+    }
+
     .sound-bite-container .sound-bites-box {
         display: flex;
         flex-wrap: wrap;
-        flex: 1;
-        height: 80vh;
-        max-height: 80vh;
+        height: auto;
+        max-height: calc(80vh - 36px);
+        margin-top: 36px;
     }
 
     .sound-bite-container .sound-bites-box .sound-bite {
         flex: 0 0 46%;
         margin: 2%;
+        height: 54px;
     }
 }

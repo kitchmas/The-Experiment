@@ -1,0 +1,515 @@
+.villager {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    height: 150px;
+    position: absolute;
+    transition: 5s;
+}
+
+.villager .head {
+    width: 100%;
+    height: 50%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.villager .hair {
+    width: 70%;
+    height: 20%;
+    background: yellow;
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    border: 4px solid black;
+    border-bottom: none;
+}
+
+.villager .hair.mo-hawk {
+    width: 20%;
+    height: 20%;
+}
+
+.villager .hair.long {
+    width: 100%;
+    height: 170%;
+    border-bottom: 4px solid black;
+}
+
+.villager .hair.medium {
+    width: 100%;
+    height: 120%;
+    border-bottom: 4px solid black;
+}
+
+.villager .hair.medium-short {
+    width: 100%;
+    height: 95%;
+    border-bottom: 4px solid black;
+}
+
+.villager .hair.medium-short {
+    width: 100%;
+    height: 95%;
+    border-bottom: 4px solid black;
+}
+
+.villager .hair.perm {
+    width: 95%;
+    height: 70%;
+    border-bottom: 4px solid black;
+}
+
+.villager .hair.buzz {
+    width: 80%;
+    height: 40%;
+    border-bottom: 4px solid black;
+    top: 12%;
+}
+
+.villager .face {
+    height: 80%;
+    width: 70%;
+    background: white;
+    border: 4px solid black;
+    border-bottom: 0;
+}
+
+.villager .face .eyes {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20%;
+
+}
+
+.villager .eyes .eye {
+    width: 20%;
+    height: 100%;
+    background: black;
+}
+
+.villager .upper-body {
+    width: 100%;
+    height: 30%;
+    display: flex;
+}
+
+.villager .arm {
+    height: 90%;
+    width: 20%;
+    border: 4px solid black;
+}
+
+.villager .arm .sleeve {
+    height: 40%;
+    background: blue;
+}
+
+.villager .arm:first-child {
+    border-right: none;
+}
+
+.villager .arm:last-child {
+    border-left: none;
+}
+
+.villager .arm .forearm {
+    height: 60%;
+    background: white;
+    border-top: 4px solid black;
+}
+
+.villager .torso {
+    height: 100%;
+    width: 60%;
+    background: blue;
+    border: 4px solid black;
+    border-bottom: none;
+}
+
+.villager .legs {
+    height: 20%;
+    width: 60%;
+    display: flex;
+}
+
+.villager .legs .leg {
+    height: 100%;
+    width: 100%;
+}
+
+.villager .legs .trouser-leg {
+    height: 60%;
+    width: 100%;
+    background: brown;
+    border: 4px solid black;
+    border-bottom: none;
+}
+
+.villager .legs .leg:first-child .trouser-leg {
+    border-right: 2px solid black;
+}
+
+.villager .legs .leg:last-child .trouser-leg {
+    border-left: 2px solid black;
+}
+
+.villager .legs .shoe {
+    height: 40%;
+    background: black;
+    border: 4px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.villager.walking .arm:first-child {
+    animation: walking-arm-first;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+}
+
+.villager.walking .arm:last-child {
+    animation: walking-arm-last;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+}
+
+.villager.walking .legs .leg:first-child{
+    animation: walking;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+}
+
+.villager.walking .legs .leg:last-child{
+    animation: walking;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+    animation-delay: 0.25s;
+}
+
+@keyframes walking {
+    0% {
+        height: 100%;
+    }
+
+    50% {
+        height: 80%;
+    }
+
+    100% {
+        height: 100%;
+    }
+}
+
+@keyframes walking-arm-first {
+    0% {
+        position: relative;
+        transform: rotate(0deg);
+        border-right: 4px solid black;
+        left: 5%;
+    }
+    25% {
+        position: relative;
+        transform: rotate(-10deg);
+        left: 5%;
+        border-right: 4px solid black;
+    }
+    50% {
+        position: relative;
+        transform: rotate(0deg);
+        left: 0%;
+        border-right: 4px solid black;
+        left: 5%;
+    }
+    75% {
+        position: relative;
+        transform: rotate(10deg);
+        left: 0%;
+        border-right: 4px solid black;
+        left: 5%;
+    }
+    100% {
+        position: relative;
+        transform: rotate(0deg);
+        left: 0%;
+        border-right: 4px solid black;
+        left: 5%;
+    }
+}
+
+
+@keyframes walking-arm-last {
+    0% {
+        position: relative;
+        transform: rotate(0deg);
+        border-left: 4px solid black;
+        right: 5%;
+    }
+    25% {
+        position: relative;
+        transform: rotate(-10deg);
+        right: 5%;
+        border-left: 4px solid black;
+    }
+    50% {
+        position: relative;
+        transform: rotate(0deg);
+        border-left: 4px solid black;
+        right: 5%;
+    }
+    75% {
+        position: relative;
+        transform: rotate(10deg);
+        border-left: 4px solid black;
+        right: 5%;
+    }
+    100% {
+        position: relative;
+        transform: rotate(0deg);
+        border-left: 4px solid black;
+        right: 5%;
+    }
+}
+
+
+.villager.side-on .head {
+    width: 100%;
+    height: 50%;
+  
+}
+.villager.side-on .hair {
+    z-index: 2;
+}
+
+.villager.side-on .hair.mo-hawk {
+    width: 40%;
+    height: 20%;
+}
+
+.villager.side-on .hair.long {
+    z-index: 2;
+    width: 70%;
+    height: 170%;
+    border-bottom: 4px solid black;
+}
+
+.villager.side-on .hair.medium{
+    width: 70%;
+    height: 120%;
+    border-bottom: 4px solid black;
+}
+
+.villager.side-on .hair.medium-short {
+    width: 70%;
+    height: 95%;
+    border-bottom: 4px solid black;
+}
+
+.villager.side-on .hair.perm {
+    width: 80%;
+    height: 70%;
+    border-bottom: 4px solid black;
+}
+
+.villager.side-on .hair.buzz {
+    width: 70%;
+    height: 40%;
+    border-bottom: 4px solid black;
+    top: 12%;
+}
+
+
+.villager.side-on .face {
+    height: 80%;
+    width: 70%;
+    background: white;
+    border: 4px solid black;
+    border-bottom: 0;
+}
+
+.villager.side-on .face .eyes {
+   display: none;
+}
+
+.villager.side-on .upper-body {
+    width: 100%;
+    height: 30%;
+    position: relative;
+    justify-content: center;
+}
+
+.villager.side-on .arm {
+    height: 90%;
+    width: 20%;
+    border: 4px solid black;
+}
+
+.villager.side-on .arm:first-child {
+    border-right: 4px solid black;
+    position: absolute;
+    z-index: 2;
+    top:0;
+}
+
+.villager.side-on .arm:last-child {
+    border-right: 4px solid black;
+    position: absolute;
+    z-index: -2;
+    top:0;
+}
+
+
+.villager.side-on .torso {
+    height: 100%;
+    width: 40%;
+    background: blue;
+    border: 4px solid black;
+    border-bottom: none;
+}
+
+.villager.side-on .legs {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.villager.side-on .legs .leg {
+    width: 40%;
+}
+
+.villager.side-on .legs .leg:first-child {
+    z-index: 2;
+    position: absolute;
+    top:0;
+}
+
+.villager.side-on .legs .leg {
+    z-index: -2;
+    position: absolute;
+    top:0;
+}
+
+.villager.side-on .legs .shoe {
+    height: 40%;
+    background: black;
+    border: 4px solid black;
+}
+
+.villager.side-on.walking .arm:first-child {
+    animation: side-on-walking-arms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+}
+
+.villager.side-on.walking .arm:last-child {
+    animation: side-on-walking-arms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+    animation-delay: 1s;
+}
+
+.villager.side-on.walking .legs .leg:first-child{
+    animation: side-on-walking;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
+.villager.side-on.walking .legs .leg:last-child{
+    animation: side-on-walking;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+    animation-delay: 0.25s;
+}
+
+@keyframes side-on-walking-arms {
+    0% {
+        
+        transform: rotate(0deg);
+        
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes side-on-walking {
+    0% {
+        
+        transform: rotate(0deg);
+        
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.villager.backwards .face .eyes {
+    display: none;
+ }
+
+ .villager.backwards .hair{
+    z-index: 2;
+ }

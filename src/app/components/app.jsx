@@ -23,6 +23,7 @@ const Nes = lazy(() => import('./nes/nes.jsx'));
 const CanIleaveMyWashingOut = lazy(() => import('./washing/can-i-leave-washing-out.jsx'));
 const BaconEgg = lazy(() => import('./bacon egg/bacon-egg.jsx'));
 const SoundBoard = lazy(() => import('./sound board/sound-board.jsx'));
+const Village = lazy(() => import('./village/village.jsx'));
 
 class App extends React.Component {
     constructor(props) {
@@ -32,9 +33,9 @@ class App extends React.Component {
         return (
             <Router history={history}>
                 <Suspense fallback={<div>Loading...</div>}>
-                    <div>
                         <NavBar />
                         <div className="content">
+                        <Route exact path="/village" component={Village} />
                         <Route exact path="/sound-board" component={SoundBoard} />
                         <Route exact path="/bacon-and-eggs" component={BaconEgg} />
                         <Route exact path="/can-i-leave-my-washing-out" component={CanIleaveMyWashingOut} />
@@ -49,7 +50,6 @@ class App extends React.Component {
                         <Route path="/sorter/1" component={SimpleSorter} />
                         <Route path="/micro-garden" component={Game} />
                         </div>
-                    </div>
                 </Suspense>
             </Router>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase/app';
+import '@firebase/firestore';
 import App from './components/app.jsx';
 
 var config = {

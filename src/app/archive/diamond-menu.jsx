@@ -4,7 +4,7 @@ import '../../../content/css/diamond-menu.css';
 
 class DiamondMenu extends React.Component{
     render(){
-        return(<div className="center-wrapper">
+        return(<div className="center-wrapper-menu">
         <div className="diamond-menu-indent"></div>
         <div className="diamond-menu">
             <div className="item item1">

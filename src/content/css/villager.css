@@ -4,8 +4,10 @@
     align-items: center;
     width: 100px;
     height: 150px;
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     transition: 5s;
+    z-index: 1
 }
 
 .villager .head {
@@ -18,15 +20,18 @@
     align-items: flex-end;
 }
 
-.villager .hair {
-    width: 70%;
-    height: 20%;
+.villager .hair{
     background: yellow;
     position: absolute;
-    z-index: -2;
+    z-index: -1;
     top: 0;
     border: 4px solid black;
     border-bottom: none;
+}
+
+.villager .hair.short {
+    width: 70%;
+    height: 20%;
 }
 
 .villager .hair.mo-hawk {
@@ -52,11 +57,6 @@
     border-bottom: 4px solid black;
 }
 
-.villager .hair.medium-short {
-    width: 100%;
-    height: 95%;
-    border-bottom: 4px solid black;
-}
 
 .villager .hair.perm {
     width: 95%;
@@ -317,7 +317,7 @@
   
 }
 .villager.side-on .hair {
-    z-index: 2;
+    z-index: 1;
 }
 
 .villager.side-on .hair.mo-hawk {
@@ -326,7 +326,6 @@
 }
 
 .villager.side-on .hair.long {
-    z-index: 2;
     width: 70%;
     height: 170%;
     border-bottom: 4px solid black;
@@ -419,13 +418,12 @@
 }
 
 .villager.side-on .legs .leg:first-child {
-    z-index: 2;
+    z-index: 1;
     position: absolute;
     top:0;
 }
 
 .villager.side-on .legs .leg {
-    z-index: -2;
     position: absolute;
     top:0;
 }

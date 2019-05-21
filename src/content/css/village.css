@@ -1,0 +1,32 @@
+.villager-edit-box {
+    border: 2px solid black;
+    background: #fff;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.villager-edit-box h2{
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+
+
+@media(min-width:767px) {
+   .villager-creator{
+       display: flex;
+       flex-direction: row-reverse;
+       justify-content: space-between;
+   }
+
+   .villager-creator .villager-edit-box{
+       width: 300px;
+       height: 300px;
+       margin-left: 40px;
+   }
+
+   .villager-creator .form-fields{
+       flex: 1;
+   }
+}

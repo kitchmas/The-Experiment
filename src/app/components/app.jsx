@@ -3,7 +3,8 @@ import { library } from '@fortawesome/fontawesome/index'
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt'
 import faArrowRight from '@fortawesome/fontawesome-free-solid/faArrowRight'
 import faVolumeUp from '@fortawesome/fontawesome-free-solid/faVolumeUp'
-library.add(faSyncAlt,faArrowRight,faVolumeUp);
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
+library.add(faSyncAlt,faArrowRight,faVolumeUp, faSearch);
 import history from '../helpers/history.js';
 import { Router, Route, Link } from 'react-router-dom';
 import '../../content/css/main.css';

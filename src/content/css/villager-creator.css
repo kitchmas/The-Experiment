@@ -5,45 +5,52 @@
     margin: 0;
     padding-top: 2em;
     width: 99vw;
-    max-width:100%;
-    left:0;
+    max-width: 100%;
+    left: 0;
     right: 0;
-    top:0;
+    top: 0;
     border: none;
     box-shadow: none;
 }
 
 .villager-form .experiment-button.cancel {
+    height: 44px;
+    width: 44px;
+    font-size: 20px;
+    line-height: 24px;
     margin-top: 0;
-    padding: 0;
-    line-height:0.8em;
-    font-size: 2em;
-    width: 0.8em;
-    height:0.8em;
 }
 
-.villager-creator .villager-edit-box {
-    border: 2px solid black;
-    background: #fff;
-    padding: 1em;
+.villager-creator .villager-view {
     margin-top: 1em;
 }
 
-.villager-creator .villager-edit-box h2 {
+.villager-creator .villager-screen {
+    padding: 1em 1em 2em 1em;
+    border: 2px solid black;
+    background: #fff;
+}
+
+.villager-creator .villager-screen h2 {
     margin-top: 0;
     margin-bottom: 0.5em;
     text-align: center;
     height: 1em;
 }
 
+.villager-creator .villager-rotater {
+    margin-top: 1em;
+    padding: 0 1em;
+}
+
 .villager-creator label {
     position: relative;
 }
 
-.villager-creator label .validation-error{
+.villager-creator label .validation-error {
     display: inline;
     padding-left: 1em;
-    color: red;
+    color: #D8000Ced;
     font-weight: bold;
     font-size: 0.8em;
 }
@@ -51,11 +58,11 @@
 @media(min-width:767px) {
     .villager-form {
         width: 800px;
-        padding: 2em;
+        padding: 1em 2em;
         margin: auto;
         border: 2px solid black;
         box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.75);
-        top:3em;
+        top: 3em;
     }
 
     .villager-form h1 {
@@ -68,10 +75,13 @@
         justify-content: space-between;
     }
 
-    .villager-creator .villager-edit-box {
+    .villager-creator .villager-view {
+        margin-left: 1em;
+    }
+
+    .villager-creator .villager-screen {
         width: 200px;
         height: 251px;
-        margin-left: 1em;
     }
 
     .villager-creator .form-fields {
@@ -89,12 +99,12 @@
         display: inline-block;
     }
 
-    .villager-creator label .validation-error{
+    .villager-creator label .validation-error {
         position: absolute;
         top: -18px;
-        right: 147px;
-        padding-left:0;
-        
+        right: 1px;
+        padding-left: 0;
+
     }
 
     .villager-creator .experiment-button.submit {

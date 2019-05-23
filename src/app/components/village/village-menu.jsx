@@ -9,7 +9,11 @@ class VillageMenu extends React.Component {
     render() {
         return (
             <div className="village-menu">
-                <button className="experiment-button" onClick={this.props.addClicked}>Add Villager</button>
+                <label>
+                    <i className="fas fa-search"></i>
+                    <input type="range" className="zoom" name="zoom" min={15} max={100} value={this.props.zoom} onChange={this.props.onChange}></input>
+                </label>
+                <button className="experiment-button add" onClick={this.props.addClicked}>Add</button>
             </div>
         )
     }

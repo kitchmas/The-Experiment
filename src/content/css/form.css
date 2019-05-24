@@ -1,51 +1,55 @@
-
-
-.experiment-form{
+.experiment-form {
     font-size: 1rem;
     background: #abb7b7;
     margin: 1em;
     padding: 1em;
-    box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.75);
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.75);
     border: 2px solid black;
 }
 
-.experiment-form label{
+.experiment-form label {
     display: block;
-    font-weight:bold;
+    font-weight: bold;
     margin-top: 1em;
 }
 
-.experiment-form .experiment-button{
+.experiment-form .experiment-button {
     font-size: 1em;
     margin-top: 1em;
 }
 
-.experiment-form .experiment-button.submit{
+.experiment-form .experiment-button.submit {
     background: #2574a9;
     width: 100%;
 }
 
-.experiment-form input, .experiment-form select{
+
+.experiment-form .experiment-button.cancel {
+    background: #cf000f;
+}
+
+.experiment-form input,
+.experiment-form select {
     display: block;
     width: 100%;
     font-size: 1em;
-    padding:0.1em 0.2em;
-    border:2px solid black;
-    margin-top:0.1em; 
+    padding: 0.1em 0.2em;
+    border: 2px solid black;
+    margin-top: 0.1em;
 }
 
-.experiment-form input[type="color"]::-webkit-color-swatch{
+.experiment-form input[type="color"]::-webkit-color-swatch {
     border: none;
 }
 
-.experiment-form h1{
+.experiment-form h1 {
     margin-top: 0;
 }
 
 
 @media(min-width:767px) {
-  .experiment-form{
-      max-width: 960px;
-      margin: 0 auto;
-  }
+    .experiment-form {
+        max-width: 920px;
+        margin: 0 auto;
+    }
 }

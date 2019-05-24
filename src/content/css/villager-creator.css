@@ -1,0 +1,115 @@
+.villager-form {
+    font-size: 1rem;
+    position: absolute;
+    z-index: 10;
+    margin: 0;
+    padding-top: 2em;
+    width: 99vw;
+    max-width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.villager-form .experiment-button.cancel {
+    height: 44px;
+    width: 44px;
+    font-size: 20px;
+    line-height: 24px;
+    margin-top: 0;
+}
+
+.villager-creator .villager-view {
+    margin-top: 1em;
+}
+
+.villager-creator .villager-screen {
+    padding: 1em 1em 2em 1em;
+    border: 2px solid black;
+    background: #fff;
+}
+
+.villager-creator .villager-screen h2 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    text-align: center;
+    height: 1em;
+}
+
+.villager-creator .villager-rotater {
+    margin-top: 1em;
+    padding: 0 1em;
+}
+
+.villager-creator label {
+    position: relative;
+}
+
+.villager-creator label .validation-error {
+    display: inline;
+    padding-left: 1em;
+    color: #D8000Ced;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+@media(min-width:767px) {
+    .villager-form {
+        width: 800px;
+        padding: 1em 2em;
+        margin: auto;
+        border: 2px solid black;
+        box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.75);
+        top: 3em;
+    }
+
+    .villager-form h1 {
+        font-size: 1.5em;
+    }
+
+    .villager-creator {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    .villager-creator .villager-view {
+        margin-left: 1em;
+    }
+
+    .villager-creator .villager-screen {
+        width: 200px;
+        height: 251px;
+    }
+
+    .villager-creator .form-fields {
+        flex: 1;
+    }
+
+    .villager-creator label {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .villager-creator input,
+    .villager-creator select {
+        width: 300px;
+        display: inline-block;
+    }
+
+    .villager-creator label .validation-error {
+        position: absolute;
+        top: -18px;
+        right: 1px;
+        padding-left: 0;
+
+    }
+
+    .villager-creator .experiment-button.submit {
+        background: #2574a9;
+        width: auto;
+    }
+
+}

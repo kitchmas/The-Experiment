@@ -14,10 +14,12 @@
     --diamond-green: #66CC99;
     --diamond-black: #4D4D4D;
 }
-html{
+
+html {
     font-family: SpaceGrotesk, sans-serif !important;
     font-size: 18px;
 }
+
 body {
     background: var(--default-background);
     margin: 0;
@@ -33,16 +35,16 @@ p {
     margin-bottom: 0;
 }
 
-.page{
+.page {
     margin-top: 3rem;
 }
 
-.margin-top-default{
+.margin-top-default {
     margin-top: 1rem;
 }
 
 .content {
-    padding-top:56px; 
+    padding-top: 56px;
 }
 
 .hidden {
@@ -63,7 +65,7 @@ p {
     margin: 0 auto;
 }
 
-.wrap{
+.wrap {
     display: flex;
     flex-wrap: wrap;
 }
@@ -74,7 +76,7 @@ p {
     justify-content: center;
 }
 
-.center-wrapper-group{
+.center-wrapper-group {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,7 +92,15 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh);
+    height: calc(100vh -56px);
+}
+
+.center-in-parent-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width:100%;
 }
 
 .center-text {
@@ -109,7 +119,7 @@ p {
     justify-content: space-between;
 }
 
-.full-page{
+.full-page {
     height: 100vh;
     width: 100vw;
 }
@@ -128,6 +138,7 @@ p {
     transition: 0.5s;
     cursor: pointer;
     font-family: SpaceGrotesk;
+    font-size: 1em;
     src: url("../fonts/SpaceGrotesk-Regular.woff2") format("woff2");
 }
 
@@ -169,38 +180,138 @@ p {
     color: #bfbfbf;
 }
 
-.next h1{
+.next h1 {
     margin-top: 4em;
 }
 
-.rotate{
+.rotate {
     animation: rotate;
     animation-duration: 2s;
 }
+
+.arrow {
+    border: solid black;
+    border-width: 0 10px 10px 0;
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.arrow.right {
+    transform: rotate(-45deg);
+}
+
+.arrow.left {
+    transform: rotate(135deg);
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+}
+
+.arrow.down {
+    transform: rotate(45deg);
+}
+
+.loading {
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+  
+  .loading:before{
+    content: "";
+    display:block;
+    position: absolute;
+    height: 30%;
+    width: 30%;
+    background: #E74C3C;
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
 
 @media(max-width:767px) {
     body {
         font-size: 16px;
     }
-    .page{
+
+    .page {
         margin-top: 2rem;
     }
-    .content{
+
+    .content {
         padding-top: 40px;
     }
+
     .center-page-wrapper {
         height: calc(100vh -40px);
     }
-    .hidden-xs{
+
+    .hidden-xs {
         visibility: hidden;
     }
 }
 
-@keyframes rotate{
-    from{
+ .loading {
+    width: 150px;
+    height: 150px;
+    position: relative;
+  }
+  
+  .loading:before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 10%;
+    width: 10%;
+    top:calc(50% - 10%);
+    background: #e74c3c;
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes loading {
+    0% {
+      left: 0;
+      background: #e74c3c;
+      height: 10%;
+      width: 10%;
+    }
+    50% {
+      left: calc(100% - 50%);
+      background: #81cfe0;
+      transform: rotate(360deg);
+        top:25%;
+      height: 50%;
+      width: 50%;
+    }
+    100% {
+      left: 0;
+      background: #66cc99;
+      transform: rotate(0deg);
+      height: 10%;
+      width: 10%;
+    }
+    
+  }
+  
+
+
+
+@keyframes rotate {
+    from {
         transform: rotate(0deg);
     }
-    to{
+
+    to {
         transform: rotate(360deg);
     }
 }

@@ -1,0 +1,30 @@
+.village-menu{
+    position: absolute;
+    right: 1px;
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    z-index: 2;
+}
+.village-menu label{
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.village-menu .zoom{
+    display: block;
+    margin: 0 1em;
+    width: 100%;
+    max-width: 200px;
+}
+
+.village-menu .fa-search{
+ font-size: 1.5em;
+}
+
+.village-menu .experiment-button.add{
+   background: #2ecc71;
+}
+

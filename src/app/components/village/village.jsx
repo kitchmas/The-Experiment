@@ -13,17 +13,19 @@ class Village extends React.Component {
         super(props);
     }
     state = {
+        loading: false,
         creatorOpen: false,
         villagers: null,
         zoom: 50
     }
     componentDidMount = () => {
+        this.setState({ loading: true });
         var db = firebase.firestore();
         db.collection('villagers').get().then(querySnapshot => {
             let villagers = querySnapshot.docs.map(doc => {
                 return doc.data();
             });
-            this.setState({ villagers });
+            this.setState({ villagers, loading: false });
         });
     }
     villagerAdded = (e) => {
@@ -45,7 +47,7 @@ class Village extends React.Component {
     }
     renderVillages = () => {
         if (this.state.villagers) {
-            return this.state.villagers.map((villager,index) => {
+            return this.state.villagers.map((villager, index) => {
                 return <Villager key={index}
                     move={true}
                     zoom={this.state.zoom}
@@ -67,7 +69,7 @@ class Village extends React.Component {
             <div className="center-page-wrapper village-page">
                 <div className={this.state.creatorOpen ? "village disabled" : "village"}>
                     <VillageMenu onChange={this._onChange} zoom={this.state.zoom} addClicked={this.openCreator} />
-                    {this.renderVillages()}
+                    {this.state.loading ? <div className="center-in-parent-wrapper"><div className="loading"></div></div> : this.renderVillages()}
                 </div>
                 {this.renderCreator()}
             </div>

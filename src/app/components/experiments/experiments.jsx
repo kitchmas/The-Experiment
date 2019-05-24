@@ -9,12 +9,27 @@ import BaconEggsIcon from '../bacon egg/bacon-egg.icon.jsx';
 import SoundBoardIcon from '../sound board/sound-board-icon.jsx';
 const Link = require('react-router-dom').Link;
 import '../../../content/css/experiment.css';
+import Villager from '../village/villager.jsx';
 
 const Experiments = () => {
     return (
         <div className="content-wrapper page">
             <h1>Experiments</h1>
             <div className="experiments-wrapper">
+             <Link to="/village" style={{ textDecoration: 'none', color: 'black' }}>
+                    <h2>Village</h2>
+                    <div className="experiment">
+                    <Villager
+                                    position=""
+                                    name="Tom"
+                                    hairStyle="short"
+                                    hairColour="#fef160"
+                                    skinColour="#fff9de"
+                                    shirtColour="#87d37c"
+                                    trouserColour="#22313f"
+                                />
+                    </div>
+                </Link>
                 <Link to="/sound-board" style={{ textDecoration: 'none', color: 'black' }}>
                     <h2>Sound Board</h2>
                     <div className="experiment">

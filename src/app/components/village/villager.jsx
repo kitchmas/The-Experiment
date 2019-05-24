@@ -9,21 +9,22 @@ class Villager extends React.Component {
     state = {
         top: 0,
         left: 0,
-        class: "hidden",
+        class: "",
         directions: ["left", "right", "up", "down"]
     }
     componentDidMount = () => {
-        const top = Math.floor(Math.random() * document.getElementsByClassName('village')[0].clientHeight) + 1,
-            left = Math.floor(Math.random() * document.getElementsByClassName('village')[0].clientWidth) + 1;
-            this.setState({top,left},
-                this.setState({class:""}));
         if (this.props.move) {
+            this.setState({class:"hidden"})
+            const top = Math.floor(Math.random() * document.getElementsByClassName('village')[0].clientHeight) + 1,
+                left = Math.floor(Math.random() * document.getElementsByClassName('village')[0].clientWidth) + 1;
+            this.setState({ top, left },
+                this.setState({ class: "" }));
             this.time = setInterval(() => {
                 let direction = this.state.directions[Math.floor(Math.random() * this.state.directions.length - 1) + 1],
                     w = document.getElementsByClassName('village')[0].clientWidth,
                     h = document.getElementsByClassName('village')[0].clientHeight;
                 switch (direction) {
-                   
+
                     case "left":
                         if (this.state.left - 100 < -100) {
                             this.setState((prev) => ({
@@ -95,48 +96,48 @@ class Villager extends React.Component {
                 this.validateFields();
         });
     }
-    _getHeight = () =>{
+    _getHeight = () => {
         return this.props.zoom * 3
     }
-    _getWidth = () =>{
+    _getWidth = () => {
         return this.props.zoom * 2
     }
     render() {
         return (
-                <div style={{ top: this.state.top, left: this.state.left, height:this._getHeight(), width:this._getWidth()}} className={this.props.position + (this.props.move ? " villager move " : " villager ") + this.state.class}>
-                    <div className="head">
-                        <div className={"hair " + this.props.hairStyle} style={{ backgroundColor: this.props.hairColour }}>
-                       </div>
-                        <div className="face" style={{ backgroundColor: this.props.skinColour }}>
+            <div style={{ top: this.state.top, left: this.state.left, height: this._getHeight(), width: this._getWidth() }} className={this.props.position + (this.props.move ? " villager move " : " villager ") + this.state.class}>
+                <div className="head">
+                    <div className={"hair " + this.props.hairStyle} style={{ backgroundColor: this.props.hairColour }}>
+                    </div>
+                    <div className="face" style={{ backgroundColor: this.props.skinColour }}>
                         <div className={"fringe " + this.props.hairStyle} style={{ backgroundColor: this.props.hairColour }}></div>
-                            <div className="eyes">
-                                <div className="eye"></div>
-                                <div className="eye"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="upper-body">
-                        <div className="arm">
-                            <div className="sleeve" style={{ backgroundColor: this.props.shirtColour }}></div>
-                            <div className="forearm" style={{ backgroundColor: this.props.skinColour }}></div>
-                        </div>
-                        <div className="torso" style={{ backgroundColor: this.props.shirtColour }}></div>
-                        <div className="arm">
-                            <div className="sleeve" style={{ backgroundColor: this.props.shirtColour }}></div>
-                            <div className="forearm" style={{ backgroundColor: this.props.skinColour }}></div>
-                        </div>
-                    </div>
-                    <div className="legs">
-                        <div className="leg">
-                            <div className="trouser-leg" style={{ backgroundColor: this.props.trouserColour }}></div>
-                            <div className="shoe"></div>
-                        </div>
-                        <div className="leg">
-                            <div className="trouser-leg" style={{ backgroundColor: this.props.trouserColour }}></div>
-                            <div className="shoe"></div>
+                        <div className="eyes">
+                            <div className="eye"></div>
+                            <div className="eye"></div>
                         </div>
                     </div>
                 </div>
+                <div className="upper-body">
+                    <div className="arm">
+                        <div className="sleeve" style={{ backgroundColor: this.props.shirtColour }}></div>
+                        <div className="forearm" style={{ backgroundColor: this.props.skinColour }}></div>
+                    </div>
+                    <div className="torso" style={{ backgroundColor: this.props.shirtColour }}></div>
+                    <div className="arm">
+                        <div className="sleeve" style={{ backgroundColor: this.props.shirtColour }}></div>
+                        <div className="forearm" style={{ backgroundColor: this.props.skinColour }}></div>
+                    </div>
+                </div>
+                <div className="legs">
+                    <div className="leg">
+                        <div className="trouser-leg" style={{ backgroundColor: this.props.trouserColour }}></div>
+                        <div className="shoe"></div>
+                    </div>
+                    <div className="leg">
+                        <div className="trouser-leg" style={{ backgroundColor: this.props.trouserColour }}></div>
+                        <div className="shoe"></div>
+                    </div>
+                </div>
+            </div>
         )
     }
 }

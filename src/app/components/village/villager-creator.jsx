@@ -25,7 +25,8 @@ class VillagerCreator extends React.Component {
         shirtColourInvalidMessage: "",
         trouserColour: "#22313f",
         trouserColourInvalidMessage: "",
-        valid: true
+        valid: true,
+        submitted:false
     }
     validateFields = () => {
         let nameInvalidMessage,
@@ -173,6 +174,8 @@ class VillagerCreator extends React.Component {
         if (invalid)
             return;
 
+        this.setState({submitted:true});
+
         var db = firebase.firestore();
         db.collection("villagers").add({
             name: this.state.name,
@@ -190,7 +193,8 @@ class VillagerCreator extends React.Component {
                     hairColour: "#fef160",
                     skinColour: "#fff9de",
                     shirtColour: "#87d37c",
-                    trouserColour: "#22313f"
+                    trouserColour: "#22313f",
+                    submitted:false
                 }, this.props.submitted())
             })
             .catch(function (error) {
@@ -219,7 +223,9 @@ class VillagerCreator extends React.Component {
                         <div className="villager-screen">
                             <h2>{this.state.name}</h2>
                             <div className="center-wrapper">
-                                <Villager
+                            {this.state.submitted ? <div className="loading"></div> :
+                                 <Villager
+                                    zoom="50"
                                     position={this.state.villagerPosition}
                                     name={this.state.name}
                                     hairStyle={this.state.hairStyle}
@@ -227,7 +233,7 @@ class VillagerCreator extends React.Component {
                                     skinColour={this.state.skinColour}
                                     shirtColour={this.state.shirtColour}
                                     trouserColour={this.state.trouserColour}
-                                />
+                                /> }
                             </div>
                         </div>
                         <div className="space-between-wrapper villager-rotater">
@@ -308,7 +314,7 @@ class VillagerCreator extends React.Component {
                                 onChange={this._onChange}
                                 style={{ backgroundColor: this.state.trouserColour }} />
                         </label>
-                        <button type="submit" className="experiment-button submit" onClick={this._post}>Create</button>
+                        <button disabled={this.submitted} type="submit" className="experiment-button submit" onClick={this._post}>Create</button>
                     </div>
                 </div>
             </form>

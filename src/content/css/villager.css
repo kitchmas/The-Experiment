@@ -1,5 +1,6 @@
 .villager {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     width: 100px;
@@ -7,8 +8,34 @@
     z-index: 1;
 }
 
+.villager  h2{
+    opacity: 0;
+    position: absolute;
+    top: -32%;
+    margin: 0;
+    border: 4px solid black;
+    border-radius: 100px;
+    padding: 0.2em 0.5em;
+    background: #fff;
+    z-index: 2;
+    transition: 0.5s;
+    white-space: nowrap;
+}
+
+.villager.invisible{
+    opacity: 0;
+}
+
+.villager.visible{
+    transition: 3s;
+    opacity: 1;
+}
 .villager.move {
     position: absolute;
+}
+
+.villager.move:hover h2, .villager.move:active h2{
+    opacity: 1;
 }
 
 .villager .head {
@@ -171,6 +198,13 @@
     background: black;
 }
 
+.villager.blinking  .eyes .eye{
+    animation: blink;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 5s;
+}
+
 .villager .upper-body {
     width: 100%;
     height: 30%;
@@ -303,6 +337,18 @@
     animation-timing-function: linear;
     animation-duration: 0.5s;
     animation-delay: 0.25s;
+}
+
+@keyframes blink{
+    0%{
+      opacity: 1;
+    }
+    96%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }
 
 @keyframes walking {
@@ -505,6 +551,7 @@
     background: blue;
     border: 4px solid black;
     border-bottom: none;
+    border-top: none;
 }
 
 .villager.side-on .legs {

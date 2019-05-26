@@ -17,9 +17,10 @@ const Experiments = () => {
             <h1>Experiments</h1>
             <div className="experiments-wrapper">
              <Link to="/village" style={{ textDecoration: 'none', color: 'black' }}>
-                    <h2>Village</h2>
+                    <h3>Village</h3>
                     <div className="experiment">
                     <Villager
+                    zoom={50}
                                     position=""
                                     name="Tom"
                                     hairStyle="short"

@@ -12,83 +12,106 @@ class Villager extends React.Component {
         class: "",
         directions: ["left", "right", "up", "down"]
     }
-    componentDidMount = () => {
+    componentDidMount() {
         if (this.props.move) {
-            this.setState({class:"hidden"})
-            const top = Math.floor(Math.random() * document.getElementsByClassName('village')[0].clientHeight) + 1,
-                left = Math.floor(Math.random() * document.getElementsByClassName('village')[0].clientWidth) + 1;
-            this.setState({ top, left },
-                this.setState({ class: "" }));
-            this.time = setInterval(() => {
-                let direction = this.state.directions[Math.floor(Math.random() * this.state.directions.length - 1) + 1],
-                    w = document.getElementsByClassName('village')[0].clientWidth,
-                    h = document.getElementsByClassName('village')[0].clientHeight;
-                switch (direction) {
+            this.setState({class:"invisible"})
+            const top = Math.floor(Math.random() * (document.getElementsByClassName('village')[0].clientHeight - (this.props.zoom * 3))) + 1,
+                left = Math.floor(Math.random() * (document.getElementsByClassName('village')[0].clientWidth - (this.props.zoom * 2))) + 1;
 
-                    case "left":
-                        if (this.state.left - 100 < -100) {
-                            this.setState((prev) => ({
-                                left: prev.left + 100,
-                                class: "side-on walking"
-                            }));
-                        } else {
-                            this.setState((prev) => ({
-                                left: prev.left - 100,
-                                class: "side-on walking"
-                            }));
-                        }
-                        break;
-                    case "right":
-                        if (this.state.left + 100 > w + 100) {
-                            this.setState((prev) => ({
-                                left: prev.left - 100,
-                                class: "side-on walking"
-                            }));
-                        } else {
-                            this.setState((prev) => ({
-                                left: prev.left + 100,
-                                class: "side-on walking"
-                            }));
-                        }
-                        break;
-                    case "up":
-                        if (this.state.top - 100 < -100) {
-                            this.setState((prev) => ({
-                                top: prev.top + 100,
-                                class: "walking"
-                            }));
-                        } else {
-                            this.setState((prev) => ({
-                                top: prev.top - 100,
-                                class: "backwards walking"
-                            }));
-                        }
-                        break;
-                    case "down":
-                        if (this.state.top + 100 > h + 100) {
-                            this.setState((prev) => ({
-                                top: prev.top - 100,
-                                class: "backwards walking"
-                            }));
-                        } else {
-                            this.setState((prev) => ({
-                                top: prev.top + 100,
-                                class: "walking"
-                            }));
-                        }
-                        break;
-                    default:
-                        this.setState((prev) => ({
-                            left: 0,
-                            top: 0,
-                            class: ""
-                        }));
-                }
-                setTimeout(() => {
-                    this.setState({ class: "" });
-                }, 5000)
-            }, Math.floor(Math.random() * 20000 + 6000) + 1);
+            this.setState({ top, left }, () => {
+                this.show();
+                this.takeFirstStep();
+            });
         }
+    }
+    componentWillUnmount() {
+        this.keepLooping = false;
+    }
+    show() {
+        setTimeout(() => {
+            this.setState({ class: "visible" });
+        }, 100);
+    }
+    takeFirstStep() {
+        setTimeout(() => {
+            this.keepLooping = true;
+            let that = this;
+            (function ontimeout() {
+                if (that.keepLooping) {
+                    that.move();
+                    setTimeout(ontimeout, Math.floor(Math.random() * 20000 + 5000) + 1);
+                }
+            })();
+        }, Math.floor(Math.random() * 10000 + 2000) + 1);
+    }
+    move() {
+        let direction = this.state.directions[Math.floor(Math.random() * this.state.directions.length - 1) + 1],
+            w = document.getElementsByClassName('village')[0].clientWidth,
+            h = document.getElementsByClassName('village')[0].clientHeight;
+        switch (direction) {
+
+            case "left":
+                if (this.state.left - 100 < 0) {
+                    this.setState((prev) => ({
+                        left: prev.left + 100,
+                        class: "side-on walking"
+                    }));
+                } else {
+                    this.setState((prev) => ({
+                        left: prev.left - 100,
+                        class: "side-on walking"
+                    }));
+                }
+                break;
+            case "right":
+                if (this.state.left + 100 > (w + (this.props.zoom * 2))) {
+                    this.setState((prev) => ({
+                        left: prev.left - 100,
+                        class: "side-on walking"
+                    }));
+                } else {
+                    this.setState((prev) => ({
+                        left: prev.left + 100,
+                        class: "side-on walking"
+                    }));
+                }
+                break;
+            case "up":
+                if (this.state.top - 100 < 0) {
+                    this.setState((prev) => ({
+                        top: prev.top + 100,
+                        class: "walking"
+                    }));
+                } else {
+                    this.setState((prev) => ({
+                        top: prev.top - 100,
+                        class: "backwards walking"
+                    }));
+                }
+                break;
+            case "down":
+                if (this.state.top + 100 > (h + (this.props.zoom * 3))) {
+                    this.setState((prev) => ({
+                        top: prev.top - 100,
+                        class: "backwards walking"
+                    }));
+                } else {
+                    this.setState((prev) => ({
+                        top: prev.top + 100,
+                        class: "walking"
+                    }));
+                }
+                break;
+            default:
+                this.setState((prev) => ({
+                    left: 0,
+                    top: 0,
+                    class: ""
+                }));
+        }
+        setTimeout(() => {
+            this.setState({ class: "blinking" });
+        }, 5000)
     }
     _onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value }, () => {
@@ -105,6 +128,7 @@ class Villager extends React.Component {
     render() {
         return (
             <div style={{ top: this.state.top, left: this.state.left, height: this._getHeight(), width: this._getWidth() }} className={this.props.position + (this.props.move ? " villager move " : " villager ") + this.state.class}>
+                <h2>Hi, I'm {this.props.name}</h2>
                 <div className="head">
                     <div className={"hair " + this.props.hairStyle} style={{ backgroundColor: this.props.hairColour }}>
                     </div>

@@ -46,8 +46,9 @@ class Villager extends React.Component {
     }
     move() {
         let direction = this.state.directions[Math.floor(Math.random() * this.state.directions.length - 1) + 1],
-            w = document.getElementsByClassName('village')[0].clientWidth,
+        w = document.getElementsByClassName('village')[0].clientWidth,
             h = document.getElementsByClassName('village')[0].clientHeight;
+
         switch (direction) {
 
             case "left":
@@ -64,7 +65,7 @@ class Villager extends React.Component {
                 }
                 break;
             case "right":
-                if (this.state.left + 100 > (w + (this.props.zoom * 2))) {
+                if (this.state.left + 100 >= (w - (this.props.zoom * 2))) {
                     this.setState((prev) => ({
                         left: prev.left - 100,
                         class: "side-on walking"
@@ -90,7 +91,7 @@ class Villager extends React.Component {
                 }
                 break;
             case "down":
-                if (this.state.top + 100 > (h + (this.props.zoom * 3))) {
+                if (this.state.top + 100 >= (h - (this.props.zoom * 3))) {
                     this.setState((prev) => ({
                         top: prev.top - 100,
                         class: "backwards walking"

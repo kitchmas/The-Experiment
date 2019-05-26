@@ -19,6 +19,13 @@ class Village extends React.Component {
         zoom: 50
     }
     componentDidMount = () => {
+        this.getVillagers();
+    }
+    getVillagers() {
+        var width = window.innerWidth
+        if (width < 768) {
+            this.setState({ zoom: 30 });
+        }
         this.setState({ loading: true });
         var db = firebase.firestore();
         db.collection('villagers').get().then(querySnapshot => {
@@ -29,7 +36,7 @@ class Village extends React.Component {
         });
     }
     villagerAdded = (e) => {
-        this.setState({ creatorOpen: false });
+        this.setState({ creatorOpen: false },this.getVillagers());
     }
     openCreator = () => {
         this.setState({ creatorOpen: true });

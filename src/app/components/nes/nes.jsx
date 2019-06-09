@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../../content/nes-css/css/nes.css';
 import '../../../content/css/nes-custom.css';
+import NextCharacterScreen from '../nes/next-challeger-screen.jsx';
 import Monster from '../nes/monster.jsx';
 import HeroBars from '../nes/hero-bars.jsx';
 import HeroButtons from '../nes/hero-buttons.jsx';
@@ -12,6 +13,8 @@ import GameWinScreen from './game-win.jsx';
 class Nes extends React.Component {
   state = {
     started: false,
+    currentView: "startScreen",
+    showNextChallenger: true,
     tutorialMode: false,
     tutorialModeAText: "",
     tutorialModeBText: "",
@@ -98,19 +101,20 @@ class Nes extends React.Component {
     clearInterval(this.scoreTimer);
   }
   loadMonster = () => {
-    this.startScoreTimer();
     let nextMonster;
-    if (this.state.started && this.state.monsterName != "") {
+
+    if (this.state.monsterName != "") {
       const index = this.state.monsters.findIndex(item => item.name === this.state.monsterName);
-      if (index === -1) {
-        this.setState({gameWin:true})
-      }
       nextMonster = this.state.monsters[index + 1];
     } else {
       nextMonster = this.state.monsters[0];
     }
+    if(nextMonster === undefined){
+        this.setState({ gameWin: true, currentView:"gameWinScreen" });
+        return;
+    }
     this.setState({
-      started: true,
+      currentView: "nextChallengerScreen",
       monsterName: nextMonster.name,
       monsterHealth: nextMonster.health,
       monsterMaxHealth: nextMonster.health,
@@ -121,28 +125,34 @@ class Nes extends React.Component {
       monsterMaxStamina: 100,
       monsterStaminaRecoveryRate: nextMonster.staminaRecoveryRate,
       monsterClassName: nextMonster.className
-    }, this.activateMonster);
+    });
   }
   activateMonster = () => {
-    let attackIndex = 0;
-    this.monsterTimer = setInterval(() => {
-      if (!this.state.monsterAttacking) {
-        if (this.state.monsterAttack === (this.state.monsterAttackPattern[attackIndex] - 1) && this.state.monsterHealth > 0) {
-          this.attacking("monsterStatusClass");
+    this.setState({
+      currentView: "battleScreen",
+    },() => {
+      this.startScoreTimer();
+      let attackIndex = 0;
+      this.monsterTimer = setInterval(() => {
+        if (!this.state.monsterAttacking) {
+          if (this.state.monsterAttack === (this.state.monsterAttackPattern[attackIndex] - 1) && this.state.monsterHealth > 0) {
+            this.attacking("monsterStatusClass");
+          }
+          if (this.state.monsterAttack === this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
+            attackIndex++;
+            if (!this.state.monsterAttackPattern[attackIndex])
+              attackIndex = 0
+            this.monsterAttack();
+          } else if (this.state.monsterAttack < this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
+            this.setState((prev) => ({ monsterAttack: prev.monsterAttack + 1 }));
+          } else if (this.state.monsterHealth <= 0) {
+            clearInterval(this.monsterTimer);
+          }
         }
-        if (this.state.monsterAttack === this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
-          attackIndex++;
-          if (!this.state.monsterAttackPattern[attackIndex])
-            attackIndex = 0
-          this.monsterAttack();
-        } else if (this.state.monsterAttack < this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
-          this.setState((prev) => ({ monsterAttack: prev.monsterAttack + 1 }));
-        } else if (this.state.monsterHealth <= 0) {
-          clearInterval(this.monsterTimer);
-        }
-      }
-    },
-      this.state.monsterStaminaRecoveryRate);
+      },
+        this.state.monsterStaminaRecoveryRate);
+    });
+
   }
   getReadyForNextRound = () => {
     //heal hero states
@@ -160,7 +170,7 @@ class Nes extends React.Component {
     this.stopTimers();
     if (this.state.tutorialMode) {
       setTimeout(() => {
-        this.setState({ tutorialMode: false });
+        this.setState({ tutorialMode: false, currentView:"startScreen" });
         this._resetGame();
       }, 2000);
       return;
@@ -181,7 +191,8 @@ class Nes extends React.Component {
         heroMaxHealth: prev.heroMaxHealth + heroMaxHealthPercentageUp,
         heroMaxAttack: prev.heroMaxAttack + heroMaxAttackPercentageUp,
         heroMaxStamina: prev.heroMaxStamina + heroMaxStaminaPercentageUp,
-        levelUp: true
+        levelUp: true,
+        currentView:"levelUpScreen"
       }))
     }, 2000);
   }
@@ -190,7 +201,8 @@ class Nes extends React.Component {
     this.stopScoreTimer();
     this.setState({
       monsterAttacking: false,
-      gameOver: true
+      gameOver: true,
+      currentView:"gameOverScreen"
     });
   }
   monsterAttack = () => {
@@ -378,12 +390,6 @@ class Nes extends React.Component {
   _chargeAttack = () => {
     this.chargeAttackTimer = setInterval(
       () => {
-        // if (this.state.heroAttack < 30 && this.state.heroStamina > 0) {
-        //   this.setState((prev) => ({
-        //     heroAttack: prev.heroAttack + 1,
-        //     heroStamina: prev.heroStamina - 3 < 0 ? 0 : prev.heroStamina - 3
-        //   }));
-        // }
         if (this.state.heroAttack < this.state.heroMaxAttack && this.state.heroStamina > 0) {
           this.setState((prev) => ({
             heroAttack: prev.heroAttack + 1,
@@ -445,46 +451,125 @@ class Nes extends React.Component {
   render() {
     let screenContent = "",
       heroButtons = "";
-    if (this.state.tutorialMode) {
-      screenContent = <React.Fragment>
-        <Monster health={this.state.monsterHealth}
-          maxHealth={this.state.monsterMaxHealth}
-          attack={this.state.monsterAttack}
-          maxAttack={this.state.monsterMaxAttack}
-          className={this.state.monsterClassName}
-          monsterStatusClass={this.state.monsterStatusClass}
-          name={this.state.monsterName} />
-        <HeroBars
-          level={this.state.heroLevel}
-          name={this.state.heroName}
-          health={this.state.heroHealth}
-          maxHealth={this.state.heroMaxHealth}
-          stamina={this.state.heroStamina}
-          maxStamina={this.state.heroMaxStamina}
-          attack={this.state.heroAttack}
-          maxAttack={this.state.heroMaxAttack}
+    switch (this.state.currentView) {
+      case "startScreen":
+        screenContent = <StartScreen />
+        heroButtons = <HeroButtons
+          attackButtonText="Start"
+          staminaButtonText="Start"
+          healButtonText="Tutorial"
+          chargeAttackButtonText="Start"
+          attack={this._startGame}
+          chargeAttack={this._startGame}
+          stopChargingAttack={() => { }}
+          heal={this._startTutorial}
+          stopHealing={() => { }}
+          charge={this._startGame}
+          stopCharging={() => { }}
+          attackChargeClass={this.state.attackChargeClass}
+          staminaChargeClass={this.state.staminaChargeClass} />
+        break;
+      case "battleScreen":
+        screenContent = <React.Fragment>
+          <Monster health={this.state.monsterHealth}
+            maxHealth={this.state.monsterMaxHealth}
+            attack={this.state.monsterAttack}
+            maxAttack={this.state.monsterMaxAttack}
+            className={this.state.monsterClassName}
+            name={this.state.monsterName}
+            monsterStatusClass={this.state.monsterStatusClass} />
+          <HeroBars
+            level={this.state.heroLevel}
+            name={this.state.heroName}
+            health={this.state.heroHealth}
+            maxHealth={this.state.heroMaxHealth}
+            stamina={this.state.heroStamina}
+            maxStamina={this.state.heroMaxStamina}
+            attack={this.state.heroAttack}
+            maxAttack={this.state.heroMaxAttack}
+            attackChargeClass={this.state.attackChargeClass}
+            staminaChargeClass={this.state.staminaChargeClass}
+          />
+        </React.Fragment>;
+        heroButtons = <HeroButtons
+          attackButtonText="Tap to Attack"
+          staminaButtonText="Hold to Charge Stamina"
+          healButtonText="Hold to Heal"
+          chargeAttackButtonText="Hold to Charge Attack"
+          attack={this._attack}
+          chargeAttack={this._chargeAttack}
+          stopChargingAttack={this._stopChargingAttack}
+          heal={this._heal}
+          stopHealing={this._stopHealing}
+          charge={this._charge}
+          stopCharging={this._stopCharging}
           attackChargeClass={this.state.attackChargeClass}
           staminaChargeClass={this.state.staminaChargeClass}
-
+        />;
+        break;
+      case "levelUpScreen":
+        screenContent = <LevelUpScreen levelUpHealth={this._levelUpHealth}
+          healthValue={this.state.levelUpHealthTree[this.state.heroLevel - 1]}
+          levelUpStamina={this._levelUpStamina}
+          staminaValue={this.state.levelUpStaminaTree[this.state.heroLevel - 1]}
+          levelUpAttack={this._levelUpAttack}
+          attackValue={this.state.levelUpAttackTree[this.state.heroLevel - 1]} />;
+        heroButtons = <HeroButtons
+          attackButtonText="Skip"
+          staminaButtonText="Stamina"
+          healButtonText="Health"
+          chargeAttackButtonText="Attack"
+          attack={this._levelUpNone}
+          chargeAttack={this._levelUpAttack}
+          stopChargingAttack={() => { }}
+          heal={this._levelUpHealth}
+          stopHealing={() => { }}
+          charge={this._levelUpStamina}
+          stopCharging={() => { }}
+          attackChargeClass={this.state.attackChargeClass}
+          staminaChargeClass={this.state.staminaChargeClass}
         />
-      </React.Fragment>;
-      heroButtons = <HeroButtons
-        attackButtonText={this.state.tutorialModeDText}
-        staminaButtonText={this.state.tutorialModeBText}
-        healButtonText={this.state.tutorialModeAText}
-        chargeAttackButtonText={this.state.tutorialModeCText}
-        attack={this._attack}
-        chargeAttack={this._chargeAttack}
-        stopChargingAttack={this._stopChargingAttack}
-        heal={this._heal}
-        stopHealing={this._stopHealing}
-        charge={this._charge}
-        stopCharging={this._stopCharging}
+        break
+      case "tutorialScreen":
+      screenContent = <React.Fragment>
+      <Monster health={this.state.monsterHealth}
+        maxHealth={this.state.monsterMaxHealth}
+        attack={this.state.monsterAttack}
+        maxAttack={this.state.monsterMaxAttack}
+        className={this.state.monsterClassName}
+        monsterStatusClass={this.state.monsterStatusClass}
+        name={this.state.monsterName} />
+      <HeroBars
+        level={this.state.heroLevel}
+        name={this.state.heroName}
+        health={this.state.heroHealth}
+        maxHealth={this.state.heroMaxHealth}
+        stamina={this.state.heroStamina}
+        maxStamina={this.state.heroMaxStamina}
+        attack={this.state.heroAttack}
+        maxAttack={this.state.heroMaxAttack}
         attackChargeClass={this.state.attackChargeClass}
         staminaChargeClass={this.state.staminaChargeClass}
-      />;
-    }
-    else if (this.state.gameOver) {
+
+      />
+    </React.Fragment>;
+    heroButtons = <HeroButtons
+      attackButtonText={this.state.tutorialModeDText}
+      staminaButtonText={this.state.tutorialModeBText}
+      healButtonText={this.state.tutorialModeAText}
+      chargeAttackButtonText={this.state.tutorialModeCText}
+      attack={this._attack}
+      chargeAttack={this._chargeAttack}
+      stopChargingAttack={this._stopChargingAttack}
+      heal={this._heal}
+      stopHealing={this._stopHealing}
+      charge={this._charge}
+      stopCharging={this._stopCharging}
+      attackChargeClass={this.state.attackChargeClass}
+      staminaChargeClass={this.state.staminaChargeClass}
+    />;
+        break
+      case "gameOverScreen":
       screenContent = <GameOverScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
       heroButtons = <HeroButtons
         attackButtonText="Retry"
@@ -501,8 +586,8 @@ class Nes extends React.Component {
         attackChargeClass={this.state.attackChargeClass}
         staminaChargeClass={this.state.staminaChargeClass}
       />
-    }
-    else if (this.state.gameWin) {
+        break
+      case "gameWinScreen":
       screenContent = <GameWinScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
       heroButtons = <HeroButtons
         attackButtonText="Retry"
@@ -519,83 +604,27 @@ class Nes extends React.Component {
         attackChargeClass={this.state.attackChargeClass}
         staminaChargeClass={this.state.staminaChargeClass}
       />
-    }
-    else if (this.state.levelUp) {
-      screenContent = <LevelUpScreen levelUpHealth={this._levelUpHealth}
-        healthValue={this.state.levelUpHealthTree[this.state.heroLevel - 1]}
-        levelUpStamina={this._levelUpStamina}
-        staminaValue={this.state.levelUpStaminaTree[this.state.heroLevel - 1]}
-        levelUpAttack={this._levelUpAttack}
-        attackValue={this.state.levelUpAttackTree[this.state.heroLevel - 1]} />;
+        break
+      case "nextChallengerScreen":
+      screenContent = <NextCharacterScreen className={this.state.monsterClassName} name={this.state.monsterName} />
       heroButtons = <HeroButtons
-        attackButtonText="Skip"
-        staminaButtonText="Stamina"
-        healButtonText="Health"
-        chargeAttackButtonText="Attack"
-        attack={this._levelUpNone}
-        chargeAttack={this._levelUpAttack}
-        stopChargingAttack={() => { }}
-        heal={this._levelUpHealth}
+        attackButtonText="Fight"
+        staminaButtonText="Fight"
+        healButtonText="Fight"
+        chargeAttackButtonText="Fight"
+        attack={this.activateMonster}
+        chargeAttack={this.activateMonster}
+        stopChargingAttack={() =>{}}
+        heal={this.activateMonster}
         stopHealing={() => { }}
-        charge={this._levelUpStamina}
-        stopCharging={() => { }}
-        attackChargeClass={this.state.attackChargeClass}
-        staminaChargeClass={this.state.staminaChargeClass}
-      />
-    } else if (!this.state.started) {
-      screenContent = <StartScreen />
-      heroButtons = <HeroButtons
-        attackButtonText="Start"
-        staminaButtonText="Start"
-        healButtonText="Tutorial"
-        chargeAttackButtonText="Start"
-        attack={this._startGame}
-        chargeAttack={this._startGame}
-        stopChargingAttack={() => { }}
-        heal={this._startTutorial}
-        stopHealing={() => { }}
-        charge={this._startGame}
+        charge={this.activateMonster}
         stopCharging={() => { }}
         attackChargeClass={this.state.attackChargeClass}
         staminaChargeClass={this.state.staminaChargeClass} />
-    } else {
-      screenContent = <React.Fragment>
-        <Monster health={this.state.monsterHealth}
-          maxHealth={this.state.monsterMaxHealth}
-          attack={this.state.monsterAttack}
-          maxAttack={this.state.monsterMaxAttack}
-          className={this.state.monsterClassName}
-          name={this.state.monsterName}
-          monsterStatusClass={this.state.monsterStatusClass} />
-        <HeroBars
-          level={this.state.heroLevel}
-          name={this.state.heroName}
-          health={this.state.heroHealth}
-          maxHealth={this.state.heroMaxHealth}
-          stamina={this.state.heroStamina}
-          maxStamina={this.state.heroMaxStamina}
-          attack={this.state.heroAttack}
-          maxAttack={this.state.heroMaxAttack}
-          attackChargeClass={this.state.attackChargeClass}
-          staminaChargeClass={this.state.staminaChargeClass}
-        />
-      </React.Fragment>;
-      heroButtons = <HeroButtons
-        attackButtonText="Tap to Attack"
-        staminaButtonText="Hold to Charge Stamina"
-        healButtonText="Hold to Heal"
-        chargeAttackButtonText="Hold to Charge Attack"
-        attack={this._attack}
-        chargeAttack={this._chargeAttack}
-        stopChargingAttack={this._stopChargingAttack}
-        heal={this._heal}
-        stopHealing={this._stopHealing}
-        charge={this._charge}
-        stopCharging={this._stopCharging}
-        attackChargeClass={this.state.attackChargeClass}
-        staminaChargeClass={this.state.staminaChargeClass}
-      />;
+      break;
+      default:
     }
+
     return (
       <div className="content-wrapper nes-content page">
         <section className="nes-container game-box with-title is-centered">

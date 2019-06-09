@@ -2,6 +2,7 @@
     width: 600px;
     margin: 0 auto;
     background: #d3d3d3;
+    touch-action: manipulation;
 }
 
 .nes-content .nes-progress {
@@ -205,6 +206,26 @@
     margin-top: .5rem;
 }
 
+.nes-content .next-challenger-screen {
+   overflow: hidden;
+   height: 100%;
+}
+
+.nes-content  .game-box .next-challenger-screen .monster-box{
+    justify-content: center;
+    align-items: center;
+}
+
+.nes-content  .game-box .next-challenger-screen .monster{
+    zoom:2.6;
+    animation: none;
+}
+
+.nes-content  .game-box .next-challenger-screen .monster-name{
+   font-size: 1em;
+   margin-bottom: 1em;
+   margin-top: 1em;
+}
 @keyframes alert {
     to {
         color: #e76e55;
@@ -338,6 +359,10 @@
 
     .nes-content .bar-wrapper label{
         top: 0;
+    }
+
+    .nes-content  .game-box .next-challenger-screen .monster{
+        zoom:2;
     }
 }
 

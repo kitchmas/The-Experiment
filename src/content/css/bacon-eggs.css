@@ -6,6 +6,11 @@
     margin:1em auto 0 auto;
 }
 
+.bacon-wrapper h1, .bacon-wrapper h3{
+    user-select: none;
+}
+
+
 .bacon-text{
     color:#cf000f;
 }

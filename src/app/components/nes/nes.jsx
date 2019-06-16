@@ -318,7 +318,7 @@ class Nes extends React.Component {
       gameOver: false,
       gameWin: false,
       monsterName: ""
-    }), this.loadMonster());
+    }), this.loadMonster);
   }
   _attack = () => {
     if (this.state.heroAttack > 0) {
@@ -437,12 +437,12 @@ class Nes extends React.Component {
         this.setState((prev) => ({
           heroHealRate: prev.heroHealRate - Math.round(((this.state.levelUpHealthTree[this.state.heroLevel - 1].value / 100) * prev.heroHealRate)),
           heroLevel: prev.heroLevel + 1
-        }), this.getReadyForNextRound())
+        }), this.getReadyForNextRound)
       } else {
         this.setState((prev) => ({
           heroMaxHealth: prev.heroMaxHealth + Math.round(((this.state.levelUpHealthTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxHealth)),
           heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
-        }), this.getReadyForNextRound())
+        }), this.getReadyForNextRound)
       }
     }, 500)
 
@@ -452,12 +452,12 @@ class Nes extends React.Component {
       this.setState((prev) => ({
         heroAttackChargeRate: prev.heroAttackChargeRate - Math.round(((this.state.levelUpAttackTree[this.state.heroLevel - 1].value / 100) * prev.heroAttackChargeRate)),
         heroLevel: prev.heroLevel + 1, heroAttackLevel: prev.heroAttackLevel + 1
-      }), this.getReadyForNextRound())
+      }), this.getReadyForNextRound)
     } else {
       this.setState((prev) => ({
         heroMaxAttack: prev.heroMaxAttack + Math.round(((this.state.levelUpAttackTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxAttack)),
         heroLevel: prev.heroLevel + 1, heroAttackLevel: prev.heroAttackLevel + 1
-      }), this.getReadyForNextRound())
+      }), this.getReadyForNextRound)
     }
   }
   _levelUpStamina = () => {
@@ -465,12 +465,12 @@ class Nes extends React.Component {
       this.setState((prev) => ({
         heroStaminaChargeRate: prev.heroStaminaChargeRate - Math.round(((this.state.levelUpStaminaTree[this.state.heroLevel - 1].value / 100) * prev.heroStaminaChargeRate)),
         heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
-      }), this.getReadyForNextRound())
+      }), this.getReadyForNextRound)
     } else {
       this.setState((prev) => ({
         heroMaxStamina: prev.heroMaxStamina + Math.round(((this.state.levelUpStaminaTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxStamina)),
         heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
-      }), this.getReadyForNextRound())
+      }), this.getReadyForNextRound)
     }
   }
   render() {

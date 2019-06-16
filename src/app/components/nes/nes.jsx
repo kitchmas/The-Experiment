@@ -32,6 +32,7 @@ class Nes extends React.Component {
     monsterStaminaRecoveryRate: 0,
     monsterClassName: "",
     monsterAttacking: false,
+    monsterSpecial: "",
     heroName: "Hero",
     heroMaxHealth: 50,
     heroHealth: 50,
@@ -39,9 +40,9 @@ class Nes extends React.Component {
     heroStamina: 30,
     heroMaxAttack: 10,
     heroAttack: 0,
-    heroAttackChargeRate: 400,
-    heroStaminaChargeRate: 400,
-    heroHealRate: 400,
+    heroAttackChargeRate: 300,
+    heroStaminaChargeRate: 300,
+    heroHealRate: 300,
     heroLevel: 1,
     heroAttackLevel: 1,
     heroStaminaLevel: 1,
@@ -50,20 +51,20 @@ class Nes extends React.Component {
     levelUpStamina: 10,
     levelUpAttack: 10,
     levelUp: false,
-    levelUpHealthTree: [{ type: 'speed', value: 25 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 25 }, { type: 'speed', value: 35 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
-    levelUpAttackTree: [{ type: 'speed', value: 25 }, { type: 'points', value: 50 }, { type: 'speed', value: 30 }, { type: 'points', value: 55 }, { type: 'speed', value: 35 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
-    levelUpStaminaTree: [{ type: 'speed', value: 25 }, { type: 'points', value: 20 }, { type: 'speed', value: 30 }, { type: 'points', value: 25 }, { type: 'speed', value: 35 }, { type: 'points', value: 30 }, { type: 'speed', value: 40 }],
+    levelUpHealthTree: [{ type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }],
+    levelUpAttackTree: [{ type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }],
+    levelUpStaminaTree: [{ type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }, { type: 'points', value: 10 }, { type: 'speed', value: 10 }],
     gameOver: false,
     gameWin: false,
     attacking: false,
     monsters: [
-      { name: "Mario", health: 50, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
+      { name: "Mario", health: 70, attack: 10, attackPattern: [10], staminaRecoveryRate: 700, className: "nes-mario", special: "" },
       // { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-      { name: "Ash", health: 60, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
+      { name: "Ash", health: 90, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 700, className: "nes-ash", special: "attackOnFull" },
       // { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-      { name: "Poké Ball", health: 90, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
+      { name: "Poké Ball", health: 110, attack: 25, attackPattern: [5, 5, 5, 10, 25], staminaRecoveryRate: 650, className: "nes-pokeball", special: "fastOnLowHealth" },
       // { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
-      { name: "Bulbasaur", health: 130, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
+      { name: "Bulbasaur", health: 120, attack: 30, attackPattern: [30, 10, 20, 30], staminaRecoveryRate: 650, className: "nes-bulbasaur", special: "healOnOdd" },
       // { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
       { name: "Charmander", health: 180, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
       // { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
@@ -92,7 +93,7 @@ class Nes extends React.Component {
   startScoreTimer = () => {
     this.scoreTimer = setInterval(
       () => {
-        this.setState((prev) => ({ score: prev.score += 1 }));
+        this.setState((prev) => ({ score: prev.score + 1 }));
       },
       1000
     );
@@ -109,9 +110,9 @@ class Nes extends React.Component {
     } else {
       nextMonster = this.state.monsters[0];
     }
-    if(nextMonster === undefined){
-        this.setState({ gameWin: true, currentView:"gameWinScreen" });
-        return;
+    if (nextMonster === undefined) {
+      this.setState({ gameWin: true, currentView: "gameWinScreen" });
+      return;
     }
     this.setState({
       currentView: "nextChallengerScreen",
@@ -124,21 +125,22 @@ class Nes extends React.Component {
       monsterStamina: 0,
       monsterMaxStamina: 100,
       monsterStaminaRecoveryRate: nextMonster.staminaRecoveryRate,
-      monsterClassName: nextMonster.className
+      monsterClassName: nextMonster.className,
+      monsterSpecial: nextMonster.special
     });
   }
   activateMonster = () => {
     this.setState({
       currentView: "battleScreen",
-    },() => {
+    }, () => {
       this.startScoreTimer();
       let attackIndex = 0;
       this.monsterTimer = setInterval(() => {
         if (!this.state.monsterAttacking) {
-          if (this.state.monsterAttack === (this.state.monsterAttackPattern[attackIndex] - 1) && this.state.monsterHealth > 0) {
+          if (this.state.monsterAttack >= (this.state.monsterAttackPattern[attackIndex] - 1) && this.state.monsterHealth > 0) {
             this.attacking("monsterStatusClass");
           }
-          if (this.state.monsterAttack === this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
+          if (this.state.monsterAttack >= this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
             attackIndex++;
             if (!this.state.monsterAttackPattern[attackIndex])
               attackIndex = 0
@@ -162,7 +164,6 @@ class Nes extends React.Component {
       heroMaxAttack: prev.heroMaxAttack,
       heroAttack: 0,
       levelUp: false,
-      level: 1,
     }), this.loadMonster());
 
   }
@@ -170,7 +171,7 @@ class Nes extends React.Component {
     this.stopTimers();
     if (this.state.tutorialMode) {
       setTimeout(() => {
-        this.setState({ tutorialMode: false, currentView:"startScreen" });
+        this.setState({ tutorialMode: false, currentView: "startScreen" });
         this._resetGame();
       }, 2000);
       return;
@@ -192,18 +193,21 @@ class Nes extends React.Component {
         heroMaxAttack: prev.heroMaxAttack + heroMaxAttackPercentageUp,
         heroMaxStamina: prev.heroMaxStamina + heroMaxStaminaPercentageUp,
         levelUp: true,
-        currentView:"levelUpScreen"
+        currentView: "levelUpScreen"
       }))
     }, 2000);
   }
   heroKilled = () => {
     this.stopTimers();
     this.stopScoreTimer();
-    this.setState({
-      monsterAttacking: false,
-      gameOver: true,
-      currentView:"gameOverScreen"
-    });
+    setTimeout(() => {
+      this.setState({
+        monsterAttacking: false,
+        gameOver: true,
+        currentView: "gameOverScreen"
+      });
+    }, 1000)
+
   }
   monsterAttack = () => {
     this.setState({ monsterAttacking: true });
@@ -307,18 +311,36 @@ class Nes extends React.Component {
       heroMaxAttack: 10,
       heroMaxStamina: 30,
       heroMaxHealth: 50,
-      heroAttackChargeRate: 400,
-      heroStaminaChargeRate: 400,
-      heroHealRate: 400,
+      heroAttackChargeRate: 300,
+      heroStaminaChargeRate: 300,
+      heroHealRate: 300,
       heroLevel: 1,
       gameOver: false,
       gameWin: false,
       monsterName: ""
-    }), this.loadMonster);
+    }), this.loadMonster());
   }
   _attack = () => {
     if (this.state.heroAttack > 0) {
       this.setState({ attacking: true })
+      if (this.state.monsterSpecial) {
+        switch (this.state.monsterSpecial) {
+          case "attackOnFull":
+            if (this.state.heroAttack === this.state.heroMaxAttack)
+              this.setState((prev) => ({ monsterAttack: prev.monsterMaxAttack }));
+            break;
+          case "fastOnLowHealth":
+            if (this.state.monsterHealth < 20)
+              this.setState((prev) => ({ monsterStaminaRecoveryRate: 350 }));
+            break;
+          case "healOnOdd":
+            if (this.state.heroAttack % 2 != 0);
+            this.setState((prev) => ({ monsterHealth: prev.monsterHealth + (Math.round(((10 / 100) * prev.heroAttack / 2))) }));
+            break;
+          default:
+        }
+      }
+
       let attackDamage = this.state.heroAttack;
       this.attackTimer = setInterval(
         () => {
@@ -410,29 +432,32 @@ class Nes extends React.Component {
     this.getReadyForNextRound();
   }
   _levelUpHealth = () => {
-    if (this.state.levelUpHealthTree[this.state.heroLevel - 1].type === "speed") {
-      this.setState((prev) => ({
-        heroHealRate: prev.heroHealRate - Math.round(((this.state.levelUpHealthTree[this.state.heroLevel - 1].value / 100) * prev.heroHealRate)),
-        heroLevel: prev.heroLevel + 1
-      }), this.getReadyForNextRound)
-    } else {
-      this.setState((prev) => ({
-        heroMaxHealth: prev.heroMaxHealth + Math.round(((this.state.levelUpHealthTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxHealth)),
-        heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
-      }), this.getReadyForNextRound)
-    }
+    setTimeout(() => {
+      if (this.state.levelUpHealthTree[this.state.heroLevel - 1].type === "speed") {
+        this.setState((prev) => ({
+          heroHealRate: prev.heroHealRate - Math.round(((this.state.levelUpHealthTree[this.state.heroLevel - 1].value / 100) * prev.heroHealRate)),
+          heroLevel: prev.heroLevel + 1
+        }), this.getReadyForNextRound())
+      } else {
+        this.setState((prev) => ({
+          heroMaxHealth: prev.heroMaxHealth + Math.round(((this.state.levelUpHealthTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxHealth)),
+          heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
+        }), this.getReadyForNextRound())
+      }
+    }, 500)
+
   }
   _levelUpAttack = () => {
     if (this.state.levelUpAttackTree[this.state.heroLevel - 1].type === "speed") {
       this.setState((prev) => ({
         heroAttackChargeRate: prev.heroAttackChargeRate - Math.round(((this.state.levelUpAttackTree[this.state.heroLevel - 1].value / 100) * prev.heroAttackChargeRate)),
         heroLevel: prev.heroLevel + 1, heroAttackLevel: prev.heroAttackLevel + 1
-      }), this.getReadyForNextRound)
+      }), this.getReadyForNextRound())
     } else {
       this.setState((prev) => ({
         heroMaxAttack: prev.heroMaxAttack + Math.round(((this.state.levelUpAttackTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxAttack)),
         heroLevel: prev.heroLevel + 1, heroAttackLevel: prev.heroAttackLevel + 1
-      }), this.getReadyForNextRound)
+      }), this.getReadyForNextRound())
     }
   }
   _levelUpStamina = () => {
@@ -440,12 +465,12 @@ class Nes extends React.Component {
       this.setState((prev) => ({
         heroStaminaChargeRate: prev.heroStaminaChargeRate - Math.round(((this.state.levelUpStaminaTree[this.state.heroLevel - 1].value / 100) * prev.heroStaminaChargeRate)),
         heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
-      }), this.getReadyForNextRound)
+      }), this.getReadyForNextRound())
     } else {
       this.setState((prev) => ({
         heroMaxStamina: prev.heroMaxStamina + Math.round(((this.state.levelUpStaminaTree[this.state.heroLevel - 1].value / 100) * prev.heroMaxStamina)),
         heroLevel: prev.heroLevel + 1, heroStaminaLevel: prev.heroStaminaLevel + 1
-      }), this.getReadyForNextRound)
+      }), this.getReadyForNextRound())
     }
   }
   render() {
@@ -515,6 +540,7 @@ class Nes extends React.Component {
           levelUpAttack={this._levelUpAttack}
           attackValue={this.state.levelUpAttackTree[this.state.heroLevel - 1]} />;
         heroButtons = <HeroButtons
+          levelUp={true}
           attackButtonText="Skip"
           staminaButtonText="Stamina"
           healButtonText="Health"
@@ -531,97 +557,97 @@ class Nes extends React.Component {
         />
         break
       case "tutorialScreen":
-      screenContent = <React.Fragment>
-      <Monster health={this.state.monsterHealth}
-        maxHealth={this.state.monsterMaxHealth}
-        attack={this.state.monsterAttack}
-        maxAttack={this.state.monsterMaxAttack}
-        className={this.state.monsterClassName}
-        monsterStatusClass={this.state.monsterStatusClass}
-        name={this.state.monsterName} />
-      <HeroBars
-        level={this.state.heroLevel}
-        name={this.state.heroName}
-        health={this.state.heroHealth}
-        maxHealth={this.state.heroMaxHealth}
-        stamina={this.state.heroStamina}
-        maxStamina={this.state.heroMaxStamina}
-        attack={this.state.heroAttack}
-        maxAttack={this.state.heroMaxAttack}
-        attackChargeClass={this.state.attackChargeClass}
-        staminaChargeClass={this.state.staminaChargeClass}
+        screenContent = <React.Fragment>
+          <Monster health={this.state.monsterHealth}
+            maxHealth={this.state.monsterMaxHealth}
+            attack={this.state.monsterAttack}
+            maxAttack={this.state.monsterMaxAttack}
+            className={this.state.monsterClassName}
+            monsterStatusClass={this.state.monsterStatusClass}
+            name={this.state.monsterName} />
+          <HeroBars
+            level={this.state.heroLevel}
+            name={this.state.heroName}
+            health={this.state.heroHealth}
+            maxHealth={this.state.heroMaxHealth}
+            stamina={this.state.heroStamina}
+            maxStamina={this.state.heroMaxStamina}
+            attack={this.state.heroAttack}
+            maxAttack={this.state.heroMaxAttack}
+            attackChargeClass={this.state.attackChargeClass}
+            staminaChargeClass={this.state.staminaChargeClass}
 
-      />
-    </React.Fragment>;
-    heroButtons = <HeroButtons
-      attackButtonText={this.state.tutorialModeDText}
-      staminaButtonText={this.state.tutorialModeBText}
-      healButtonText={this.state.tutorialModeAText}
-      chargeAttackButtonText={this.state.tutorialModeCText}
-      attack={this._attack}
-      chargeAttack={this._chargeAttack}
-      stopChargingAttack={this._stopChargingAttack}
-      heal={this._heal}
-      stopHealing={this._stopHealing}
-      charge={this._charge}
-      stopCharging={this._stopCharging}
-      attackChargeClass={this.state.attackChargeClass}
-      staminaChargeClass={this.state.staminaChargeClass}
-    />;
+          />
+        </React.Fragment>;
+        heroButtons = <HeroButtons
+          attackButtonText={this.state.tutorialModeDText}
+          staminaButtonText={this.state.tutorialModeBText}
+          healButtonText={this.state.tutorialModeAText}
+          chargeAttackButtonText={this.state.tutorialModeCText}
+          attack={this._attack}
+          chargeAttack={this._chargeAttack}
+          stopChargingAttack={this._stopChargingAttack}
+          heal={this._heal}
+          stopHealing={this._stopHealing}
+          charge={this._charge}
+          stopCharging={this._stopCharging}
+          attackChargeClass={this.state.attackChargeClass}
+          staminaChargeClass={this.state.staminaChargeClass}
+        />;
         break
       case "gameOverScreen":
-      screenContent = <GameOverScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
-      heroButtons = <HeroButtons
-        attackButtonText="Retry"
-        staminaButtonText="Retry"
-        healButtonText="Retry"
-        chargeAttackButtonText="Retry"
-        attack={this._resetGame}
-        chargeAttack={this._resetGame}
-        stopChargingAttack={() => { }}
-        heal={this._resetGame}
-        stopHealing={() => { }}
-        charge={this._resetGame}
-        stopCharging={() => { }}
-        attackChargeClass={this.state.attackChargeClass}
-        staminaChargeClass={this.state.staminaChargeClass}
-      />
+        screenContent = <GameOverScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
+        heroButtons = <HeroButtons
+          attackButtonText="Retry"
+          staminaButtonText="Retry"
+          healButtonText="Retry"
+          chargeAttackButtonText="Retry"
+          attack={this._resetGame}
+          chargeAttack={this._resetGame}
+          stopChargingAttack={() => { }}
+          heal={this._resetGame}
+          stopHealing={() => { }}
+          charge={this._resetGame}
+          stopCharging={() => { }}
+          attackChargeClass={this.state.attackChargeClass}
+          staminaChargeClass={this.state.staminaChargeClass}
+        />
         break
       case "gameWinScreen":
-      screenContent = <GameWinScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
-      heroButtons = <HeroButtons
-        attackButtonText="Retry"
-        staminaButtonText="Retry"
-        healButtonText="Retry"
-        chargeAttackButtonText="Retry"
-        attack={this._resetGame}
-        chargeAttack={this._resetGame}
-        stopChargingAttack={() => { }}
-        heal={this._resetGame}
-        stopHealing={() => { }}
-        charge={this._resetGame}
-        stopCharging={() => { }}
-        attackChargeClass={this.state.attackChargeClass}
-        staminaChargeClass={this.state.staminaChargeClass}
-      />
+        screenContent = <GameWinScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
+        heroButtons = <HeroButtons
+          attackButtonText="Retry"
+          staminaButtonText="Retry"
+          healButtonText="Retry"
+          chargeAttackButtonText="Retry"
+          attack={this._resetGame}
+          chargeAttack={this._resetGame}
+          stopChargingAttack={() => { }}
+          heal={this._resetGame}
+          stopHealing={() => { }}
+          charge={this._resetGame}
+          stopCharging={() => { }}
+          attackChargeClass={this.state.attackChargeClass}
+          staminaChargeClass={this.state.staminaChargeClass}
+        />
         break
       case "nextChallengerScreen":
-      screenContent = <NextCharacterScreen className={this.state.monsterClassName} name={this.state.monsterName} />
-      heroButtons = <HeroButtons
-        attackButtonText="Fight"
-        staminaButtonText="Fight"
-        healButtonText="Fight"
-        chargeAttackButtonText="Fight"
-        attack={this.activateMonster}
-        chargeAttack={this.activateMonster}
-        stopChargingAttack={() =>{}}
-        heal={this.activateMonster}
-        stopHealing={() => { }}
-        charge={this.activateMonster}
-        stopCharging={() => { }}
-        attackChargeClass={this.state.attackChargeClass}
-        staminaChargeClass={this.state.staminaChargeClass} />
-      break;
+        screenContent = <NextCharacterScreen className={this.state.monsterClassName} name={this.state.monsterName} />
+        heroButtons = <HeroButtons
+          attackButtonText="Fight"
+          staminaButtonText="Fight"
+          healButtonText="Fight"
+          chargeAttackButtonText="Fight"
+          attack={this.activateMonster}
+          chargeAttack={this.activateMonster}
+          stopChargingAttack={() => { }}
+          heal={this.activateMonster}
+          stopHealing={() => { }}
+          charge={this.activateMonster}
+          stopCharging={() => { }}
+          attackChargeClass={this.state.attackChargeClass}
+          staminaChargeClass={this.state.staminaChargeClass} />
+        break;
       default:
     }
 

@@ -105,7 +105,7 @@
 }
 
 .nes-content .hero-bars .hero-health-bar-label{
-        top: 16%;
+        top: 5px;
 }
 
 .nes-content .hero-bars.nes-container {
@@ -160,6 +160,10 @@
     text-align: center;
 }
 
+.nes-content .level-up-screen h1{
+    margin-top: 1em;
+}
+
 .nes-content .level-up-screen {
     text-align: center
 }
@@ -186,6 +190,7 @@
 
 .nes-content .level-up-screen .level-up-options span {
     display: block;
+    padding-top: 1em;
 }
 
 .nes-content .game-over-screen,
@@ -363,6 +368,10 @@
 
     .nes-content  .game-box .next-challenger-screen .monster{
         zoom:2;
+    }
+
+    .nes-content .level-up-screen {
+        font-size: 0.7em;
     }
 }
 

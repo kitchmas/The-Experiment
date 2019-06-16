@@ -10,8 +10,7 @@ class NextCharacterScreen extends React.Component {
                     <div className="monster-name ">
                         {this.props.name} want's some
                     </div>
-                    
-                        <i className={"monster " + this.props.className}></i>
+                    <i className={"monster " + this.props.className}></i>
             </div>
         );
     }

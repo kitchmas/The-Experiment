@@ -7,7 +7,7 @@ class HeroButtons extends React.Component {
     render() {
         return (
             <div className="item hero-buttons ">
-                {this.props.levelUp ?
+                {this.props.clickOnly ?
                     <React.Fragment>
                         <button type="button" className="nes-btn is-error"
                             onClick={this.props.heal}>

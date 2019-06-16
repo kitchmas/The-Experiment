@@ -484,13 +484,11 @@ class Nes extends React.Component {
           staminaButtonText="Start"
           healButtonText="Tutorial"
           chargeAttackButtonText="Start"
+          clickOnly={true}
           attack={this._startGame}
           chargeAttack={this._startGame}
-          stopChargingAttack={() => { }}
           heal={this._startTutorial}
-          stopHealing={() => { }}
           charge={this._startGame}
-          stopCharging={() => { }}
           attackChargeClass={this.state.attackChargeClass}
           staminaChargeClass={this.state.staminaChargeClass} />
         break;
@@ -539,19 +537,16 @@ class Nes extends React.Component {
           staminaValue={this.state.levelUpStaminaTree[this.state.heroLevel - 1]}
           levelUpAttack={this._levelUpAttack}
           attackValue={this.state.levelUpAttackTree[this.state.heroLevel - 1]} />;
-        heroButtons = <HeroButtons
-          levelUp={true}
+          heroButtons = <HeroButtons
+          clickOnly={true}
           attackButtonText="Skip"
           staminaButtonText="Stamina"
           healButtonText="Health"
           chargeAttackButtonText="Attack"
           attack={this._levelUpNone}
           chargeAttack={this._levelUpAttack}
-          stopChargingAttack={() => { }}
           heal={this._levelUpHealth}
-          stopHealing={() => { }}
           charge={this._levelUpStamina}
-          stopCharging={() => { }}
           attackChargeClass={this.state.attackChargeClass}
           staminaChargeClass={this.state.staminaChargeClass}
         />
@@ -598,17 +593,15 @@ class Nes extends React.Component {
       case "gameOverScreen":
         screenContent = <GameOverScreen retry={this._resetGame} monsterName={this.state.monsterName} score={this.state.score} />;
         heroButtons = <HeroButtons
+          clickOnly={true}
           attackButtonText="Retry"
           staminaButtonText="Retry"
           healButtonText="Retry"
           chargeAttackButtonText="Retry"
           attack={this._resetGame}
           chargeAttack={this._resetGame}
-          stopChargingAttack={() => { }}
           heal={this._resetGame}
-          stopHealing={() => { }}
           charge={this._resetGame}
-          stopCharging={() => { }}
           attackChargeClass={this.state.attackChargeClass}
           staminaChargeClass={this.state.staminaChargeClass}
         />
@@ -620,13 +613,11 @@ class Nes extends React.Component {
           staminaButtonText="Retry"
           healButtonText="Retry"
           chargeAttackButtonText="Retry"
+          clickOnly={true}
           attack={this._resetGame}
           chargeAttack={this._resetGame}
-          stopChargingAttack={() => { }}
           heal={this._resetGame}
-          stopHealing={() => { }}
           charge={this._resetGame}
-          stopCharging={() => { }}
           attackChargeClass={this.state.attackChargeClass}
           staminaChargeClass={this.state.staminaChargeClass}
         />
@@ -638,13 +629,11 @@ class Nes extends React.Component {
           staminaButtonText="Fight"
           healButtonText="Fight"
           chargeAttackButtonText="Fight"
+          clickOnly={true}
           attack={this.activateMonster}
           chargeAttack={this.activateMonster}
-          stopChargingAttack={() => { }}
           heal={this.activateMonster}
-          stopHealing={() => { }}
           charge={this.activateMonster}
-          stopCharging={() => { }}
           attackChargeClass={this.state.attackChargeClass}
           staminaChargeClass={this.state.staminaChargeClass} />
         break;

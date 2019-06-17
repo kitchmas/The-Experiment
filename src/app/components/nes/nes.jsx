@@ -41,9 +41,9 @@ class Nes extends React.Component {
     heroStamina: 30,
     heroMaxAttack: 10,
     heroAttack: 0,
-    heroAttackChargeRate: 300,
-    heroStaminaChargeRate: 300,
-    heroHealRate: 300,
+    heroAttackChargeRate: 270,
+    heroStaminaChargeRate: 270,
+    heroHealRate: 270,
     heroLevel: 1,
     heroAttackLevel: 1,
     heroStaminaLevel: 1,
@@ -59,15 +59,15 @@ class Nes extends React.Component {
     gameWin: false,
     attacking: false,
     monsters: [
-      { name: "Mario", health: 70, attack: 10, attackPattern: [10], staminaRecoveryRate: 700, className: "nes-mario", special: "" },
+      { name: "Mario", health: 70, attack: 10, attackPattern: [10], staminaRecoveryRate: 630, className: "nes-mario", special: "" },
       // { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-      { name: "Ash", health: 90, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 700, className: "nes-ash", special: "attackOnFull" },
+      { name: "Ash", health: 90, attack: 20, attackPattern: [15, 10], staminaRecoveryRate: 630, className: "nes-ash", special: "attackOnFull" },
       // { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-      { name: "Poké Ball", health: 110, attack: 25, attackPattern: [5, 5, 5, 10, 25], staminaRecoveryRate: 650, className: "nes-pokeball", special: "fastOnLowHealth" },
+      { name: "Poké Ball", health: 110, attack: 25, attackPattern: [5, 5, 10, 10, 25], staminaRecoveryRate: 585, className: "nes-pokeball", special: "fastOnLowHealth" },
       // { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
-      { name: "Bulbasaur", health: 120, attack: 30, attackPattern: [30, 10, 20, 30], staminaRecoveryRate: 650, className: "nes-bulbasaur", special: "healOnOdd" },
+      { name: "Bulbasaur", health: 120, attack: 30, attackPattern: [30, 10, 20, 30], staminaRecoveryRate: 585, className: "nes-bulbasaur", special: "healOnOdd" },
       // { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-      { name: "Charmander", health: 140, attack: 40, attackPattern: [10, 20, 30, 40, 5], staminaRecoveryRate: 625, className: "nes-charmander", special: "doubleDamageIfHealing" },
+      { name: "Charmander", health: 140, attack: 40, attackPattern: [10, 20, 30, 40, 5], staminaRecoveryRate: 566.5, className: "nes-charmander", special: "doubleDamageIfHealing" },
       // { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
       { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
       // { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
@@ -333,9 +333,9 @@ class Nes extends React.Component {
       heroMaxAttack: 10,
       heroMaxStamina: 30,
       heroMaxHealth: 50,
-      heroAttackChargeRate: 300,
-      heroStaminaChargeRate: 300,
-      heroHealRate: 300,
+      heroAttackChargeRate: 270,
+      heroStaminaChargeRate: 270,
+      heroHealRate: 270,
       heroLevel: 1,
       gameOver: false,
       gameWin: false,
@@ -360,7 +360,7 @@ class Nes extends React.Component {
             break;
           case "fastOnLowHealth":
             if ((this.state.monsterHealth - this.state.heroAttack) < 20)
-              this.setState((prev) => ({ monsterStaminaRecoveryRate: 350, monsterSpecialClass: "special" }));
+              this.setState((prev) => ({ monsterStaminaRecoveryRate: 200, monsterSpecialClass: "special" }));
             break;
           default:
             break;

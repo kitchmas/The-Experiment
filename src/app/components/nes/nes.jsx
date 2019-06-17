@@ -66,7 +66,7 @@ class Nes extends React.Component {
       // { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
       { name: "Bulbasaur", health: 120, attack: 30, attackPattern: [30, 10, 20, 30], staminaRecoveryRate: 650, className: "nes-bulbasaur", special: "healOnOdd" },
       // { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-      { name: "Charmander", health: 180, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
+      { name: "Charmander", health: 140, attack: 40, attackPattern: [10, 20, 30, 40, 5], staminaRecoveryRate: 625, className: "nes-charmander", special: "doubleDamageIfHealing" },
       // { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
       { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
       // { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
@@ -178,20 +178,20 @@ class Nes extends React.Component {
     }
 
     this.stopScoreTimer();
-    let heroHealRatePercentageUp = Math.round(((10 / 100) * this.state.heroHealRate)),
-      heroAttackChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroAttackChargeRate)),
-      heroStaminaChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroStaminaChargeRate)),
-      heroMaxHealthPercentageUp = Math.round(((10 / 100) * this.state.heroMaxHealth)),
-      heroMaxAttackPercentageUp = Math.round(((20 / 100) * this.state.heroMaxAttack)),
-      heroMaxStaminaPercentageUp = Math.round(((15 / 100) * this.state.heroMaxStamina));
+    // let heroHealRatePercentageUp = Math.round(((10 / 100) * this.state.heroHealRate)),
+    //   heroAttackChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroAttackChargeRate)),
+    //   heroStaminaChargeRatePercentageUp = Math.round(((10 / 100) * this.state.heroStaminaChargeRate)),
+    //   heroMaxHealthPercentageUp = Math.round(((10 / 100) * this.state.heroMaxHealth)),
+    //   heroMaxAttackPercentageUp = Math.round(((20 / 100) * this.state.heroMaxAttack)),
+    //   heroMaxStaminaPercentageUp = Math.round(((15 / 100) * this.state.heroMaxStamina));
     setTimeout(() => {
       this.setState((prev) => ({
-        heroHealRate: prev.heroHealRate - heroHealRatePercentageUp,
-        heroAttackChargeRate: prev.heroAttackChargeRate - heroAttackChargeRatePercentageUp,
-        heroStaminaChargeRate: prev.heroStaminaChargeRate - heroStaminaChargeRatePercentageUp,
-        heroMaxHealth: prev.heroMaxHealth + heroMaxHealthPercentageUp,
-        heroMaxAttack: prev.heroMaxAttack + heroMaxAttackPercentageUp,
-        heroMaxStamina: prev.heroMaxStamina + heroMaxStaminaPercentageUp,
+        // heroHealRate: prev.heroHealRate - heroHealRatePercentageUp,
+        // heroAttackChargeRate: prev.heroAttackChargeRate - heroAttackChargeRatePercentageUp,
+        // heroStaminaChargeRate: prev.heroStaminaChargeRate - heroStaminaChargeRatePercentageUp,
+        // heroMaxHealth: prev.heroMaxHealth + heroMaxHealthPercentageUp,
+        // heroMaxAttack: prev.heroMaxAttack + heroMaxAttackPercentageUp,
+        // heroMaxStamina: prev.heroMaxStamina + heroMaxStaminaPercentageUp,
         levelUp: true,
         currentView: "levelUpScreen"
       }))
@@ -211,6 +211,21 @@ class Nes extends React.Component {
   }
   monsterAttack = () => {
     this.setState({ monsterAttacking: true });
+
+    if (this.state.monsterSpecial) {
+      switch (this.state.monsterSpecial) {
+        case "fastOnLowHealth":
+          if (this.state.monsterHealth < 20)
+            this.setState((prev) => ({ monsterStaminaRecoveryRate: 350 }));
+          break;
+        case "doubleDamageIfHealing":
+          if (this.healTimer);
+          this.setState((prev) => ({ monsterAttack: prev.monsterHealth *2 }));
+          break;
+        default:
+      }
+    }
+
     this.monsterAttackTimer = setInterval(
       () => {
         if (this.state.monsterAttack > 0 && this.state.heroHealth > 0) {
@@ -328,10 +343,6 @@ class Nes extends React.Component {
           case "attackOnFull":
             if (this.state.heroAttack === this.state.heroMaxAttack)
               this.setState((prev) => ({ monsterAttack: prev.monsterMaxAttack }));
-            break;
-          case "fastOnLowHealth":
-            if (this.state.monsterHealth < 20)
-              this.setState((prev) => ({ monsterStaminaRecoveryRate: 350 }));
             break;
           case "healOnOdd":
             if (this.state.heroAttack % 2 != 0);

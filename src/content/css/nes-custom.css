@@ -84,6 +84,18 @@
     animation-duration: 0.5s;
 }
 
+
+.nes-content .monster-box .monster.special:before{
+    color: gold !important;
+  
+}
+
+.nes-content .monster-box .monster.special-temp:before{
+    animation: special;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
 .nes-content .monster-bars .nes-progress.is-warning.critical-hit::-webkit-progress-value {
     background-color: red;
 }
@@ -247,6 +259,15 @@
 @keyframes alert-button-border {
     to {
         box-shadow: inset -4px -4px #e76e55;
+    }
+}
+
+@keyframes special {
+    from{
+        color: gold;
+    }
+    to {
+        color: gold;
     }
 }
 

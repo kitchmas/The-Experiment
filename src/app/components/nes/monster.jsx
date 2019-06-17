@@ -17,7 +17,7 @@ class Monster extends React.Component {
                     <span className="title">{this.props.name}</span>
                 </div>
                 <div className="monster-box ">
-                    {this.props.health <= 0 ? <div>Dead</div> : <i className={"monster " + this.props.className + this.props.monsterStatusClass}></i>}
+                    {this.props.health <= 0 ? <div>Dead</div> : <i className={this.props.monsterSpecialClass +  " monster " + this.props.className + this.props.monsterStatusClass}></i>}
                 </div>
             </React.Fragment>
         );

@@ -13,12 +13,12 @@ class HeroBars extends React.Component {
                     <progress className="nes-progress is-error" value={this.props.health} max={this.props.maxHealth}></progress>
                 </div>
                 <div className="bar-wrapper">
-                    <label>Attack: {this.props.attack + "/" + this.props.maxAttack}</label>
-                    <progress className={"nes-progress is-warning " + this.props.attackChargeClass} value={this.props.attack} max={this.props.maxAttack}></progress>
-                </div>
-                <div className="bar-wrapper">
                     <label>Stamina: {this.props.stamina + "/" + this.props.maxStamina}</label>
                     <progress className={"nes-progress is-primary " + this.props.staminaChargeClass} value={this.props.stamina} max={this.props.maxStamina}></progress>
+                </div>
+                <div className="bar-wrapper">
+                    <label>Attack: {this.props.attack + "/" + this.props.maxAttack}</label>
+                    <progress className={"nes-progress is-warning " + this.props.attackChargeClass} value={this.props.attack} max={this.props.maxAttack}></progress>
                 </div>
             </div>
         );

@@ -61,17 +61,17 @@ class Nes extends React.Component {
     monsters: [
       { name: "Mario", health: 70, attack: 10, attackPattern: [10], staminaRecoveryRate: 630, className: "nes-mario", special: "" },
       // { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-      { name: "Ash", health: 90, attack: 25, attackPattern: [25, 10], staminaRecoveryRate: 630, className: "nes-ash", special: "attackOnFull" },
+      { name: "Ash", health: 90, attack: 25, attackPattern: [5, 10, 25], staminaRecoveryRate: 630, className: "nes-ash", special: "attackOnFull" },
       // { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-      { name: "Poké Ball", health: 110, attack: 35, attackPattern: [5, 5, 10, 10, 35], staminaRecoveryRate: 585, className: "nes-pokeball", special: "fastOnLowHealth" },
+      { name: "Poké Ball", health: 110, attack: 35, attackPattern: [5, 5, 5, 5, 5], staminaRecoveryRate: 585, className: "nes-pokeball", special: "fastOnLowHealth" },
       // { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
       { name: "Bulbasaur", health: 120, attack: 40, attackPattern: [40, 10, 20, 30], staminaRecoveryRate: 585, className: "nes-bulbasaur", special: "healOnOdd" },
       // { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-      { name: "Charmander", health: 140, attack: 45, attackPattern: [10, 20, 30, 45, 5], staminaRecoveryRate: 566.5, className: "nes-charmander", special: "doubleDamageIfHealing" },
+      { name: "Charmander", health: 140, attack: 45, attackPattern: [10, 20, 30, 45, 5], staminaRecoveryRate: 566.5, className: "nes-charmander", special: "attackOnFull" },
       // { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
-      { name: "Squirtle", health: 160, attack: 50, attackPattern: [15, 10, 40, 15, 10, 50], staminaRecoveryRate: 480, className: "nes-squirtle", special: "attackOnFull" },
+      { name: "Squirtle", health: 160, attack: 50, attackPattern: [15, 10, 40, 15, 10, 50], staminaRecoveryRate: 520, className: "nes-squirtle", special: "healOnOdd" },
       // { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
-      { name: "Kirby", health: 300, attack: 60, attackPattern: [60, 45, 10, 5, 10, 45, 60], staminaRecoveryRate: 400, className: "nes-kirby", special: "fastOnLowHealth" }],
+      { name: "Kirby", health: 200, attack: 55, attackPattern: [55, 45, 10, 5, 10, 45, 55], staminaRecoveryRate: 500, className: "nes-kirby", special: "fastOnLowHealth" }],
     attackChargeClass: "",
     staminaChargeClass: "",
     monsterStatusClass: "",
@@ -136,32 +136,7 @@ class Nes extends React.Component {
       currentView: "battleScreen",
     }, () => {
       this.startScoreTimer();
-      let attackIndex = 0;
-      this.monsterTimer = setInterval(() => {
-        if (!this.state.monsterAttacking) {
-          if (this.state.monsterAttack >= (this.state.monsterAttackPattern[attackIndex] - 1) && this.state.monsterHealth > 0) {
-            this.attacking("monsterStatusClass");
-          }
-          if (this.state.monsterAttack >= this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
-            attackIndex++;
-            if (!this.state.monsterAttackPattern[attackIndex])
-              attackIndex = 0
-            if (this.state.attacking) {
-              this.setState((prev) => ({ monsterAttack: (prev.monsterAttack / 2), monsterStatusClass: prev.monsterStatusClass + " blocked-attack" }),
-              () => {
-                  this.monsterAttack();
-                });
-              } else{
-                this.monsterAttack();
-              }
-            } else if (this.state.monsterAttack < this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
-              this.setState((prev) => ({ monsterAttack: prev.monsterAttack + 1 }));
-            } else if (this.state.monsterHealth <= 0) {
-              clearInterval(this.monsterTimer);
-            }
-          }
-        },
-        this.state.monsterStaminaRecoveryRate);
+      this.startMonsetTimer();
     });
 
   }
@@ -172,9 +147,38 @@ class Nes extends React.Component {
       heroStamina: prev.heroMaxStamina,
       heroMaxAttack: prev.heroMaxAttack,
       heroAttack: 0,
+      attack: false,
       levelUp: false,
     }), this.loadMonster());
 
+  }
+  startMonsetTimer = () => {
+    let attackIndex = 0;
+    this.monsterTimer = setInterval(() => {
+      if (!this.state.monsterAttacking) {
+        if (this.state.monsterAttack >= (this.state.monsterAttackPattern[attackIndex] - 1) && this.state.monsterHealth > 0) {
+          this.attacking("monsterStatusClass");
+        }
+        if (this.state.monsterAttack >= this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
+          attackIndex++;
+          if (!this.state.monsterAttackPattern[attackIndex])
+            attackIndex = 0
+          if (this.state.attacking) {
+            this.setState((prev) => ({ monsterAttack: Math.round(prev.monsterAttack / 2), monsterStatusClass: prev.monsterStatusClass + " blocked-attack" }),
+              () => {
+                this.monsterAttack();
+              });
+          } else {
+            this.monsterAttack();
+          }
+        } else if (this.state.monsterAttack < this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
+          this.setState((prev) => ({ monsterAttack: prev.monsterAttack + 1 }));
+        } else if (this.state.monsterHealth <= 0) {
+          clearInterval(this.monsterTimer);
+        }
+      }
+    },
+      this.state.monsterStaminaRecoveryRate);
   }
   monsterKilled = () => {
     this.stopTimers();
@@ -278,6 +282,7 @@ class Nes extends React.Component {
     }, 1000)
   }
   loadTutorial = () => {
+    debugger;
     this.setState({
       monsterName: "Poké Ball",
       monsterHealth: 10,
@@ -297,6 +302,7 @@ class Nes extends React.Component {
       heroAttack: 0,
       tutorialMode: true,
       tutorialModeBText: "Hold",
+      currentView:"tutorialScreen"
     });
     this.tutorialModeTimer = setInterval(() => {
       let monsterAttacked = false;
@@ -364,12 +370,17 @@ class Nes extends React.Component {
                 this.setState((prev) => ({ monsterAttack: prev.monsterMaxAttack, monsterSpecialClass: "special-temp" }));
               break;
             case "healOnOdd":
-              if (this.state.heroAttack % 2 != 0);
-              this.setState((prev) => ({ monsterHealth: prev.monsterHealth + (Math.round(prev.heroAttack / 2)), monsterSpecialClass: "special-temp" }));
+              if (this.state.heroAttack % 2 != 0)
+                this.setState((prev) => ({ monsterHealth: prev.monsterHealth + (Math.round(prev.heroAttack / 2)), monsterSpecialClass: "special-temp" }));
               break;
             case "fastOnLowHealth":
-              if ((this.state.monsterHealth - this.state.heroAttack) < 20)
-                this.setState((prev) => ({ monsterStaminaRecoveryRate: 200, monsterSpecialClass: "special" }));
+              if ((this.state.monsterHealth > 19 && this.state.monsterHealth - this.state.heroAttack) < 20)
+                this.setState((prev) => ({ monsterStaminaRecoveryRate: 300, monsterSpecialClass: "special" }),
+                  () => {
+                    clearInterval(this.monsterTimer);
+                    this.startMonsetTimer();
+                  }
+                );
               break;
             default:
               break;
@@ -616,7 +627,6 @@ class Nes extends React.Component {
             maxAttack={this.state.heroMaxAttack}
             attackChargeClass={this.state.attackChargeClass}
             staminaChargeClass={this.state.staminaChargeClass}
-
           />
         </React.Fragment>;
         heroButtons = <HeroButtons

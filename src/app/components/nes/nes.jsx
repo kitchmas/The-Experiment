@@ -61,17 +61,17 @@ class Nes extends React.Component {
     monsters: [
       { name: "Mario", health: 70, attack: 10, attackPattern: [10], staminaRecoveryRate: 630, className: "nes-mario", special: "" },
       // { name: "Mario", health: 1, attack: 10, attackPattern: [10], staminaRecoveryRate: 900, className: "nes-mario" },
-      { name: "Ash", health: 90, attack: 20, attackPattern: [15, 10], staminaRecoveryRate: 630, className: "nes-ash", special: "attackOnFull" },
+      { name: "Ash", health: 90, attack: 25, attackPattern: [25, 10], staminaRecoveryRate: 630, className: "nes-ash", special: "attackOnFull" },
       // { name: "Ash", health: 1, attack: 15, attackPattern: [15, 10], staminaRecoveryRate: 800, className: "nes-ash" },
-      { name: "Poké Ball", health: 110, attack: 25, attackPattern: [5, 5, 10, 10, 25], staminaRecoveryRate: 585, className: "nes-pokeball", special: "fastOnLowHealth" },
+      { name: "Poké Ball", health: 110, attack: 35, attackPattern: [5, 5, 10, 10, 35], staminaRecoveryRate: 585, className: "nes-pokeball", special: "fastOnLowHealth" },
       // { name: "Poké Ball", health: 1, attack: 30, attackPattern: [5, 5, 5, 10, 30], staminaRecoveryRate: 700, className: "nes-pokeball" },
-      { name: "Bulbasaur", health: 120, attack: 30, attackPattern: [30, 10, 20, 30], staminaRecoveryRate: 585, className: "nes-bulbasaur", special: "healOnOdd" },
+      { name: "Bulbasaur", health: 120, attack: 40, attackPattern: [40, 10, 20, 30], staminaRecoveryRate: 585, className: "nes-bulbasaur", special: "healOnOdd" },
       // { name: "Bulbasaur", health: 1, attack: 40, attackPattern: [40, 10, 20, 40], staminaRecoveryRate: 600, className: "nes-bulbasaur" },
-      { name: "Charmander", health: 140, attack: 40, attackPattern: [10, 20, 30, 40, 5], staminaRecoveryRate: 566.5, className: "nes-charmander", special: "doubleDamageIfHealing" },
+      { name: "Charmander", health: 140, attack: 45, attackPattern: [10, 20, 30, 45, 5], staminaRecoveryRate: 566.5, className: "nes-charmander", special: "doubleDamageIfHealing" },
       // { name: "Charmander", health: 1, attack: 60, attackPattern: [10, 40, 20, 40, 60], staminaRecoveryRate: 500, className: "nes-charmander" },
-      { name: "Squirtle", health: 160, attack: 50, attackPattern: [15, 10, 40, 15, 10, 50], staminaRecoveryRate: 480, className: "nes-squirtle", special:"attackOnFull" },
+      { name: "Squirtle", health: 160, attack: 50, attackPattern: [15, 10, 40, 15, 10, 50], staminaRecoveryRate: 480, className: "nes-squirtle", special: "attackOnFull" },
       // { name: "Squirtle", health: 240, attack: 80, attackPattern: [15, 10, 40, 15, 10, 80], staminaRecoveryRate: 350, className: "nes-squirtle" },
-      { name: "Kirby", health: 300, attack: 60, attackPattern: [60, 45, 10, 5, 10, 45, 60], staminaRecoveryRate: 400, className: "nes-kirby", special: "fastOnLowHealth"  }],
+      { name: "Kirby", health: 300, attack: 60, attackPattern: [60, 45, 10, 5, 10, 45, 60], staminaRecoveryRate: 400, className: "nes-kirby", special: "fastOnLowHealth" }],
     attackChargeClass: "",
     staminaChargeClass: "",
     monsterStatusClass: "",
@@ -146,14 +146,21 @@ class Nes extends React.Component {
             attackIndex++;
             if (!this.state.monsterAttackPattern[attackIndex])
               attackIndex = 0
-            this.monsterAttack();
-          } else if (this.state.monsterAttack < this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
-            this.setState((prev) => ({ monsterAttack: prev.monsterAttack + 1 }));
-          } else if (this.state.monsterHealth <= 0) {
-            clearInterval(this.monsterTimer);
+            if (this.state.attacking) {
+              this.setState((prev) => ({ monsterAttack: (prev.monsterAttack / 2), monsterStatusClass: prev.monsterStatusClass + " blocked-attack" }),
+              () => {
+                  this.monsterAttack();
+                });
+              } else{
+                this.monsterAttack();
+              }
+            } else if (this.state.monsterAttack < this.state.monsterAttackPattern[attackIndex] && this.state.monsterHealth > 0) {
+              this.setState((prev) => ({ monsterAttack: prev.monsterAttack + 1 }));
+            } else if (this.state.monsterHealth <= 0) {
+              clearInterval(this.monsterTimer);
+            }
           }
-        }
-      },
+        },
         this.state.monsterStaminaRecoveryRate);
     });
 
@@ -214,50 +221,43 @@ class Nes extends React.Component {
   monsterAttack = () => {
     this.setState({ monsterAttacking: true });
 
-    if (this.state.attacking) {
-      this.setState((prev) => ({ monsterAttack: (Math.round(((10 / 100) *  prev.monsterAttack / 2 ))),monsterStatusClass: prev.monsterStatusClass + " blocked-attack"}),
-        () => {
-          if (this.state.monsterSpecial) {
-            switch (this.state.monsterSpecial) {
-              case "doubleDamageIfHealing":
-                if (this.healTimer);
-                this.setState((prev) => ({ monsterAttack: prev.monsterHealth * 2, monsterSpecialClass: "special-temp" }));
-                break;
-              default:
-                if (this.monsterSpecialClass === "special-temp")
-                  this.setState((prev) => ({ monsterSpecialClass: "" }));
-                break;
-            }
 
-            setTimeout(() => {
-              if (this.state.monsterSpecialClass === "special-temp")
-                this.setState((prev) => ({ monsterSpecialClass: "" }));
-            }, 2000);
-          }
+    if (this.state.monsterSpecial) {
+      switch (this.state.monsterSpecial) {
+        case "doubleDamageIfHealing":
+          if (this.healTimer);
+          this.setState((prev) => ({ monsterAttack: prev.monsterHealth * 2, monsterSpecialClass: "special-temp" }));
+          break;
+        default:
+          if (this.monsterSpecialClass === "special-temp")
+            this.setState((prev) => ({ monsterSpecialClass: "" }));
+          break;
+      }
 
-          this.monsterAttackTimer = setInterval(
-            () => {
-              if (this.state.monsterAttack > 0 && this.state.heroHealth > 0) {
-                this.setState((prev) => ({
-                  heroHealth: prev.heroHealth - 1,
-                  monsterAttack: prev.monsterAttack - 1,
-                }));
-              }
-              else if (this.state.heroHealth < 1) {
-                this.heroKilled();
-              }
-              else if (this.state.monsterAttack === 0) {
-                this.setState({ monsterAttacking: false });
-                clearInterval(this.monsterAttackTimer);
-              }
-            },
-            10
-          );
-        }
-      );
+      setTimeout(() => {
+        if (this.state.monsterSpecialClass === "special-temp")
+          this.setState((prev) => ({ monsterSpecialClass: "" }));
+      }, 2000);
     }
 
-
+    this.monsterAttackTimer = setInterval(
+      () => {
+        if (this.state.monsterAttack > 0 && this.state.heroHealth > 0) {
+          this.setState((prev) => ({
+            heroHealth: prev.heroHealth - 1,
+            monsterAttack: prev.monsterAttack - 1,
+          }));
+        }
+        else if (this.state.heroHealth < 1) {
+          this.heroKilled();
+        }
+        else if (this.state.monsterAttack === 0) {
+          this.setState({ monsterAttacking: false });
+          clearInterval(this.monsterAttackTimer);
+        }
+      },
+      10
+    );
   }
   alert = (propName) => {
     this.setState({ [propName]: "alert" });
@@ -365,7 +365,7 @@ class Nes extends React.Component {
               break;
             case "healOnOdd":
               if (this.state.heroAttack % 2 != 0);
-              this.setState((prev) => ({ monsterHealth: prev.monsterHealth + (Math.round(((10 / 100) * prev.heroAttack / 2))), monsterSpecialClass: "special-temp" }));
+              this.setState((prev) => ({ monsterHealth: prev.monsterHealth + (Math.round(prev.heroAttack / 2)), monsterSpecialClass: "special-temp" }));
               break;
             case "fastOnLowHealth":
               if ((this.state.monsterHealth - this.state.heroAttack) < 20)

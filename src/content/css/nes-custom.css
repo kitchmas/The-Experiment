@@ -84,6 +84,9 @@
     animation-duration: 0.5s;
 }
 
+.nes-content .monster-box .monster.blocked-attack{
+   opacity: 0.5;
+}
 
 .nes-content .monster-box .monster.special:before{
     color: gold !important;

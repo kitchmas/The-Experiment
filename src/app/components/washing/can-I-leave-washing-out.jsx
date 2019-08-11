@@ -45,16 +45,21 @@ class CanIleaveMyWashingOut extends React.Component {
                             wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || (x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt))
                                 && x.weather.filter(y => y.id < 800));
                         }
+                        //Get wet weather for todays forcast
                         else {
-                            if (this.hasSunAlreadySet(sunset))
-                                sunset = this.getSameTimeTommorow(sunset);
-debugger;
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset &&
-                                x.weather.filter(y => y.id < 800));
+                            var todaysWeatherBeforeSunet;
+                            todaysWeatherBeforeSunet = forecastResult.list.filter(x => x.dt < sunset);
+                                //If empty the sun has set so use tommorows weather
+                                if(!todaysWeatherBeforeSunet.length){
+                                    sunset = this.getSameTimeTommorow(sunset);
+                                    wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset &&
+                                        x.weather.filter(y => y.id < 800));
+                                }
+                                else{
+                                    wetForecastsBeforeSunset =  todaysWeatherBeforeSunet.filter(w => w.id < 800)
+                                }
                         }
 
-                        debugger;
-                       
                         if(wetForecastsBeforeSunset.length) {
                             let bringItIn;
                             if(wetForecastsBeforeSunset[0].weather.filter(y => y.id < 800).length > 0){

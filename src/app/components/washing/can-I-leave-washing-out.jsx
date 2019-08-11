@@ -38,23 +38,29 @@ class CanIleaveMyWashingOut extends React.Component {
                         let sunset = weatherResult.sys.sunset;
                         let wetForecastsBeforeSunset
                       
-
                         if (this.state.checkTommorowsForecast) {
                             let tommorowsSunset = this.getSameTimeTommorow(sunset);
                             let sevenAmTommorow = forecastResult.list.filter(x => x.dt < tommorowsSunset && new Date(x.dt * 1000).getHours() > 5 && new Date(x.dt * 1000).getHours() < 9 && x.dt > sunset);
                             // checks the id for moderate rain or greater based on https://openweathermap.org/weather-conditions
                             wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || (x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt))
-                                && x.weather.filter(y => y.id > 500 && y.id < 800).length > 0);
+                                && x.weather.filter(y => y.id < 800).length > 0);
                         }
                         else {
                             if (this.hasSunAlreadySet(sunset))
                                 sunset = this.getSameTimeTommorow(sunset);
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset &&
-                                x.weather.filter(y => y.id > 500 && y.id < 800).length > 0);
-                        }
 
-                        if (wetForecastsBeforeSunset.length) {
-                            let bringItIn = "NO! Bring it in at " + Moment(wetForecastsBeforeSunset[0].dt * 1000).local().format("LT");
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset &&
+                                x.weather.filter(y => y.id < 800).length > 0);
+                        }
+                       
+                        if(wetForecastsBeforeSunset.length) {
+                            let bringItIn;
+                            if(wetForecastsBeforeSunset[0].weather.filter(y => y.id < 800).length > 0){
+                                bringItIn = "NO!"
+                            }
+                            else{
+                                bringItIn = "NO! Bring it in at " + Moment(wetForecastsBeforeSunset[0].dt * 1000).local().format("LT");
+                            }
                             this.setState({ result: bringItIn, weather: "raining", reloadClass: "" });
                         }
                         else
@@ -67,7 +73,7 @@ class CanIleaveMyWashingOut extends React.Component {
         this.setState({ result: "Sorry something went wrong. Do not not not not not not not not not not hang it out. Not." });
     }
     hasSunAlreadySet = (sunset) => {
-        return (sunset * 1000) < new Date().getTime();
+        return ((sunset * 1000) < new Date().getTime());
     }
     getSameTimeTommorow = (time) => {
         let todaysSunsetDate = new Date(time * 1000);

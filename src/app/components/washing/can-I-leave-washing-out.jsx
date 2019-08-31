@@ -35,15 +35,15 @@ class CanIleaveMyWashingOut extends React.Component {
             .then((weatherResult) => {
                 fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=8fa281e3ce280ecf6b2d54bf3bb479d1&units=metric").then(forecastResult => forecastResult.json())
                     .then((forecastResult) => {
-                        let sunset = weatherResult.sys.sunset;
-                        let wetForecastsBeforeSunset
+                        let sunset = weatherResult.sys.sunset,
+                        wetForecastsBeforeSunset;
                       
                         if (this.state.checkTommorowsForecast) {
                             let tommorowsSunset = this.getSameTimeTommorow(sunset);
                             let sevenAmTommorow = forecastResult.list.filter(x => x.dt < tommorowsSunset && new Date(x.dt * 1000).getHours() > 5 && new Date(x.dt * 1000).getHours() < 9 && x.dt > sunset);
                             // checks the id for moderate rain or greater based on https://openweathermap.org/weather-conditions
-                            wetForecastsBeforeSunset = forecastResult.list.filter(x => (x.dt === sevenAmTommorow[0].dt || (x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt))
-                                && x.weather.filter(y => y.id < 800));
+                            wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < tommorowsSunset && x.dt > sevenAmTommorow[0].dt
+                                && x.weather.filter(y => y.id < 800).length);
                         }
                         //Get wet weather for todays forcast
                         else {
@@ -53,10 +53,10 @@ class CanIleaveMyWashingOut extends React.Component {
                                 if(!todaysWeatherBeforeSunet.length){
                                     sunset = this.getSameTimeTommorow(sunset);
                                     wetForecastsBeforeSunset = forecastResult.list.filter(x => x.dt < sunset &&
-                                        x.weather.filter(y => y.id < 800));
+                                        x.weather.filter(y => y.id < 800).length);
                                 }
                                 else{
-                                    wetForecastsBeforeSunset =  todaysWeatherBeforeSunet.filter(w => w.id < 800)
+                                    wetForecastsBeforeSunset =  todaysWeatherBeforeSunet.filter(w => w.weather.filter(w => w.id < 800).length)
                                 }
                         }
 

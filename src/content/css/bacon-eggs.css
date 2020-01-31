@@ -6,6 +6,10 @@
     margin:1em auto 0 auto;
 }
 
+.bacon-wrapper *{
+    touch-action: manipulation;
+}
+
 .bacon-wrapper h1, .bacon-wrapper h3{
     user-select: none;
 }

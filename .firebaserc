@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "thomas-kitch"
+    "default": "thomas-kitch",
+    "production": "thomas-kitch"
   }
 }
